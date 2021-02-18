@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/function%20()%20%7B%0A%20%20%20%20%20%20for%20(var%20_len2%20=%20arguments.length,%20args%20=%20new%20Array(_len2),%20_key2%20=%200;%20_key2%20%3C%20_len2;%20_key2++)%20%7B%0A%20%20%20%20%20%20%20%20args%5B_key2%5D%20=%20arguments%5B_key2%5D;%0A%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20return%20obj%5Bval%5D.apply(obj,%20args);%0A%20%20%20%20%7D">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"dorayo.com","root":"/","images":"/images","scheme":"Muse","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"بحث...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="创建测试项目准备环境1234567891011121314# 创建测试目录mkdir git_submodulecd git_submodule# 创建本地裸仓库mkdir reposcd reposgit init --bare lib1.gitgit init --bare lib2.gitgit init --bare project1.gitgit init --bare project2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git Submodule 使用教程">
+<meta property="og:url" content="http://dorayo.com/2018/03/08/Git-Submodule-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="沉思录">
+<meta property="og:description" content="创建测试项目准备环境1234567891011121314# 创建测试目录mkdir git_submodulecd git_submodule# 创建本地裸仓库mkdir reposcd reposgit init --bare lib1.gitgit init --bare lib2.gitgit init --bare project1.gitgit init --bare project2">
+<meta property="og:locale">
+<meta property="og:image" content="http://dorayo.com/images/pasted-12.png">
+<meta property="og:image" content="http://dorayo.com/images/pasted-13.png">
+<meta property="og:image" content="http://dorayo.com/images/pasted-14.png">
+<meta property="og:image" content="http://dorayo.com/images/pasted-15.png">
+<meta property="og:image" content="http://dorayo.com/images/pasted-16.png">
+<meta property="og:image" content="http://dorayo.com/images/pasted-17.png">
+<meta property="og:image" content="http://dorayo.com/images/pasted-18.png">
+<meta property="og:image" content="http://dorayo.com/images/pasted-19.png">
+<meta property="og:image" content="http://dorayo.com/images/pasted-20.png">
+<meta property="og:image" content="http://dorayo.com/images/pasted-21.png">
+<meta property="og:image" content="http://dorayo.com/images/pasted-22.png">
+<meta property="og:image" content="http://dorayo.com/images/pasted-23.png">
+<meta property="article:published_time" content="2018-03-08T15:23:00.000Z">
+<meta property="article:modified_time" content="2021-02-18T17:29:47.983Z">
+<meta property="article:author" content="Dorayo">
+<meta property="article:tag" content="git">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://dorayo.com/images/pasted-12.png">
+
+
+<link rel="canonical" href="http://dorayo.com/2018/03/08/Git-Submodule-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+<title>Git Submodule 使用教程 | 沉思录</title>
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a74fd868a6dd7b0fb94bf3eaa4e7207c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/%5Bobject%20Object%5D" alt="沉思录">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">沉思录</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">我唯一知道的就是我一无所知</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section">Home</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories" rel="section">التصنيفات</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives" rel="section">الأرشيفات</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags" rel="section">الوسوم</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>بحث
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="بحث..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%B5%8B%E8%AF%95%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.</span> <span class="nav-text">创建测试项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E7%8E%AF%E5%A2%83"><span class="nav-number">1.1.</span> <span class="nav-text">准备环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B5%8B%E8%AF%95%E9%A1%B9%E7%9B%AE-project1-%E5%92%8C-project2"><span class="nav-number">1.2.</span> <span class="nav-text">初始化测试项目 project1 和 project2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%85%AC%E5%85%B1%E7%B1%BB%E5%BA%93-lib1-%E5%92%8C-lib2"><span class="nav-number">1.3.</span> <span class="nav-text">初始化公共类库 lib1 和 lib2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA-project1-%E6%B7%BB%E5%8A%A0-submodules-lib1-%E5%92%8C-lib2"><span class="nav-number">2.</span> <span class="nav-text">为 project1 添加 submodules ( lib1 和 lib2 )</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%8B%9F%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98-B-%E5%AF%B9-submodules-%E7%9A%84%E4%BF%AE%E6%94%B9"><span class="nav-number">3.</span> <span class="nav-text">模拟开发人员 B 对 submodules 的修改</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98-B-%E5%85%8B%E9%9A%86%E6%B5%8B%E8%AF%95%E9%A1%B9%E7%9B%AE-project1"><span class="nav-number">3.1.</span> <span class="nav-text">开发人员 B 克隆测试项目 project1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98-B-%E4%BF%AE%E6%94%B9%E5%AD%90%E6%A8%A1%E5%9D%97-lib1"><span class="nav-number">3.2.</span> <span class="nav-text">开发人员 B 修改子模块 lib1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98-B-%E5%9C%A8%E9%A1%B9%E7%9B%AE-project1-b-%E7%9B%AE%E5%BD%95%E4%B8%AD%EF%BC%8C%E6%8F%90%E4%BA%A4%E6%9B%B4%E6%96%B0%E5%B9%B6%E6%8E%A8%E9%80%81"><span class="nav-number">3.3.</span> <span class="nav-text">开发人员 B 在项目(project1-b)目录中，提交更新并推送</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8-project1-%E4%B8%AD%E5%90%8C%E6%AD%A5%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98-B-%E5%AF%B9-submodules-%E5%81%9A%E7%9A%84%E4%BF%AE%E6%94%B9"><span class="nav-number">4.</span> <span class="nav-text">在 project1 中同步开发人员 B 对 submodules 做的修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA-project2-%E6%B7%BB%E5%8A%A0-submodules-lib1-%E5%92%8C-lib2"><span class="nav-number">5.</span> <span class="nav-text">为 project2 添加 submodules ( lib1 和 lib2 )</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8-project2-%E4%B8%AD%E4%BF%AE%E6%94%B9-lib1-%E5%92%8C-lib2-%E5%B9%B6%E5%90%8C%E6%AD%A5%E5%88%B0-project1-%E4%B8%AD"><span class="nav-number">6.</span> <span class="nav-text">在 project2 中修改 lib1 和 lib2 并同步到 project1 中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0-project1-b-%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%AD%90%E6%A8%A1%E5%9D%97"><span class="nav-number">7.</span> <span class="nav-text">更新 project1-b 项目的子模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E6%88%90%E5%91%98%E5%8A%A0%E5%85%A5%E5%9B%A2%E9%98%9F%EF%BC%8C%E4%B8%80%E6%AC%A1%E6%80%A7%E5%85%8B%E9%9A%86%E9%A1%B9%E7%9B%AE%E5%92%8C-submodules"><span class="nav-number">8.</span> <span class="nav-text">新成员加入团队，一次性克隆项目和 submodules</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%BB%E9%99%A4-submodules"><span class="nav-number">9.</span> <span class="nav-text">移除 submodules</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Dorayo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/dorayo" title="Github → https:&#x2F;&#x2F;github.com&#x2F;dorayo" rel="noopener" target="_blank">Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/dorayox" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;dorayox" rel="noopener" target="_blank">Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.zhihu.com/people/dorayo" title="知乎 → http:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;dorayo" rel="noopener" target="_blank">知乎</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/dorayox" title="微博 → http:&#x2F;&#x2F;weibo.com&#x2F;dorayox" rel="noopener" target="_blank">微博</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://vchaoxi.com/" title="http:&#x2F;&#x2F;vchaoxi.com" rel="noopener" target="_blank">微潮汐</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://blog.vchaoxi.com/" title="http:&#x2F;&#x2F;blog.vchaoxi.com" rel="noopener" target="_blank">汐言</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://news.ycombinator.com/" title="https:&#x2F;&#x2F;news.ycombinator.com" rel="noopener" target="_blank">HN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hn.academy/" title="https:&#x2F;&#x2F;hn.academy" rel="noopener" target="_blank">HN_Academy</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://readhub.me/" title="https:&#x2F;&#x2F;readhub.me" rel="noopener" target="_blank">ReadHub</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://dorayo.com/2018/03/08/Git-Submodule-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Dorayo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="沉思录">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Git Submodule 使用教程
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">نُشر في</span>
+
+      <time title="أُنشأ: 2018-03-08 23:23:00" itemprop="dateCreated datePublished" datetime="2018-03-08T23:23:00+08:00">2018-03-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">في</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+        </span>
+          ، 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%AD%A6%E4%B9%A0/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2018/03/08/Git-Submodule-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" class="post-meta-item leancloud_visitors" data-flag-title="Git Submodule 使用教程" title="مشاهدات">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">مشاهدات: </span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2018/03/08/Git-Submodule-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/03/08/Git-Submodule-使用教程/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="创建测试项目"><a href="#创建测试项目" class="headerlink" title="创建测试项目"></a>创建测试项目</h2><h3 id="准备环境"><a href="#准备环境" class="headerlink" title="准备环境"></a>准备环境</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 创建测试目录</span><br><span class="line">mkdir git_submodule</span><br><span class="line">cd git_submodule</span><br><span class="line"># 创建本地裸仓库</span><br><span class="line">mkdir repos</span><br><span class="line">cd repos</span><br><span class="line">git init --bare lib1.git</span><br><span class="line">git init --bare lib2.git</span><br><span class="line">git init --bare project1.git</span><br><span class="line">git init --bare project2.git</span><br><span class="line"># 创建工作区目录</span><br><span class="line">cd ..</span><br><span class="line">mkdir ws</span><br><span class="line">cd ws</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="初始化测试项目-project1-和-project2"><a href="#初始化测试项目-project1-和-project2" class="headerlink" title="初始化测试项目 project1 和 project2"></a>初始化测试项目 project1 和 project2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 初始化 project1</span><br><span class="line">git clone ..&#x2F;repos&#x2F;project1.git</span><br><span class="line">cd project1</span><br><span class="line">echo &quot;project1&quot; &gt; project_infos.txt</span><br><span class="line">git add .</span><br><span class="line">git ci -m &quot;init project1&quot;</span><br><span class="line"># 初始化 project2</span><br><span class="line">cd ..</span><br><span class="line">git clone ..&#x2F;repos&#x2F;project2.git</span><br><span class="line">cd project2</span><br><span class="line">echo &quot;project2&quot; &gt; project_infos.txt</span><br><span class="line">git add .</span><br><span class="line">git ci -m &quot;init project2&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="初始化公共类库-lib1-和-lib2"><a href="#初始化公共类库-lib1-和-lib2" class="headerlink" title="初始化公共类库 lib1 和 lib2"></a>初始化公共类库 lib1 和 lib2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 初始化公共类库 lib1</span><br><span class="line">cd ..</span><br><span class="line">git clone ..&#x2F;repos&#x2F;lib1.git</span><br><span class="line">cd lib1</span><br><span class="line">echo &quot;This is lib1&quot; &gt; lib1_features</span><br><span class="line">git add .</span><br><span class="line">git ci -m &quot;init lib1&quot;</span><br><span class="line">git push origin master</span><br><span class="line"># 初始化公共类库 lib2</span><br><span class="line">cd ..</span><br><span class="line">git clone ..&#x2F;repos&#x2F;lib2.git</span><br><span class="line">cd lib2</span><br><span class="line">echo &quot;This is lib2&quot; &gt; lib2_features</span><br><span class="line">git add .</span><br><span class="line">git ci -m &quot;init lib2&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<h2 id="为-project1-添加-submodules-lib1-和-lib2"><a href="#为-project1-添加-submodules-lib1-和-lib2" class="headerlink" title="为 project1 添加 submodules ( lib1 和 lib2 )"></a>为 project1 添加 submodules ( lib1 和 lib2 )</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ..&#x2F;project1</span><br><span class="line">git submodule add ..&#x2F;..&#x2F;repos&#x2F;lib1.git libs&#x2F;lib1</span><br><span class="line">git submodule add ..&#x2F;..&#x2F;repos&#x2F;lib2.git libs&#x2F;lib2</span><br></pre></td></tr></table></figure>
+<p>此时，执行<code>ls</code>命令，会发现多了个<code>libs</code>目录<br><img src="/images/pasted-12.png" alt="upload successful"></p>
+<p>接着，查看状态，会发现<code>lib1</code>、<code>lib2</code>和另外一个新文件<code>.gitmodules</code>都已经被加入了暂存区<br><img src="/images/pasted-13.png" alt="upload successful"></p>
+<p>先看一下<code>lib1</code>和<code>lib2</code>里面的文件的内容，跟公共类库内容一致<br><img src="/images/pasted-14.png" alt="upload successful"></p>
+<p>接着看一下<code>.gitmodules</code>的内容，会发现 <code>.gitmodules</code>记录了每个         Submodules 的引用信息（在当前项目的位置以及引用仓库的URL）<br><img src="/images/pasted-15.png" alt="upload successful"></p>
+<p>最后，执行如下命令，将更改提交并推送到远程仓库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git ci -a -m &quot;add submodules[lib1,lib2] to project1&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<h2 id="模拟开发人员-B-对-submodules-的修改"><a href="#模拟开发人员-B-对-submodules-的修改" class="headerlink" title="模拟开发人员 B 对 submodules 的修改"></a>模拟开发人员 B 对 submodules 的修改</h2><h3 id="开发人员-B-克隆测试项目-project1"><a href="#开发人员-B-克隆测试项目-project1" class="headerlink" title="开发人员 B 克隆测试项目 project1"></a>开发人员 B 克隆测试项目 project1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ..</span><br><span class="line">git clone ..&#x2F;repos&#x2F;project1.git project1-b</span><br><span class="line">cd project1-b</span><br></pre></td></tr></table></figure>
+<p>执行<code>git submodule</code>命令，会发现列出了所有子模块(Submodules)，但是，hash 码前面有一个<code>-</code>号，表明该子模块还没有检出<br><img src="/images/pasted-16.png" alt="upload successful"></p>
+<p>接下来，检出 project1-b 的所有子模块，执行<code>git submodule init</code>命令<br><img src="/images/pasted-17.png" alt="upload successful"></p>
+<p>上一步，仅完成了子模块在当前项目的注册，想检出子模块的内容，还需要执行<code>git submodule update</code>命令<br><img src="/images/pasted-18.png" alt="upload successful"></p>
+<h3 id="开发人员-B-修改子模块-lib1"><a href="#开发人员-B-修改子模块-lib1" class="headerlink" title="开发人员 B 修改子模块 lib1"></a>开发人员 B 修改子模块 lib1</h3><p>首先，进入<code>lib1</code>所在的目录，并查看状态<br><img src="/images/pasted-19.png" alt="upload successful"></p>
+<p>要修改<code>lib1</code>的文件，首先需要切换到相应的分支<br><img src="/images/pasted-20.png" alt="upload successful"></p>
+<p>修改、提交、推送</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo &#39;added by developer B&#39; &gt;&gt; lib1_features</span><br><span class="line">git add .</span><br><span class="line">git ci -m &quot;update lib1_features by developer B&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<h3 id="开发人员-B-在项目-project1-b-目录中，提交更新并推送"><a href="#开发人员-B-在项目-project1-b-目录中，提交更新并推送" class="headerlink" title="开发人员 B 在项目(project1-b)目录中，提交更新并推送"></a>开发人员 B 在项目(project1-b)目录中，提交更新并推送</h3><p>回到<code>project1-b</code>所在的目录，会发现<code>project1-b</code>的状态发生了变化，很好理解，因为我们更改了子模块里面的文件，子模块也属于项目<code>project1-b</code>本身<br><img src="/images/pasted-21.png" alt="upload successful"></p>
+<p>最后一步，在<code>project1-b</code>项目中提交更新，并推送</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git ci -m &quot;update libs&#x2F;lib1 by developer B&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<h2 id="在-project1-中同步开发人员-B-对-submodules-做的修改"><a href="#在-project1-中同步开发人员-B-对-submodules-做的修改" class="headerlink" title="在 project1 中同步开发人员 B 对 submodules 做的修改"></a>在 project1 中同步开发人员 B 对 submodules 做的修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ..&#x2F;project1</span><br><span class="line">git pull origin master</span><br></pre></td></tr></table></figure>
+<p>查看状态，会发现<code>libs/lib1</code>处于<code>modified</code><br><img src="/images/pasted-22.png" alt="upload successful"></p>
+<p>很好理解，我们需要手动更新 submodules 的更新<br><img src="/images/pasted-23.png" alt="upload successful"></p>
+<p>至此，我们就在 project1 中成功同步了开发人员 B 对 submodules 所做的修改了</p>
+<h2 id="为-project2-添加-submodules-lib1-和-lib2"><a href="#为-project2-添加-submodules-lib1-和-lib2" class="headerlink" title="为 project2 添加 submodules ( lib1 和 lib2 )"></a>为 project2 添加 submodules ( lib1 和 lib2 )</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd ..&#x2F;project2</span><br><span class="line">git submodule add ..&#x2F;..&#x2F;repos&#x2F;lib1.git libs&#x2F;lib1</span><br><span class="line">git submodule add ..&#x2F;..&#x2F;repos&#x2F;lib2.git libs&#x2F;lib2</span><br><span class="line">git add .</span><br><span class="line">git ci -m &quot;add submodules[lib1,lib2] to project2&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<h2 id="在-project2-中修改-lib1-和-lib2-并同步到-project1-中"><a href="#在-project2-中修改-lib1-和-lib2-并同步到-project1-中" class="headerlink" title="在 project2 中修改 lib1 和 lib2 并同步到 project1 中"></a>在 project2 中修改 lib1 和 lib2 并同步到 project1 中</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"># 在 lib1 中添加一个文件 README</span><br><span class="line">cd libs&#x2F;lib1</span><br><span class="line">echo &quot;This is lib1 readme contents&quot; &gt; README</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;add README for lib1&quot;</span><br><span class="line">git push origin master</span><br><span class="line">cd ..</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;update lib1 - add README&quot;</span><br><span class="line"></span><br><span class="line"># 修改 lib2 中的 lib2-features 文件</span><br><span class="line">cd libs&#x2F;lib2</span><br><span class="line">echo &quot;some new feature&quot; &gt;&gt; lib2_features</span><br><span class="line">git add .</span><br><span class="line">git ci -m &quot;add some new feature into lib2_features&quot;</span><br><span class="line">git push origin master</span><br><span class="line">cd ..&#x2F;..&#x2F;</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;update lib2 - add some new features&quot;</span><br><span class="line"></span><br><span class="line"># 推送 project2 的修改</span><br><span class="line">git push origin master</span><br><span class="line"></span><br><span class="line"># 在 project1 中更新 lib1 和 lib2 的最新修改，并推送</span><br><span class="line">cd ..&#x2F;project1</span><br><span class="line">git pull origin master</span><br><span class="line">cd libs&#x2F;lib1</span><br><span class="line">git co master</span><br><span class="line">git pull origin master</span><br><span class="line">cd ..&#x2F;lib2</span><br><span class="line">git pull</span><br><span class="line">cd ..&#x2F;..&#x2F;</span><br><span class="line">git ci -a -m &quot;update lib1 and lib2 to new version&quot;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+<h2 id="更新-project1-b-项目的子模块"><a href="#更新-project1-b-项目的子模块" class="headerlink" title="更新 project1-b 项目的子模块"></a>更新 project1-b 项目的子模块</h2><p>根据以上的操作，我们总结出来了修改并更新子模块的基本流程</p>
+<ul>
+<li>切换到子模块的某个分支</li>
+<li>修改子模块</li>
+<li>提交子模块的修改</li>
+<li>推送子模块的修改</li>
+<li>在项目目录提交子模块的修改</li>
+<li>在项目目录推送子模块的修改</li>
+<li>在其他项目的项目目录新(pull)子模块的修改</li>
+<li>在其他项目的子模块目录中依次更新(pull)</li>
+<li>在其他项目的项目目录中提交并推送修改</li>
+</ul>
+<p>事实上，修改子模块、提交和推送的操作确实需要一步步细致地进行，不过在其他项目中，更新对子模块的修改，步骤太繁琐。幸运的是我们可以使用<code>git submodule foreach git pull</code>命令，一步到位完成各子模块的同步更新。</p>
+<p>最后，在项目目录中提交并推送</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd ..&#x2F;project1-b</span><br><span class="line">git pull</span><br><span class="line">git submodule foreach git pull</span><br><span class="line">git ci -a -m &quot;update libs1 and libs2 to new version&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
+<h2 id="新成员加入团队，一次性克隆项目和-submodules"><a href="#新成员加入团队，一次性克隆项目和-submodules" class="headerlink" title="新成员加入团队，一次性克隆项目和 submodules"></a>新成员加入团队，一次性克隆项目和 submodules</h2><p>根据已有知识，我们可以这样操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone &#x2F;path&#x2F;to&#x2F;repos&#x2F;foo.git</span><br><span class="line">git submodule init</span><br><span class="line">git submodule update</span><br></pre></td></tr></table></figure>
+<p>幸运的是，我们可以一行命令搞定</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone --recursive ..&#x2F;repos&#x2F;foo.git </span><br></pre></td></tr></table></figure>
+<p><code>–recursive</code>参数的含义：可以在克隆项目时同时克隆关联的submodules</p>
+<h2 id="移除-submodules"><a href="#移除-submodules" class="headerlink" title="移除 submodules"></a>移除 submodules</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git submodule deinit libs&#x2F;lib1</span><br><span class="line">git rm libs&#x2F;lib1</span><br><span class="line">git ci -m &quot;remove libs&#x2F;lib1&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/git/" rel="tag"># git</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/03/08/%E7%8E%A9%E8%BD%AC-Git/" rel="prev" title="玩转 Git">
+                  <i class="fa fa-chevron-left"></i> 玩转 Git
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/03/10/%E6%AF%94%E7%89%B9%E5%B8%81%EF%BC%88Bitcoin%EF%BC%89%E6%8C%96%E7%9F%BF%E6%94%B6%E7%9B%8A%E5%88%86%E6%9E%90/" rel="next" title="比特币（Bitcoin）挖矿收益分析">
+                  比特币（Bitcoin）挖矿收益分析 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      <div class="tabs tabs-comment">
+        <ul class="nav-tabs">
+            <li class="tab"><a href="#comment-disqus">disqus</a></li>
+            <li class="tab"><a href="#comment-livere">livere</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane disqus" id="comment-disqus">
+              
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+            </div>
+            <div class="tab-pane livere" id="comment-livere">
+              <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8yOTY4Ni82MjU0"></div>
+            </div>
+        </div>
+      </div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dorayo</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5936753169093c09" async="async"></script>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      const visitors = document.querySelector('.leancloud_visitors');
+      const url = decodeURI(visitors.id);
+      const title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            const counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      const visitors = document.querySelectorAll('.leancloud_visitors');
+      const entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            const target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    const { app_id, app_key, server_url } = {"enable":true,"app_id":"ywQkqG2l9SsqzzmDrXnAyW0U-gzGzoHsz","app_key":"7xSSREfSb99X2Wif4LT3RwL6","server_url":null,"security":true};
+    function fetchData(api_server) {
+      const Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    const api_server = app_id.slice(-9) === '-MdYXbMMI' ? `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com` : server_url;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://dorayo.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://dorayo.com/2018/03/08/Git-Submodule-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/";
+    this.page.identifier = "2018/03/08/Git-Submodule-使用教程/";
+    this.page.title = "Git Submodule 使用教程";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://dorayo.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script>
+NexT.utils.loadComments('#lv-container', () => {
+  window.livereOptions = {
+    refer: "2018/03/08/Git-Submodule-使用教程/"
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>

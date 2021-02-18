@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/function%20()%20%7B%0A%20%20%20%20%20%20for%20(var%20_len2%20=%20arguments.length,%20args%20=%20new%20Array(_len2),%20_key2%20=%200;%20_key2%20%3C%20_len2;%20_key2++)%20%7B%0A%20%20%20%20%20%20%20%20args%5B_key2%5D%20=%20arguments%5B_key2%5D;%0A%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20return%20obj%5Bval%5D.apply(obj,%20args);%0A%20%20%20%20%7D">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"dorayo.com","root":"/","images":"/images","scheme":"Muse","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"بحث...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="主要依赖 Vue v2.5.2 Vue CLI v2.9.3 Node v10.3.0 npm v6.1.0 Flask v1.0.2 Python v3.6.5  教学目标课程结束后，你应该可以：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flask-Vue-Crud - 01. 项目介绍及搭建">
+<meta property="og:url" content="http://dorayo.com/2018/07/22/Flask-Vue-Crud-01-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D%E5%8F%8A%E6%90%AD%E5%BB%BA/index.html">
+<meta property="og:site_name" content="沉思录">
+<meta property="og:description" content="主要依赖 Vue v2.5.2 Vue CLI v2.9.3 Node v10.3.0 npm v6.1.0 Flask v1.0.2 Python v3.6.5  教学目标课程结束后，你应该可以：">
+<meta property="og:locale">
+<meta property="og:image" content="http://dorayo.com/images/pasted-29.png">
+<meta property="og:image" content="http://dorayo.com/images/pasted-30.png">
+<meta property="og:image" content="http://dorayo.com/images/pasted-31.png">
+<meta property="og:image" content="http://dorayo.com/images/pasted-32.png">
+<meta property="og:image" content="http://dorayo.com/images/pasted-33.png">
+<meta property="og:image" content="http://dorayo.com/images/pasted-34.png">
+<meta property="og:image" content="http://dorayo.com/images/pasted-35.png">
+<meta property="og:image" content="http://dorayo.com/images/pasted-36.png">
+<meta property="og:image" content="http://dorayo.com/images/pasted-37.png">
+<meta property="og:image" content="http://dorayo.com/images/pasted-38.png">
+<meta property="article:published_time" content="2018-07-22T05:22:00.000Z">
+<meta property="article:modified_time" content="2021-02-18T17:29:47.981Z">
+<meta property="article:author" content="Dorayo">
+<meta property="article:tag" content="flask">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://dorayo.com/images/pasted-29.png">
+
+
+<link rel="canonical" href="http://dorayo.com/2018/07/22/Flask-Vue-Crud-01-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D%E5%8F%8A%E6%90%AD%E5%BB%BA/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+<title>Flask-Vue-Crud - 01. 项目介绍及搭建 | 沉思录</title>
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a74fd868a6dd7b0fb94bf3eaa4e7207c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/%5Bobject%20Object%5D" alt="沉思录">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">沉思录</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">我唯一知道的就是我一无所知</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section">Home</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories" rel="section">التصنيفات</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives" rel="section">الأرشيفات</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags" rel="section">الوسوم</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>بحث
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="بحث..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E4%BE%9D%E8%B5%96"><span class="nav-number">1.</span> <span class="nav-text">主要依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%99%E5%AD%A6%E7%9B%AE%E6%A0%87"><span class="nav-number">2.</span> <span class="nav-text">教学目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-Flask%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">什么是 Flask？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-Vue%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">什么是 Vue？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flask-Setup"><span class="nav-number">5.</span> <span class="nav-text">Flask Setup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-Setup"><span class="nav-number">6.</span> <span class="nav-text">Vue Setup</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%96%B0%E7%BB%84%E4%BB%B6"><span class="nav-number">6.1.</span> <span class="nav-text">添加新组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E5%89%8D%E5%90%8E%E7%AB%AF"><span class="nav-number">6.2.</span> <span class="nav-text">连接前后端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bootstrap-Setup"><span class="nav-number">7.</span> <span class="nav-text">Bootstrap Setup</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Dorayo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/dorayo" title="Github → https:&#x2F;&#x2F;github.com&#x2F;dorayo" rel="noopener" target="_blank">Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/dorayox" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;dorayox" rel="noopener" target="_blank">Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.zhihu.com/people/dorayo" title="知乎 → http:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;dorayo" rel="noopener" target="_blank">知乎</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/dorayox" title="微博 → http:&#x2F;&#x2F;weibo.com&#x2F;dorayox" rel="noopener" target="_blank">微博</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://vchaoxi.com/" title="http:&#x2F;&#x2F;vchaoxi.com" rel="noopener" target="_blank">微潮汐</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://blog.vchaoxi.com/" title="http:&#x2F;&#x2F;blog.vchaoxi.com" rel="noopener" target="_blank">汐言</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://news.ycombinator.com/" title="https:&#x2F;&#x2F;news.ycombinator.com" rel="noopener" target="_blank">HN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hn.academy/" title="https:&#x2F;&#x2F;hn.academy" rel="noopener" target="_blank">HN_Academy</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://readhub.me/" title="https:&#x2F;&#x2F;readhub.me" rel="noopener" target="_blank">ReadHub</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://dorayo.com/2018/07/22/Flask-Vue-Crud-01-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D%E5%8F%8A%E6%90%AD%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Dorayo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="沉思录">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Flask-Vue-Crud - 01. 项目介绍及搭建
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">نُشر في</span>
+
+      <time title="أُنشأ: 2018-07-22 13:22:00" itemprop="dateCreated datePublished" datetime="2018-07-22T13:22:00+08:00">2018-07-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">في</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+        </span>
+          ، 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%AD%A6%E4%B9%A0/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2018/07/22/Flask-Vue-Crud-01-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D%E5%8F%8A%E6%90%AD%E5%BB%BA/" class="post-meta-item leancloud_visitors" data-flag-title="Flask-Vue-Crud - 01. 项目介绍及搭建" title="مشاهدات">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">مشاهدات: </span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2018/07/22/Flask-Vue-Crud-01-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D%E5%8F%8A%E6%90%AD%E5%BB%BA/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/07/22/Flask-Vue-Crud-01-项目介绍及搭建/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="主要依赖"><a href="#主要依赖" class="headerlink" title="主要依赖"></a>主要依赖</h2><ul>
+<li>Vue v2.5.2</li>
+<li>Vue CLI v2.9.3</li>
+<li>Node v10.3.0</li>
+<li>npm v6.1.0</li>
+<li>Flask v1.0.2</li>
+<li>Python v3.6.5</li>
+</ul>
+<h2 id="教学目标"><a href="#教学目标" class="headerlink" title="教学目标"></a>教学目标</h2><p>课程结束后，你应该可以：</p>
+<a id="more"></a>
+<ol>
+<li>解释什么是 Flask</li>
+<li>解释什么是 Vue，并且清楚 Vue 同其他前端框架 ，如 Angular、React 的区别</li>
+<li>通过脚手架（Vue CLI）来快速创建前端项目</li>
+<li>通过 Vue 组件创建单页面应用</li>
+<li>通过异步请求将 Vue 前端应用和 Flask 后端应用连通</li>
+<li>通过 Flask 开发 RESTful API</li>
+<li>通过 Bootstrap 来美化 Vue 组件</li>
+<li>通过 Vue 路由来创建路由并渲染组件</li>
+</ol>
+<h2 id="什么是-Flask？"><a href="#什么是-Flask？" class="headerlink" title="什么是 Flask？"></a>什么是 Flask？</h2><p>Flask 是一个简单却很强大的 web 微框架，可以非常完美的来构建 RESTFul API。就像 Ruby 的 Sinatra 和 Node 的 Express，它非常小和灵活，根据需要，你可以从一个很小的应用开始，逐步添加功能到一个复杂的应用。</p>
+<p>初次接触 Flask，可以从下面两个教程开始：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://github.com/mjhea0/flaskr-tdd">Flaskr TDD</a></li>
+<li><a target="_blank" rel="noopener" href="http://mherman.org/blog/2017/04/26/flask-for-node-developers/">Flask for Node Developers</a></li>
+</ol>
+<h2 id="什么是-Vue？"><a href="#什么是-Vue？" class="headerlink" title="什么是 Vue？"></a>什么是 Vue？</h2><p>Vue 是一个开源的 Javascript 框架，用来编写用户界面。它借鉴了 React 和 Angular 的一些优秀概念。</p>
+<p>以下两篇文章，比较了 Vue 跟 Angular 和 React 的一些比较：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://vuejs.org/v2/guide/comparison.html">Vue: Comparison with Other Frameworks</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/unicorn-supplies/angular-vs-react-vs-vue-a-2017-comparison-c5c52d620176">Angular vs. React vs. Vue: A 2017 comparison</a></li>
+</ol>
+<h2 id="Flask-Setup"><a href="#Flask-Setup" class="headerlink" title="Flask Setup"></a>Flask Setup</h2><p>执行如下命令，创建项目目录，并启用虚拟环境<br><img src="/images/pasted-29.png" alt="upload successful"></p>
+<p>安装 Flask 和 Flask-CORS 扩展<br><img src="/images/pasted-30.png" alt="upload successful"></p>
+<p>在项目根目录下，创建 <code>app.py</code>文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask, jsonify</span><br><span class="line">from flask_cors import CORS</span><br><span class="line"></span><br><span class="line">app &#x3D; Flask(__name__)</span><br><span class="line"></span><br><span class="line">CORS(app)</span><br><span class="line"></span><br><span class="line">@app.route(&#39;&#x2F;ping&#39;, methods&#x3D;[&#39;GET&#39;])</span><br><span class="line">def ping_pong():</span><br><span class="line">    return jsonify(&#39;Pong!&#39;)</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+<p>执行如下命令，运行 app：<br><img src="/images/pasted-31.png" alt="upload successful"></p>
+<p>打开浏览器，键入<code>http://localhost:5000/ping</code>，会看到如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;Pong!&quot;</span><br></pre></td></tr></table></figure>
+<p>为什么需要 Flask-CORS？</p>
+<blockquote>
+<p>如果使用不同的协议，或者请求来自于其他的 IP 地址或域名或端口，就需要用到 Cross Origin Resource Sharing （CORS），这正是 Flask-CORS 扩展帮我们做到的。当然，实际产品环境中，我们应该配置只允许来自前端应用所在的域来请求。</p>
+</blockquote>
+<h2 id="Vue-Setup"><a href="#Vue-Setup" class="headerlink" title="Vue Setup"></a>Vue Setup</h2><p>全局安装 Vue CLI ：<br><img src="/images/pasted-32.png" alt="upload successful"></p>
+<p>接着，执行如下命令，通过 <code>webpack</code>来初始化一个新的 Vue 项目 <code>client</code>：<br><img src="/images/pasted-33.png" alt="upload successful"></p>
+<p>我们主要要写的代码都在 <code>src</code>目录里，目录结构如下所示：<br><img src="/images/pasted-34.png" alt="upload successful"></p>
+<p>解释如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">名字</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">main.js</td>
+<td align="left">app 的入口，它会加载和初始化 Vue 和根组件</td>
+</tr>
+<tr>
+<td align="left">App.vue</td>
+<td align="left">根组件 - 其他组件的入口</td>
+</tr>
+<tr>
+<td align="left"><code>assets</code></td>
+<td align="left">静态文件如图片和字体等都放在这里</td>
+</tr>
+<tr>
+<td align="left"><code>components</code></td>
+<td align="left">UI 组件放在这里</td>
+</tr>
+<tr>
+<td align="left"><code>router</code></td>
+<td align="left">URL 同组件的映射关系在这里定义</td>
+</tr>
+</tbody></table>
+<p><code>client/src/components/HelloWord.vue</code>是自动生成的<a target="_blank" rel="noopener" href="https://vuejs.org/v2/guide/single-file-components.html">单文件</a>组件，有三部分组成：</p>
+<ol>
+<li>template: 组件的 HTML 内容</li>
+<li>script: 组件的逻辑代码（Javascript）</li>
+<li>style: 组件的样式（CSS）</li>
+</ol>
+<p>执行如下命令，运行前端程序：<br><img src="/images/pasted-35.png" alt="upload successful"></p>
+<p>访问 <code>http://localhost:8080</code> 能看到前端页面</p>
+<h3 id="添加新组件"><a href="#添加新组件" class="headerlink" title="添加新组件"></a>添加新组件</h3><p>创建<code>client/src/components/Ping.vue</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;p&gt;&#123;&#123; msg &#125;&#125;&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#39;Ping&#39;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      msg: &#39;Hello!&#39;,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>更新<code>client/src/router/index.js</code>，映射<code>/ping</code>到<code>Ping</code>组件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#39;vue&#39;;</span><br><span class="line">import Router from &#39;vue-router&#39;;</span><br><span class="line">import HelloWorld from &#39;@&#x2F;components&#x2F;HelloWorld&#39;;</span><br><span class="line">import Ping from &#39;@&#x2F;components&#x2F;Ping&#39;;</span><br><span class="line"></span><br><span class="line">Vue.use(Router);</span><br><span class="line"></span><br><span class="line">export default new Router(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123;</span><br><span class="line">      path: &#39;&#x2F;&#39;,</span><br><span class="line">      name: &#39;HelloWorld&#39;,</span><br><span class="line">      component: HelloWorld,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      path: &#39;&#x2F;ping&#39;,</span><br><span class="line">      name: &#39;Ping&#39;,</span><br><span class="line">      component: Ping,</span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">  mode: &#39;history&#39;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上面的<code>mode: &#39;history&#39;</code>是为了让 URL 变成<code>http://localhost：8080/ping</code>的形式。如果，不加该设置，默认的 URL 为<code>http://localhost:8080/#/ping</code>的形式。</p>
+</blockquote>
+<p>最后，修改<code>client/src/App.vue</code>，移除模板里自带的图片：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id&#x3D;&quot;app&quot;&gt;</span><br><span class="line">    &lt;router-view&#x2F;&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure>
+<p>现在，访问<code>http://localhost:8080/ping</code>，能看到<code>Hello!</code></p>
+<h3 id="连接前后端"><a href="#连接前后端" class="headerlink" title="连接前后端"></a>连接前后端</h3><p>通过使用<code>axios</code>库发送 AJAX 请求，<code>axios</code>安装如下：<br><img src="/images/pasted-36.png" alt="upload successful"></p>
+<p>更新<code>Ping.vue</code>组件中<code>script</code>部分，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">script&gt;</span><br><span class="line">import axios from &#39;axios&#39;;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#39;Ping&#39;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      msg: &#39;&#39;,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    getMessage() &#123;</span><br><span class="line">      const path &#x3D; &#39;http:&#x2F;&#x2F;localhost:5000&#x2F;ping&#39;;</span><br><span class="line">      axios.get(path)</span><br><span class="line">        .then((res) &#x3D;&gt; &#123;</span><br><span class="line">          this.msg &#x3D; res.data;</span><br><span class="line">        &#125;)</span><br><span class="line">        .catch((error) &#x3D;&gt; &#123;</span><br><span class="line">          &#x2F;&#x2F; eslint-disable-next-line</span><br><span class="line">          console.error(error);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  created() &#123;</span><br><span class="line">    this.getMessage();</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>启动后端 Flask 应用，访问<code>http://localhost:8080/ping</code>，会看到页面会呈现后端返回的数据。</p>
+<h2 id="Bootstrap-Setup"><a href="#Bootstrap-Setup" class="headerlink" title="Bootstrap Setup"></a>Bootstrap Setup</h2><p>为了给页面增加样式，可以引入 CSS 框架 <code>bootstrap</code>，通过如下命令安装<code>bootstrap</code>：<br><img src="/images/pasted-37.png" alt="upload successful"></p>
+<p>在 app 的入口文件<code>client/src/main.js</code>中导入 <code>bootstrap</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import &#39;bootstrap&#x2F;dist&#x2F;css&#x2F;bootstrap.css&#39;;</span><br><span class="line">import Vue from &#39;vue&#39;;</span><br><span class="line">import App from &#39;.&#x2F;App&#39;;</span><br><span class="line">import router from &#39;.&#x2F;router&#39;;</span><br><span class="line"></span><br><span class="line">Vue.config.productionTip &#x3D; false;</span><br><span class="line"></span><br><span class="line">&#x2F;* eslint-disable no-new *&#x2F;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: &#39;#app&#39;,</span><br><span class="line">  router,</span><br><span class="line">  components: &#123; App &#125;,</span><br><span class="line">  template: &#39;&lt;App&#x2F;&gt;&#39;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>去掉根组件<code>client/src/App.vue</code>中多余的样式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">#app &#123;</span><br><span class="line">  margin-top: 60px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+<p>在<code>Ping.vue</code>组件中增加样式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;container&quot;&gt;</span><br><span class="line">    &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-primary&quot;&gt;&#123;&#123; msg &#125;&#125;&lt;&#x2F;button&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure>
+<p>再次访问<code>http://localhost:8080/ping</code>查看效果如下：<br><img src="/images/pasted-38.png" alt="upload successful"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/flask/" rel="tag"># flask</a>
+              <a href="/tags/vue/" rel="tag"># vue</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/07/19/Vue2-0-%E7%AE%80%E6%98%8E%E6%95%99%E7%A8%8B-02-%E7%BB%84%E4%BB%B6%E5%9F%BA%E7%A1%80/" rel="prev" title="Vue2.0 简明教程 - 02. 组件基础">
+                  <i class="fa fa-chevron-left"></i> Vue2.0 简明教程 - 02. 组件基础
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/07/22/Flask-Vue-Crud-02-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D%E5%8F%8A%E6%90%AD%E5%BB%BA/" rel="next" title="Flask-Vue-Crud - 02. 添加组件及CRUD操作">
+                  Flask-Vue-Crud - 02. 添加组件及CRUD操作 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      <div class="tabs tabs-comment">
+        <ul class="nav-tabs">
+            <li class="tab"><a href="#comment-disqus">disqus</a></li>
+            <li class="tab"><a href="#comment-livere">livere</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane disqus" id="comment-disqus">
+              
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+            </div>
+            <div class="tab-pane livere" id="comment-livere">
+              <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8yOTY4Ni82MjU0"></div>
+            </div>
+        </div>
+      </div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dorayo</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5936753169093c09" async="async"></script>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      const visitors = document.querySelector('.leancloud_visitors');
+      const url = decodeURI(visitors.id);
+      const title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            const counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      const visitors = document.querySelectorAll('.leancloud_visitors');
+      const entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            const target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    const { app_id, app_key, server_url } = {"enable":true,"app_id":"ywQkqG2l9SsqzzmDrXnAyW0U-gzGzoHsz","app_key":"7xSSREfSb99X2Wif4LT3RwL6","server_url":null,"security":true};
+    function fetchData(api_server) {
+      const Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    const api_server = app_id.slice(-9) === '-MdYXbMMI' ? `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com` : server_url;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://dorayo.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://dorayo.com/2018/07/22/Flask-Vue-Crud-01-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D%E5%8F%8A%E6%90%AD%E5%BB%BA/";
+    this.page.identifier = "2018/07/22/Flask-Vue-Crud-01-项目介绍及搭建/";
+    this.page.title = "Flask-Vue-Crud - 01. 项目介绍及搭建";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://dorayo.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script>
+NexT.utils.loadComments('#lv-container', () => {
+  window.livereOptions = {
+    refer: "2018/07/22/Flask-Vue-Crud-01-项目介绍及搭建/"
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>

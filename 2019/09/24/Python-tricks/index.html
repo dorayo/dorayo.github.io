@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/function%20()%20%7B%0A%20%20%20%20%20%20for%20(var%20_len2%20=%20arguments.length,%20args%20=%20new%20Array(_len2),%20_key2%20=%200;%20_key2%20%3C%20_len2;%20_key2++)%20%7B%0A%20%20%20%20%20%20%20%20args%5B_key2%5D%20=%20arguments%5B_key2%5D;%0A%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20return%20obj%5Bval%5D.apply(obj,%20args);%0A%20%20%20%20%7D">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"dorayo.com","root":"/","images":"/images","scheme":"Muse","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"بحث...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="18. map(func, iter) Executes the function func on all elements of the iterable iter.  12&gt;&gt;&gt; list(map(lambda x: x[0], [&#39;red&#39;, &#39;green&#39;, &#39;blue&#39;]))[&#39;r&#39;, &#39;g&amp;#39">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python Tricks">
+<meta property="og:url" content="http://dorayo.com/2019/09/24/Python-tricks/index.html">
+<meta property="og:site_name" content="沉思录">
+<meta property="og:description" content="18. map(func, iter) Executes the function func on all elements of the iterable iter.  12&gt;&gt;&gt; list(map(lambda x: x[0], [&#39;red&#39;, &#39;green&#39;, &#39;blue&#39;]))[&#39;r&#39;, &#39;g&amp;#39">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-09-23T19:18:00.000Z">
+<meta property="article:modified_time" content="2021-02-18T17:29:47.985Z">
+<meta property="article:author" content="Dorayo">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://dorayo.com/2019/09/24/Python-tricks/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+<title>Python Tricks | 沉思录</title>
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a74fd868a6dd7b0fb94bf3eaa4e7207c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/%5Bobject%20Object%5D" alt="沉思录">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">沉思录</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">我唯一知道的就是我一无所知</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section">Home</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories" rel="section">التصنيفات</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives" rel="section">الأرشيفات</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags" rel="section">الوسوم</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>بحث
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="بحث..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#18-map-func-iter"><span class="nav-number">1.</span> <span class="nav-text">18. map(func, iter)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-map-func-i1-%E2%80%A6-ik"><span class="nav-number">2.</span> <span class="nav-text">17. map(func, i1, …, ik)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-string-join-iter"><span class="nav-number">3.</span> <span class="nav-text">16. string.join(iter)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-filter-function-iterable"><span class="nav-number">4.</span> <span class="nav-text">15. filter(function, iterable)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-string-strip"><span class="nav-number">5.</span> <span class="nav-text">14. string.strip()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-sorted-iter"><span class="nav-number">6.</span> <span class="nav-text">13. sorted(iter)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-sorted-iter-key-key"><span class="nav-number">7.</span> <span class="nav-text">12. sorted(iter, key&#x3D;key)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-help-func"><span class="nav-number">8.</span> <span class="nav-text">11. help(func)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-zip-i1-i2-%E2%80%A6"><span class="nav-number">9.</span> <span class="nav-text">10. zip(i1, i2, …)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-Unzip"><span class="nav-number">10.</span> <span class="nav-text">9. Unzip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-enumerate-iter"><span class="nav-number">11.</span> <span class="nav-text">8. enumerate(iter)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-Start-a-web-server"><span class="nav-number">12.</span> <span class="nav-text">7. Start a web server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Read-comic"><span class="nav-number">13.</span> <span class="nav-text">6. Read comic</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Zen-of-Python"><span class="nav-number">14.</span> <span class="nav-text">5. Zen of Python</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Swapping-numbers"><span class="nav-number">15.</span> <span class="nav-text">4. Swapping numbers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Unpacking-arguments"><span class="nav-number">16.</span> <span class="nav-text">3. Unpacking arguments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Extended-Unpacking"><span class="nav-number">17.</span> <span class="nav-text">2. Extended Unpacking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Merge-two-dictionaries"><span class="nav-number">18.</span> <span class="nav-text">1. Merge two dictionaries</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Dorayo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/dorayo" title="Github → https:&#x2F;&#x2F;github.com&#x2F;dorayo" rel="noopener" target="_blank">Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/dorayox" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;dorayox" rel="noopener" target="_blank">Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.zhihu.com/people/dorayo" title="知乎 → http:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;dorayo" rel="noopener" target="_blank">知乎</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/dorayox" title="微博 → http:&#x2F;&#x2F;weibo.com&#x2F;dorayox" rel="noopener" target="_blank">微博</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://vchaoxi.com/" title="http:&#x2F;&#x2F;vchaoxi.com" rel="noopener" target="_blank">微潮汐</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://blog.vchaoxi.com/" title="http:&#x2F;&#x2F;blog.vchaoxi.com" rel="noopener" target="_blank">汐言</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://news.ycombinator.com/" title="https:&#x2F;&#x2F;news.ycombinator.com" rel="noopener" target="_blank">HN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hn.academy/" title="https:&#x2F;&#x2F;hn.academy" rel="noopener" target="_blank">HN_Academy</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://readhub.me/" title="https:&#x2F;&#x2F;readhub.me" rel="noopener" target="_blank">ReadHub</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://dorayo.com/2019/09/24/Python-tricks/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Dorayo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="沉思录">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python Tricks
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">نُشر في</span>
+
+      <time title="أُنشأ: 2019-09-24 03:18:00" itemprop="dateCreated datePublished" datetime="2019-09-24T03:18:00+08:00">2019-09-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">في</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+        </span>
+          ، 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%AD%A6%E4%B9%A0/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+          ، 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%AD%A6%E4%B9%A0/%E6%8A%80%E6%9C%AF/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2019/09/24/Python-tricks/" class="post-meta-item leancloud_visitors" data-flag-title="Python Tricks" title="مشاهدات">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">مشاهدات: </span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2019/09/24/Python-tricks/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/09/24/Python-tricks/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="18-map-func-iter"><a href="#18-map-func-iter" class="headerlink" title="18. map(func, iter)"></a>18. map(func, iter)</h2><blockquote>
+<p>Executes the function func on all elements of the iterable iter.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; list(map(lambda x: x[0], [&#39;red&#39;, &#39;green&#39;, &#39;blue&#39;]))</span><br><span class="line">[&#39;r&#39;, &#39;g&#39;, &#39;b&#39;]</span><br></pre></td></tr></table></figure>
+<h2 id="17-map-func-i1-…-ik"><a href="#17-map-func-i1-…-ik" class="headerlink" title="17. map(func, i1, …, ik)"></a>17. map(func, i1, …, ik)</h2><blockquote>
+<p>Executes the function func on all k elements of the k iterables.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; list(map(lambda x,y: str(x) + &#39; &#39; + y + &#39;s&#39;, [0, 2, 3], [&#39;apple&#39;, &#39;orange&#39;, &#39;banana&#39;]))</span><br><span class="line">[&#39;0 apples&#39;, &#39;2 oranges&#39;, &#39;3 bananas&#39;]</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="16-string-join-iter"><a href="#16-string-join-iter" class="headerlink" title="16. string.join(iter)"></a>16. string.join(iter)</h2><blockquote>
+<p>Concatenates iterable elements iter separated by string.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; &#39; marries &#39;.join(list([&#39;Alice&#39;, &#39;Bob&#39;]))</span><br><span class="line">&#39;Alice marries Bob&#39;</span><br></pre></td></tr></table></figure>
+<h2 id="15-filter-function-iterable"><a href="#15-filter-function-iterable" class="headerlink" title="15. filter(function, iterable)"></a>15. filter(function, iterable)</h2><blockquote>
+<p>Filters out elements in iterable for which function returns False (or 0).</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; list(filter(lambda x: True if x &gt; 17 else False, [1, 15, 17, 18, 19]))</span><br><span class="line">[18, 19]</span><br></pre></td></tr></table></figure>
+<h2 id="14-string-strip"><a href="#14-string-strip" class="headerlink" title="14. string.strip()"></a>14. string.strip()</h2><blockquote>
+<p>Removes leading and trailing whitespaces of string.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; print(&quot;   \n  \t   42  \t &quot;.strip())</span><br><span class="line">42</span><br></pre></td></tr></table></figure>
+<h2 id="13-sorted-iter"><a href="#13-sorted-iter" class="headerlink" title="13. sorted(iter)"></a>13. sorted(iter)</h2><blockquote>
+<p>Sorts iterable iter in ascending order.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; sorted([8, 3, 2, 42, 5])</span><br><span class="line">[2, 3, 5, 8, 42]</span><br></pre></td></tr></table></figure>
+<h2 id="12-sorted-iter-key-key"><a href="#12-sorted-iter-key-key" class="headerlink" title="12. sorted(iter, key=key)"></a>12. sorted(iter, key=key)</h2><blockquote>
+<p>Sorts according to the key function in ascending order.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; sorted([8, 3, 2, 42, 5], key&#x3D;lambda x: 0 if x&#x3D;&#x3D;42 else x)</span><br><span class="line">[42, 2, 3, 5, 8]</span><br></pre></td></tr></table></figure>
+<h2 id="11-help-func"><a href="#11-help-func" class="headerlink" title="11. help(func)"></a>11. help(func)</h2><blockquote>
+<p>Returns documentation of func.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; help(str.upper)</span><br><span class="line">Help on method_descriptor:</span><br><span class="line"></span><br><span class="line">upper(self, &#x2F;)</span><br><span class="line">    Return a copy of the string converted to uppercase.</span><br></pre></td></tr></table></figure>
+<h2 id="10-zip-i1-i2-…"><a href="#10-zip-i1-i2-…" class="headerlink" title="10. zip(i1, i2, …)"></a>10. zip(i1, i2, …)</h2><blockquote>
+<p>Groups the k-th elements of iterators i1, i2, … together.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; list(zip([&#39;Alice&#39;, &#39;Anna&#39;], [&#39;Bob&#39;, &#39;Jon&#39;, &#39;Frank&#39;], [&#39;Jason&#39;, &#39;Mike&#39;]))</span><br><span class="line">[(&#39;Alice&#39;, &#39;Bob&#39;, &#39;Jason&#39;), (&#39;Anna&#39;, &#39;Jon&#39;, &#39;Mike&#39;)]</span><br></pre></td></tr></table></figure>
+<h2 id="9-Unzip"><a href="#9-Unzip" class="headerlink" title="9. Unzip"></a>9. Unzip</h2><blockquote>
+<p>Equal to: 1) unpack the zipped list, 2) zip the result.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; list(zip(*[(&#39;Alice&#39;, &#39;Bob&#39;, &#39;Jason&#39;), (&#39;Anna&#39;, &#39;Jon&#39;, &#39;Mike&#39;)]))</span><br><span class="line">[(&#39;Alice&#39;, &#39;Anna&#39;), (&#39;Bob&#39;, &#39;Jon&#39;), (&#39;Jason&#39;, &#39;Mike&#39;)]</span><br></pre></td></tr></table></figure>
+<h2 id="8-enumerate-iter"><a href="#8-enumerate-iter" class="headerlink" title="8. enumerate(iter)"></a>8. enumerate(iter)</h2><blockquote>
+<p>Assigns a counter value to each element of the iterable iter.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; list(enumerate([&#39;Alice&#39;, &#39;Bob&#39;, &#39;Jon&#39;]))</span><br><span class="line">[(0, &#39;Alice&#39;), (1, &#39;Bob&#39;), (2, &#39;Jon&#39;)]</span><br></pre></td></tr></table></figure>
+<h2 id="7-Start-a-web-server"><a href="#7-Start-a-web-server" class="headerlink" title="7. Start a web server"></a>7. Start a web server</h2><blockquote>
+<p>Want to share files between PC and phone? Run this command in PC’s shell. <P> is any port number 0–65535. Type <IP address of PC>:<P> in the phone’s browser. You can now browse the files in the PC directory.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m http.server &lt;Port&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="6-Read-comic"><a href="#6-Read-comic" class="headerlink" title="6. Read comic"></a>6. Read comic</h2><blockquote>
+<p>Open the comic series xkcd in your web browser.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import antigravity</span><br></pre></td></tr></table></figure>
+<h2 id="5-Zen-of-Python"><a href="#5-Zen-of-Python" class="headerlink" title="5. Zen of Python"></a>5. Zen of Python</h2><blockquote>
+<p>Get valuable advice of how to write Pythonic code.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import this</span><br></pre></td></tr></table></figure>
+<h2 id="4-Swapping-numbers"><a href="#4-Swapping-numbers" class="headerlink" title="4. Swapping numbers"></a>4. Swapping numbers</h2><blockquote>
+<p>Swapping variables is a breeze in Python. No offense, Java!</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a, b &#x3D; &#39;Jane&#39;, &#39;Alice&#39;</span><br><span class="line">&gt;&gt;&gt; a, b &#x3D; b, a</span><br><span class="line">&gt;&gt;&gt; print(a, b)</span><br><span class="line">Alice Jane</span><br></pre></td></tr></table></figure>
+<h2 id="3-Unpacking-arguments"><a href="#3-Unpacking-arguments" class="headerlink" title="3. Unpacking arguments"></a>3. Unpacking arguments</h2><blockquote>
+<p>Use a sequence as function arguments via asterisk operator *. Use a dictionary (key, value) via double asterisk operator **.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; def f(x, y, z):</span><br><span class="line">...     return x + y*z</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt; f(*[1,3,4])</span><br><span class="line">13</span><br><span class="line">&gt;&gt;&gt; f(**&#123;&#39;z&#39;:4, &#39;x&#39;:1, &#39;y&#39;:3&#125;)</span><br><span class="line">13</span><br></pre></td></tr></table></figure>
+<h2 id="2-Extended-Unpacking"><a href="#2-Extended-Unpacking" class="headerlink" title="2. Extended Unpacking"></a>2. Extended Unpacking</h2><blockquote>
+<p>Use unpacking for multiple assignment feature in Python.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a, *b &#x3D; [1, 2, 3, 4, 5]</span><br><span class="line">&gt;&gt;&gt; print(a, b)</span><br><span class="line">1 [2, 3, 4, 5]</span><br></pre></td></tr></table></figure>
+<h2 id="1-Merge-two-dictionaries"><a href="#1-Merge-two-dictionaries" class="headerlink" title="1. Merge two dictionaries"></a>1. Merge two dictionaries</h2><blockquote>
+<p>Use unpacking to merge two dictionaries into a single one.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; x &#x3D; &#123;&#39;Alice&#39;: 18&#125;</span><br><span class="line">&gt;&gt;&gt; y &#x3D; &#123;&#39;Bob&#39;: 27, &#39;Ann&#39;: 22&#125;</span><br><span class="line">&gt;&gt;&gt; z &#x3D; &#123;**x, **y&#125;</span><br><span class="line">&gt;&gt;&gt; print(z)</span><br><span class="line">&#123;&#39;Alice&#39;: 18, &#39;Bob&#39;: 27, &#39;Ann&#39;: 22&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/03/10/%E6%9C%88%E4%BA%AE%E4%B8%8E-B-%E9%80%89%E9%A1%B9/" rel="prev" title="月亮与 B 选项">
+                  <i class="fa fa-chevron-left"></i> 月亮与 B 选项
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/09/24/What's%20new%20in%20Python%203.8%20/" rel="next" title="What's new in Python 3.8 ?">
+                  What's new in Python 3.8 ? <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      <div class="tabs tabs-comment">
+        <ul class="nav-tabs">
+            <li class="tab"><a href="#comment-disqus">disqus</a></li>
+            <li class="tab"><a href="#comment-livere">livere</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane disqus" id="comment-disqus">
+              
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+            </div>
+            <div class="tab-pane livere" id="comment-livere">
+              <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8yOTY4Ni82MjU0"></div>
+            </div>
+        </div>
+      </div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dorayo</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5936753169093c09" async="async"></script>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      const visitors = document.querySelector('.leancloud_visitors');
+      const url = decodeURI(visitors.id);
+      const title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            const counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      const visitors = document.querySelectorAll('.leancloud_visitors');
+      const entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            const target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    const { app_id, app_key, server_url } = {"enable":true,"app_id":"ywQkqG2l9SsqzzmDrXnAyW0U-gzGzoHsz","app_key":"7xSSREfSb99X2Wif4LT3RwL6","server_url":null,"security":true};
+    function fetchData(api_server) {
+      const Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    const api_server = app_id.slice(-9) === '-MdYXbMMI' ? `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com` : server_url;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://dorayo.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://dorayo.com/2019/09/24/Python-tricks/";
+    this.page.identifier = "2019/09/24/Python-tricks/";
+    this.page.title = "Python Tricks";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://dorayo.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script>
+NexT.utils.loadComments('#lv-container', () => {
+  window.livereOptions = {
+    refer: "2019/09/24/Python-tricks/"
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>

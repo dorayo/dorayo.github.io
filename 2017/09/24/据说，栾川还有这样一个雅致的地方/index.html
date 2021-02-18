@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/function%20()%20%7B%0A%20%20%20%20%20%20for%20(var%20_len2%20=%20arguments.length,%20args%20=%20new%20Array(_len2),%20_key2%20=%200;%20_key2%20%3C%20_len2;%20_key2++)%20%7B%0A%20%20%20%20%20%20%20%20args%5B_key2%5D%20=%20arguments%5B_key2%5D;%0A%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20return%20obj%5Bval%5D.apply(obj,%20args);%0A%20%20%20%20%7D">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"dorayo.com","root":"/","images":"/images","scheme":"Muse","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"بحث...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="眼看一年一度的十一黄金周又要到了，如果，您还没有想好去哪里，欢迎您举家前来栾川游玩哈。 提起「栾川」，近年来，在河南，应该没有几个人会没听过吧。听闻栾川前两天（9月21日）又获批全国首批46个国家生态文明建设示范市县，成为河南唯一获批的地区，真得好庆幸自己生在了美丽的栾川😄 栾川森林覆盖率达82.4%，绿化率达85.05%，均位居全省第一，环境空气优良天数常年保持在320天以上，老君上、鸡冠洞、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="据说，栾川还有这样一个雅致的地方">
+<meta property="og:url" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/index.html">
+<meta property="og:site_name" content="沉思录">
+<meta property="og:description" content="眼看一年一度的十一黄金周又要到了，如果，您还没有想好去哪里，欢迎您举家前来栾川游玩哈。 提起「栾川」，近年来，在河南，应该没有几个人会没听过吧。听闻栾川前两天（9月21日）又获批全国首批46个国家生态文明建设示范市县，成为河南唯一获批的地区，真得好庆幸自己生在了美丽的栾川😄 栾川森林覆盖率达82.4%，绿化率达85.05%，均位居全省第一，环境空气优良天数常年保持在320天以上，老君上、鸡冠洞、">
+<meta property="og:locale">
+<meta property="og:image" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/1.jpg">
+<meta property="og:image" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/2.jpg">
+<meta property="og:image" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/3.jpg">
+<meta property="og:image" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/4.jpg">
+<meta property="og:image" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/5.jpg">
+<meta property="og:image" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/6.jpg">
+<meta property="og:image" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/7.jpg">
+<meta property="og:image" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/8.jpg">
+<meta property="og:image" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/9.jpg">
+<meta property="og:image" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/10.jpg">
+<meta property="og:image" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/11.jpg">
+<meta property="og:image" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/12.jpg">
+<meta property="og:image" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/13.jpg">
+<meta property="og:image" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/14.jpg">
+<meta property="og:image" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/15.jpg">
+<meta property="og:image" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/16.jpg">
+<meta property="og:image" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/17.jpg">
+<meta property="og:image" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/18.jpg">
+<meta property="og:image" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/19.jpg">
+<meta property="og:image" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/20.jpg">
+<meta property="og:image" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/21.jpg">
+<meta property="og:image" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/22.jpg">
+<meta property="og:image" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/23.jpg">
+<meta property="article:published_time" content="2017-09-24T13:47:48.000Z">
+<meta property="article:modified_time" content="2021-02-18T17:29:47.987Z">
+<meta property="article:author" content="Dorayo">
+<meta property="article:tag" content="栾川">
+<meta property="article:tag" content="旅游">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/1.jpg">
+
+
+<link rel="canonical" href="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+<title>据说，栾川还有这样一个雅致的地方 | 沉思录</title>
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a74fd868a6dd7b0fb94bf3eaa4e7207c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/%5Bobject%20Object%5D" alt="沉思录">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">沉思录</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">我唯一知道的就是我一无所知</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section">Home</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories" rel="section">التصنيفات</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives" rel="section">الأرشيفات</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags" rel="section">الوسوم</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>بحث
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="بحث..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Dorayo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/dorayo" title="Github → https:&#x2F;&#x2F;github.com&#x2F;dorayo" rel="noopener" target="_blank">Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/dorayox" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;dorayox" rel="noopener" target="_blank">Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.zhihu.com/people/dorayo" title="知乎 → http:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;dorayo" rel="noopener" target="_blank">知乎</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/dorayox" title="微博 → http:&#x2F;&#x2F;weibo.com&#x2F;dorayox" rel="noopener" target="_blank">微博</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://vchaoxi.com/" title="http:&#x2F;&#x2F;vchaoxi.com" rel="noopener" target="_blank">微潮汐</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://blog.vchaoxi.com/" title="http:&#x2F;&#x2F;blog.vchaoxi.com" rel="noopener" target="_blank">汐言</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://news.ycombinator.com/" title="https:&#x2F;&#x2F;news.ycombinator.com" rel="noopener" target="_blank">HN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hn.academy/" title="https:&#x2F;&#x2F;hn.academy" rel="noopener" target="_blank">HN_Academy</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://readhub.me/" title="https:&#x2F;&#x2F;readhub.me" rel="noopener" target="_blank">ReadHub</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Dorayo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="沉思录">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          据说，栾川还有这样一个雅致的地方
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">نُشر في</span>
+
+      <time title="أُنشأ: 2017-09-24 21:47:48" itemprop="dateCreated datePublished" datetime="2017-09-24T21:47:48+08:00">2017-09-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">في</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%94%9F%E6%B4%BB/" itemprop="url" rel="index"><span itemprop="name">生活</span></a>
+        </span>
+          ، 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%94%9F%E6%B4%BB/%E6%97%85%E8%A1%8C/" itemprop="url" rel="index"><span itemprop="name">旅行</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/" class="post-meta-item leancloud_visitors" data-flag-title="据说，栾川还有这样一个雅致的地方" title="مشاهدات">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">مشاهدات: </span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/09/24/据说，栾川还有这样一个雅致的地方/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>眼看一年一度的十一黄金周又要到了，如果，您还没有想好去哪里，欢迎您举家前来栾川游玩哈。</p>
+<p>提起「栾川」，近年来，在河南，应该没有几个人会没听过吧。听闻栾川前两天（9月21日）又获批全国首批46个国家生态文明建设示范市县，成为河南唯一获批的地区，真得好庆幸自己生在了美丽的栾川😄</p>
+<p>栾川森林覆盖率达82.4%，绿化率达85.05%，均位居全省第一，环境空气优良天数常年保持在320天以上，老君上、鸡冠洞、重渡沟、龙峪湾、伏牛山滑雪场、养子沟、抱犊寨，随随便便都是AAAAA和AAAA景区。在这夏秋交接的当口，来栾川应该会是个最优雅的选择。<a id="more"></a></p>
+<p>提到优雅旅行，很多人会皱眉，人多且不说，住哪里，吃什么？也许有些人会说，出来玩，凑合着吃，凑合着住就行，NO！NO！NO！正如标题所说，咱们今天说说来了栾川住哪里。正如标题所言，「栾川还有这样一个优雅的地方」，这次过来，咱们不将就，不凑合！</p>
+<p>这个地方就是我家，印象中从98年开始到现在，这个新家已经建成入住快20年了，期间有过几次修葺改造。为了语述方便，这里暂且为庭院命名为「明泽苑」。 </p>
+<p>明泽苑坐标「田园小路24号」，沿高杆灯新华书店上坡200米就到。具体地点和外景见下图</p>
+<img src="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/1.jpg" class="">
+
+
+<p>进入明泽苑，首先映入眼帘的是一个水景墙，伴着奇花异草，色彩感很强，不啰嗦，直接上图</p>
+<img src="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/2.jpg" class="">
+
+<p>美学家朱光潜先生曾说过「做学问，做事业，在人生中都只能算是第二桩事。人生第一桩事事生活。我所谓生活是享受，是领略，是培养生机。假若为学问为事业而忘却生活，那种学问和事业在人生中便失其真正意义与价值」 。既然来到栾川，且请就先放下「忙」的自己，享受「闲」的乐趣。您看，「忙」就是心亡，多可怕。再看看「闲」，门里面有木，多么地有生命力啊😄   </p>
+<p>明泽苑的主人一看就是个懂得生活情趣的人，主人住在庭院的东侧，咱们重点来看看庭院西侧，这里是一个家庭文娱中心，下图是文娱中心外面的风景</p>
+<img src="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/3.jpg" class="">
+<img src="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/4.jpg" class="">
+<img src="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/5.jpg" class="">
+<img src="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/6.jpg" class="">
+
+<p>文娱中心对面，庭院内部沿梯而上是楼顶的凉亭摇椅休闲中心，夏天时，我们一家人经常聚在这里吃火锅或烧烤，傍晚时分，在这里坐摇椅、侃大山最是惬意</p>
+<img src="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/7.jpg" class="">
+
+<p>咱们现在进入文娱中心，这里面更是别有洞天</p>
+<img src="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/8.jpg" class="">
+<p>来看看书柜，从天文、历史、艺术到文学、经济、计算机，总有一类是你喜欢的。题外话，说几部比较经典的大部头，四大名著和明清古典小说系列暂表不提，《毛泽东评点二十四史》和《金瓶梅词话》，却是无论如何您都值得您翻阅一下的😄</p>
+<img src="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/9.jpg" class="">
+
+<p>再来看这边的茶室</p>
+<img src="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/10.jpg" class="">
+
+<p>当然，晚上如果有时间，一家人或XDJM们团坐一起打个麻将，也是相当爽的😄</p>
+<img src="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/11.jpg" class="">
+
+<p>如果，你喜欢运动，追求健康，庭院车库里的悦动生活俱乐部也是个好的去处</p>
+<img src="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/12.jpg" class="">
+
+<p>各位朋友，如果您来到明泽苑，可以入住二楼西侧，这里之前装修初衷也是为了自家人居住，最早我跟弟弟都在这里住，健康温馨。国际惯例，直接上图<br>客厅</p>
+<img src="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/13.jpg" class="">
+
+<img src="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/14.jpg" class="">
+
+<p>两个卧室</p>
+<img src="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/15.jpg" class="">
+
+<img src="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/16.jpg" class="">
+
+<p>卫生间（干湿分离）</p>
+<img src="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/17.jpg" class="">
+
+<img src="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/18.jpg" class="">
+
+<img src="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/19.jpg" class="">
+
+<p>餐厅</p>
+<img src="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/20.jpg" class="">
+
+<p>厨房</p>
+<img src="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/21.jpg" class="">
+
+<p>阳台</p>
+<img src="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/22.jpg" class="">
+
+<p>明泽苑，一切就绪，就差个有趣的您的到来。如果您过来，不管淡季旺季，一律238元/天。当然，如果您想住上个十天半月的，那庭院主人很Nice，可以直接跟庭院主人沟通😄。</p>
+<p>最后，欢迎大家十一黄金周来美丽的生态栾川游玩放松，更欢迎各位赏光下榻明泽苑😄</p>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">地点：栾川县城田园小路24号（高杆灯新华书店上坡200米）</span><br><span class="line">住店价格：238元&#x2F;天</span><br><span class="line">咨询电话：13838821288（尤先生）、13838819829（李女士）</span><br></pre></td></tr></table></figure>
+<img src="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/23.jpg" class="">
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%A0%BE%E5%B7%9D/" rel="tag"># 栾川</a>
+              <a href="/tags/%E6%97%85%E6%B8%B8/" rel="tag"># 旅游</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/04/19/%E9%87%8D%E7%94%9F/" rel="prev" title="重生">
+                  <i class="fa fa-chevron-left"></i> 重生
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/10/20/Installing-python3-6-on-CENTOS-6-8/" rel="next" title="Installing python3.6 on CENTOS 6.8">
+                  Installing python3.6 on CENTOS 6.8 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      <div class="tabs tabs-comment">
+        <ul class="nav-tabs">
+            <li class="tab"><a href="#comment-disqus">disqus</a></li>
+            <li class="tab"><a href="#comment-livere">livere</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane disqus" id="comment-disqus">
+              
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+            </div>
+            <div class="tab-pane livere" id="comment-livere">
+              <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8yOTY4Ni82MjU0"></div>
+            </div>
+        </div>
+      </div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dorayo</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5936753169093c09" async="async"></script>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      const visitors = document.querySelector('.leancloud_visitors');
+      const url = decodeURI(visitors.id);
+      const title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            const counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      const visitors = document.querySelectorAll('.leancloud_visitors');
+      const entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            const target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    const { app_id, app_key, server_url } = {"enable":true,"app_id":"ywQkqG2l9SsqzzmDrXnAyW0U-gzGzoHsz","app_key":"7xSSREfSb99X2Wif4LT3RwL6","server_url":null,"security":true};
+    function fetchData(api_server) {
+      const Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    const api_server = app_id.slice(-9) === '-MdYXbMMI' ? `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com` : server_url;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://dorayo.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://dorayo.com/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/";
+    this.page.identifier = "2017/09/24/据说，栾川还有这样一个雅致的地方/";
+    this.page.title = "据说，栾川还有这样一个雅致的地方";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://dorayo.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script>
+NexT.utils.loadComments('#lv-container', () => {
+  window.livereOptions = {
+    refer: "2017/09/24/据说，栾川还有这样一个雅致的地方/"
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>

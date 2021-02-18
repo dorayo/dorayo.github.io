@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/function%20()%20%7B%0A%20%20%20%20%20%20for%20(var%20_len2%20=%20arguments.length,%20args%20=%20new%20Array(_len2),%20_key2%20=%200;%20_key2%20%3C%20_len2;%20_key2++)%20%7B%0A%20%20%20%20%20%20%20%20args%5B_key2%5D%20=%20arguments%5B_key2%5D;%0A%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20return%20obj%5Bval%5D.apply(obj,%20args);%0A%20%20%20%20%7D">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"dorayo.com","root":"/","images":"/images","scheme":"Muse","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"بحث...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="​再过两天我就该过31周岁生日了，韶华易逝，红颜易老，是时候对过往经历进行复盘了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重生">
+<meta property="og:url" content="http://dorayo.com/2017/04/19/%E9%87%8D%E7%94%9F/index.html">
+<meta property="og:site_name" content="沉思录">
+<meta property="og:description" content="​再过两天我就该过31周岁生日了，韶华易逝，红颜易老，是时候对过往经历进行复盘了。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-04-18T16:08:36.000Z">
+<meta property="article:modified_time" content="2021-02-18T17:29:47.947Z">
+<meta property="article:author" content="Dorayo">
+<meta property="article:tag" content="认知">
+<meta property="article:tag" content="复盘">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://dorayo.com/2017/04/19/%E9%87%8D%E7%94%9F/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+<title>重生 | 沉思录</title>
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a74fd868a6dd7b0fb94bf3eaa4e7207c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/%5Bobject%20Object%5D" alt="沉思录">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">沉思录</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">我唯一知道的就是我一无所知</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section">Home</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories" rel="section">التصنيفات</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives" rel="section">الأرشيفات</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags" rel="section">الوسوم</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>بحث
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="بحث..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Dorayo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/dorayo" title="Github → https:&#x2F;&#x2F;github.com&#x2F;dorayo" rel="noopener" target="_blank">Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/dorayox" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;dorayox" rel="noopener" target="_blank">Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.zhihu.com/people/dorayo" title="知乎 → http:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;dorayo" rel="noopener" target="_blank">知乎</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/dorayox" title="微博 → http:&#x2F;&#x2F;weibo.com&#x2F;dorayox" rel="noopener" target="_blank">微博</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://vchaoxi.com/" title="http:&#x2F;&#x2F;vchaoxi.com" rel="noopener" target="_blank">微潮汐</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://blog.vchaoxi.com/" title="http:&#x2F;&#x2F;blog.vchaoxi.com" rel="noopener" target="_blank">汐言</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://news.ycombinator.com/" title="https:&#x2F;&#x2F;news.ycombinator.com" rel="noopener" target="_blank">HN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hn.academy/" title="https:&#x2F;&#x2F;hn.academy" rel="noopener" target="_blank">HN_Academy</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://readhub.me/" title="https:&#x2F;&#x2F;readhub.me" rel="noopener" target="_blank">ReadHub</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://dorayo.com/2017/04/19/%E9%87%8D%E7%94%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Dorayo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="沉思录">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          重生
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">نُشر في</span>
+
+      <time title="أُنشأ: 2017-04-19 00:08:36" itemprop="dateCreated datePublished" datetime="2017-04-19T00:08:36+08:00">2017-04-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">في</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A4%E7%9F%A5/" itemprop="url" rel="index"><span itemprop="name">认知</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2017/04/19/%E9%87%8D%E7%94%9F/" class="post-meta-item leancloud_visitors" data-flag-title="重生" title="مشاهدات">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">مشاهدات: </span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2017/04/19/%E9%87%8D%E7%94%9F/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/04/19/重生/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>​再过两天我就该过31周岁生日了，韶华易逝，红颜易老，是时候对过往经历进行复盘了。<a id="more"></a><br>大学<br>复盘过往的成长经历，还要先从我高中毕业时说起，毕竟那是我第一次独立生活，独自面对社会，独自做出选择，我成年了。我当年高考六百多分，全县前二十名，填报志愿时狂妄地不勾选「服从调剂」的选项，最后落榜去了一所二流的本科院校，随意地选了当时最热门但后来发现自己并不喜欢的专业——机械工程及自动化。<br>大一时，通过学校三轮筛选，最后被选上代表学校参加天津市数学竞赛，高数免考直接给最高绩点5。<br>大一结束时，全校C语言考试，我以满分的成绩考了全校第一。后来，我就天天抱着各种英文编程书，对着电脑死磕代码。单片机、C、C++、Java、Javascript、Linux、Shell，见啥学啥。<br>大二时，疯狂地迷恋李小龙，大二结束时，我开始先学习跆拳道，第一次跆拳道考级，我就考了WTF韩国国际院颁发的最佳品势奖。之后，大三参加学校大学生社团展示月的闭幕式并做跆拳道压轴表演，大四在北京一个教堂的三周年庆典上做跆拳道压轴表演。<br>大三时，被微机原理与接口技术的专业课老师叫去，做了学校工程训练中心的信息管理系统。<br>大三时，因液压老师的一句「同学们，大三了，大家该收收心了」而拒绝了6Green网站抛出的橄榄枝。<br>大四时，被朋友推荐，在一个日韩人居住较多的高档小区替一名日本人经营了一家小区便利店，二八分成，日本人二，我八。<br>大四毕业时，毕设做了自行车自动存管装置，涉及了机械、自动化和计算机这三个学科。后来，该课题被拿去成功申请了专利。<br>大学四年，一直拿一等奖学金。<br>总得来说，大学四年本专业的学习，弄懂了装配图和零件图的区别，会熟练使用AutoCAD，了解了车、钳、刨、铣都是干啥的，每门课考试成绩都数一数二，但要说真正明白了啥，估计就是明白了自己实在是不喜欢机械吧。至于计算机技术，我基本上被动承包了很多同学的电脑技术支持和网络技术支持及网站技术支持工作，说白了，就是免费给大家修电脑、摆置宽带网络和做网站。后来，学校里流传着一句话：「某某」是机械学院最懂自动化的，自动化学院最懂计算机的，计算机学院最懂机械的。接着说跆拳道，总共练了快三年，到该考黑带时，有事给耽搁了，然后就放下了。还有，这几年被一个「朋友」坑过钱，为一个朋友出头打过架，替宿舍哥们儿打抱不平手上被缝了13针线，还被人关过小黑屋恐吓过。<br>大学生活，就这么切切实实地过去了，很多大学同学都说我是长期介于牛A和牛C之间的人。<br>工作<br>大学毕业后，我签了一家全球500强的风力发电外企，全天津只招15人，招当时很时髦的技术管理培训生（Technology management trainee）。三轮面试后，我通过，很开心，每天早晨都是笑醒的，似乎已经是人生赢家了。再后来，赶上09年金融危机，厌恶了没有核心竞争力的管理岗位后，我毅然辞职去了北京，开始了逐梦之旅，做起了程序员。期间在中科院软件研究所下属的一家公司里做过Linux桌面应用开发、Linux内核驱动开发、上网本开发和高铁MVB通信协议栈研发。离开时，发现我所在的研发团队，除了我之外，剩下的都是北航、北大、清华的。再后来，拿到了华为北研所的Offer，去了华为北研所，跟我一起参加华为大队培训的那帮小伙伴里，我是第一个参加预备PL培训的，后来带队做了IPv6用户上线连接管理的设计和开发和其他的BRAS产品增值业务开发，直到11年底离开华为。<br>总之，在北京工作的那段时间，我没日没夜的读书、学习，市面上经典的C语言、计算机网络、操作系统及数据结构和算法的好书很多都读过、练过。<br>中国有句古话，读万卷书，不如行万里路，行万里路，不如名师指路。所以，从华为辞职后，我自驾去了一趟西藏，川藏进、青藏出，见到了各地的人的各种不同的生活方式，才发现原来人还可以那样与众不同的过一生。之后，在家看了三个月的杂书，易经、失控、GEB、三体……。<br>从大学开始，到离开华为后自驾去西藏后，总共过了七年多的时间，这是我成年后度过的「第一辈子」。很多朋友都觉得我这「第一辈子」很出彩，是个牛人。<br>婚姻<br>离开华为后，在家呆的那段日子里，我遇到了我现在的老婆，两人老家一个地方，在那个年龄，在那种环境，一旦开始了以结婚为目的的恋爱，结婚的进程就真得进行得飞快了。后来，迫于结婚筹备和生活的压力，我决定再次回到北京——工作、赚钱。<br>去北京的机会，来自于猎头为惠普中国研究院（HP Labs China）招一名高级软件工程师，负责当时还属IEEE草案期的Hotspot2.0技术在AP上的协议研发。当时，该职位已经招了快一年，一直没有物色到合适的人选，我觉得很有挑战，也很感兴趣，就应聘了，顺利通过了，很开心。不得不说，惠普中国研究院的Style真得很迷人，弹性工作制，上下班不打卡，有专门的Pantry摆放着各种茶、饮品、点心供自由取用。工作上除了每双周例会时同惠普总部Palo Alto的Fellow汇报和交流外，其他情况都可自行安排自己的时间，整个Lab充满了浓厚的分享文化和共享精神。<br>那段时间，过得很充实，感觉身边尽是牛人，每个人的履历都是分分钟闪瞎眼睛的那种。到处都是本科清华、北大、中科大，研究生或博士读的国外常春藤大学。每天大家讨论的话题，从量子物理到当时一枚还不到500人民币的比特币。工作场合见不到中文，全天候的英文环境。服务器在硅谷，所以，也从来不用考虑科学上网的问题。那段时间我开始在Coursera上学习各种国外的公开课，从计算机编程领域到心理学领域再到金融领域。阅读英文技术文档和论文也从刚开始盯着发呆到后来能快速扫视即可获取想要的信息。上下班地铁通勤的时间里，也从没停止过用kindle阅读。<br>一切似乎都很不错，但是，当时却一直有个致命的问题，萦绕在我的脑海里，挥之不去：我来北京工作赚钱，当初是为结婚做准备的，那我的下一步到底该如何走？<br>当时的女朋友（现在的老婆）在我们老家，央企正式员工，有着很多人羡慕的稳定且待遇不错的工作，还有很充裕的自由时间支配，让她放弃一切跟我结婚并留在北京，于情于理，都不现实。<br>后来，我果断做了个决定：先结婚！<br>很多人都觉得我很牛，在大部分人都还迷茫的时候，做到了事业、婚姻两不误。<br>创业<br>结了婚，我就开始留意可以回家乡的机会，也在考虑着回家创业。有一天，我接到一个电话，一个在北京仅见过两次面的朋友，邀请我回到老家以技术入股的方式，一起创业做IT培训。IT培训，那时我也有在考虑的，移动互联网当时已经呈现出即将火爆的态势了，不管移动互联网项目成败与否，提供人才培训服务，总不会错的。最重要的是，我可以提前回家启动创业计划了，我很兴奋。所以，我同意了，回到了老家，开始了第一次创业。<br>种种原因，那段创业经历，我今天并不想着墨太多。总得来说，第一年，我边讲课、边出课程体系、边带老师，是公司的教学总监。第二年，我负责教学团队和就业团队，是产品中心负责人。第三年，下半年，我出任公司CEO。三年的创业经历，我从中学到了很多做人、做事和管理的经验，感谢这段经历。<br>现在我已经离开了当初第一次创业的那家公司，并刚刚成立了自己的新公司，打造了自己心心念念的「速度与激情」团队，开始以自己喜欢的方式和节奏startup。<br>从再次北上工作到结婚到创业再到现在二次创业，我又过了快「一辈子」，这是我成年后度过的「第二辈子」。 很多同学和朋友都觉得我这「第二辈子」很勇敢、很出彩，是个牛人 。<br>重生<br>以上所述，都是我的真人真事，可是，我内心一直不安，一直在怀疑：难道我真得是个牛人吗？<br>答案是：不是。不光如此，用我现今的认知来看，我这过去的「两辈子」甚至是失败的！<br>想当年王阳明，用了几十年，才在36岁时龙场悟道。于是有了「我心自有光明月，千古团圆永无缺」的心学。他是从小立志做圣贤的人，是中国两个半完人中的一个。 我从没想过做圣人，可我用了近「两辈子」，才发现我过去的「两辈子」根本没有活明白！<br>过去的我，根本不知道自己想要啥，三观不稳，还一直苛责自己。<br>过去的我，被各种外部因素困扰着，左右着，看似每次都是自己的选择，实则根本没有选择。<br>过去的我，哪怕只是想学习点理财知识，我就会去学习整个经济学，只因经济学里要用到些许概率论，又会去学习整个概率论和线性代数。<br>过去的我，总喜欢跟周围的人比，总想超越周围的人。就连一群人K歌，我也要成为K歌之王。<br>过去的我， 上厕所都要拿本书，开车都要听广播，就连陪老婆孩子时都会见缝插针地看订阅文章，日程安排得满满的，神经绷得紧紧的。<br>过去的我，……<br>这样看来，过去的我，就是失败的！<br>而直到现在，我才清楚地明白，自己这接下来的这「第三辈子」该如何度过。<br>我重新定了「成功」：清楚自己想要啥，并始终悦纳自己。做个对别人、对社会有用的人！<br>一片叶子，看似自由，质量极小，甚至连地心引力都能摆脱，没有束缚。但那不是自由，它只能随风飘荡，随波逐流，根本无法左右自己的方向和未来！<br>我重新定义了「自由」：真正的自由，源于高度的自律！自由，是有选择的权利！<br>我深刻意识到，「用功」并不等于「精进」，在通往「精进」的道路上，到处都是坑。<br>有个坑叫「躁进」：躁进的人，以理想主义的激情，走着现实主义的道路。胡子眉毛啥都抓。<br>有个坑叫「狂进」：狂进的人，兴趣广泛却画地为牢。在自己的舒适区里享受着优越感。<br>有个坑叫「乱进」：乱进的人，是一台不下电的机器，是时间的奴隶。<br>我深入地理解了，「投机」并不是「投资」 ，「投机」搏的是短期收益，「投资」求的是复利效应。<br>我开始意识到「长期」 的重要性。每天进步一点点，1.01的365次方≈38，1.01的3650次方≈无穷大。 每天退步一点点，0.99的365次方≈0.026，0.99的3650次方≈无穷小。<br>我开始笃信：量变必然引起质变！<br>我开始抛弃掉大学中学习的马克思主义政治经济学中关于商品价值的定义：即价值就是凝结在商品中的无差别的人类劳动。我现在认同新古典主义经济学派对商品价值的定义：即商品的价值取决于对于该商品的需求，跟成本无关。以此作为推论，我开始强烈地意识到：一个人的价值，取决于他是否被人需要，是否被这个社会需要。 所以，一个真正有价值的人，一定是对别人有用的人，对这个社会有用的人，这才是成功人士的概念。所以，从小我们被教育的：「你长大后要做个对这个社会有用的人」 原来是这么的正确！同理，一个成功的企业也应该是对这个世界有用的。<br>我开始……<br>现在的我，正在经历一种重生的蜕变。「种一棵树最好的时间是十年前，其次是现在」，很庆幸赶在自己「第三辈子」开始之际，已经进行了一次认知的革新，准确地说，我称之为「认知操作系统（Cognition Operating System）」的升级。伴随着这次升级，我愈发地意识到，现在社会，人与人之间，企业与企业之间，一切的差异，一切的竞争，都源于认知的差异，认知的竞争。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%A4%E7%9F%A5/" rel="tag"># 认知</a>
+              <a href="/tags/%E5%A4%8D%E7%9B%98/" rel="tag"># 复盘</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016/09/07/%E5%81%9A%E4%B8%80%E4%B8%AA%E8%AF%BB%E4%B9%A6%E4%BA%BA/" rel="prev" title="做一个读书人">
+                  <i class="fa fa-chevron-left"></i> 做一个读书人
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/09/24/%E6%8D%AE%E8%AF%B4%EF%BC%8C%E6%A0%BE%E5%B7%9D%E8%BF%98%E6%9C%89%E8%BF%99%E6%A0%B7%E4%B8%80%E4%B8%AA%E9%9B%85%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9/" rel="next" title="据说，栾川还有这样一个雅致的地方">
+                  据说，栾川还有这样一个雅致的地方 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      <div class="tabs tabs-comment">
+        <ul class="nav-tabs">
+            <li class="tab"><a href="#comment-disqus">disqus</a></li>
+            <li class="tab"><a href="#comment-livere">livere</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane disqus" id="comment-disqus">
+              
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+            </div>
+            <div class="tab-pane livere" id="comment-livere">
+              <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8yOTY4Ni82MjU0"></div>
+            </div>
+        </div>
+      </div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dorayo</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5936753169093c09" async="async"></script>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      const visitors = document.querySelector('.leancloud_visitors');
+      const url = decodeURI(visitors.id);
+      const title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            const counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      const visitors = document.querySelectorAll('.leancloud_visitors');
+      const entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            const target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    const { app_id, app_key, server_url } = {"enable":true,"app_id":"ywQkqG2l9SsqzzmDrXnAyW0U-gzGzoHsz","app_key":"7xSSREfSb99X2Wif4LT3RwL6","server_url":null,"security":true};
+    function fetchData(api_server) {
+      const Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    const api_server = app_id.slice(-9) === '-MdYXbMMI' ? `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com` : server_url;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://dorayo.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://dorayo.com/2017/04/19/%E9%87%8D%E7%94%9F/";
+    this.page.identifier = "2017/04/19/重生/";
+    this.page.title = "重生";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://dorayo.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script>
+NexT.utils.loadComments('#lv-container', () => {
+  window.livereOptions = {
+    refer: "2017/04/19/重生/"
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>

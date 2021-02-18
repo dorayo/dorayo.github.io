@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/function%20()%20%7B%0A%20%20%20%20%20%20for%20(var%20_len2%20=%20arguments.length,%20args%20=%20new%20Array(_len2),%20_key2%20=%200;%20_key2%20%3C%20_len2;%20_key2++)%20%7B%0A%20%20%20%20%20%20%20%20args%5B_key2%5D%20=%20arguments%5B_key2%5D;%0A%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20return%20obj%5Bval%5D.apply(obj,%20args);%0A%20%20%20%20%7D">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"dorayo.com","root":"/","images":"/images","scheme":"Muse","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"بحث...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="添加 Books 组件新建组件src&#x2F;components&#x2F;Books.vue：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flask-Vue-Crud - 02. 添加组件及CRUD操作">
+<meta property="og:url" content="http://dorayo.com/2018/07/22/Flask-Vue-Crud-02-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D%E5%8F%8A%E6%90%AD%E5%BB%BA/index.html">
+<meta property="og:site_name" content="沉思录">
+<meta property="og:description" content="添加 Books 组件新建组件src&#x2F;components&#x2F;Books.vue：">
+<meta property="og:locale">
+<meta property="og:image" content="http://dorayo.com/images/pasted-39.png">
+<meta property="og:image" content="http://dorayo.com/images/pasted-40.png">
+<meta property="og:image" content="http://dorayo.com/images/pasted-41.png">
+<meta property="og:image" content="http://dorayo.com/images/pasted-42.png">
+<meta property="article:published_time" content="2018-07-22T05:36:00.000Z">
+<meta property="article:modified_time" content="2021-02-18T17:29:47.990Z">
+<meta property="article:author" content="Dorayo">
+<meta property="article:tag" content="flask">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://dorayo.com/images/pasted-39.png">
+
+
+<link rel="canonical" href="http://dorayo.com/2018/07/22/Flask-Vue-Crud-02-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D%E5%8F%8A%E6%90%AD%E5%BB%BA/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+<title>Flask-Vue-Crud - 02. 添加组件及CRUD操作 | 沉思录</title>
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a74fd868a6dd7b0fb94bf3eaa4e7207c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/%5Bobject%20Object%5D" alt="沉思录">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">沉思录</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">我唯一知道的就是我一无所知</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section">Home</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories" rel="section">التصنيفات</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives" rel="section">الأرشيفات</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags" rel="section">الوسوم</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>بحث
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="بحث..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0-Books-%E7%BB%84%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">添加 Books 组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GET-%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">GET 操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="nav-number">2.1.</span> <span class="nav-text">服务端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">2.2.</span> <span class="nav-text">客户端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POST-%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">POST 操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bootstrap-Vue"><span class="nav-number">3.1.</span> <span class="nav-text">Bootstrap Vue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF-1"><span class="nav-number">3.2.</span> <span class="nav-text">服务端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF-1"><span class="nav-number">3.3.</span> <span class="nav-text">客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Alert-%E7%BB%84%E4%BB%B6"><span class="nav-number">3.4.</span> <span class="nav-text">Alert 组件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%89%88"><span class="nav-number">3.4.1.</span> <span class="nav-text">测试版</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9C%9F%E5%AE%9E%E7%89%88"><span class="nav-number">3.4.2.</span> <span class="nav-text">真实版</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PUT-%E6%93%8D%E4%BD%9C"><span class="nav-number">4.</span> <span class="nav-text">PUT 操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF-2"><span class="nav-number">4.1.</span> <span class="nav-text">服务端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF-2"><span class="nav-number">4.2.</span> <span class="nav-text">客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4"><span class="nav-number">4.2.1.</span> <span class="nav-text">步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0-modal-%E5%92%8C-form"><span class="nav-number">4.2.2.</span> <span class="nav-text">添加 modal 和 form</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E6%9B%B4%E6%96%B0%E6%8C%89%E9%92%AE%E7%9A%84%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6"><span class="nav-number">4.2.3.</span> <span class="nav-text">处理更新按钮的点击事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E8%A1%8C-AJAX-%E8%AF%B7%E6%B1%82"><span class="nav-number">4.2.4.</span> <span class="nav-text">进行 AJAX 请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%90%E9%86%92%E7%94%A8%E6%88%B7"><span class="nav-number">4.2.5.</span> <span class="nav-text">提醒用户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%8F%96%E6%B6%88%E6%8C%89%E9%92%AE%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6"><span class="nav-number">4.2.6.</span> <span class="nav-text">处理取消按钮点击事件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DELETE-%E6%93%8D%E4%BD%9C"><span class="nav-number">5.</span> <span class="nav-text">DELETE 操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF-3"><span class="nav-number">5.1.</span> <span class="nav-text">服务端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF-3"><span class="nav-number">5.2.</span> <span class="nav-text">客户端</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Dorayo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">التصنيفات</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">الوسوم</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/dorayo" title="Github → https:&#x2F;&#x2F;github.com&#x2F;dorayo" rel="noopener" target="_blank">Github</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/dorayox" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;dorayox" rel="noopener" target="_blank">Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.zhihu.com/people/dorayo" title="知乎 → http:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;dorayo" rel="noopener" target="_blank">知乎</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/dorayox" title="微博 → http:&#x2F;&#x2F;weibo.com&#x2F;dorayox" rel="noopener" target="_blank">微博</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://vchaoxi.com/" title="http:&#x2F;&#x2F;vchaoxi.com" rel="noopener" target="_blank">微潮汐</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://blog.vchaoxi.com/" title="http:&#x2F;&#x2F;blog.vchaoxi.com" rel="noopener" target="_blank">汐言</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://news.ycombinator.com/" title="https:&#x2F;&#x2F;news.ycombinator.com" rel="noopener" target="_blank">HN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hn.academy/" title="https:&#x2F;&#x2F;hn.academy" rel="noopener" target="_blank">HN_Academy</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://readhub.me/" title="https:&#x2F;&#x2F;readhub.me" rel="noopener" target="_blank">ReadHub</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://dorayo.com/2018/07/22/Flask-Vue-Crud-02-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D%E5%8F%8A%E6%90%AD%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Dorayo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="沉思录">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Flask-Vue-Crud - 02. 添加组件及CRUD操作
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">نُشر في</span>
+
+      <time title="أُنشأ: 2018-07-22 13:36:00" itemprop="dateCreated datePublished" datetime="2018-07-22T13:36:00+08:00">2018-07-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">في</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+        </span>
+          ، 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%AD%A6%E4%B9%A0/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2018/07/22/Flask-Vue-Crud-02-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D%E5%8F%8A%E6%90%AD%E5%BB%BA/" class="post-meta-item leancloud_visitors" data-flag-title="Flask-Vue-Crud - 02. 添加组件及CRUD操作" title="مشاهدات">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">مشاهدات: </span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2018/07/22/Flask-Vue-Crud-02-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D%E5%8F%8A%E6%90%AD%E5%BB%BA/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/07/22/Flask-Vue-Crud-02-项目介绍及搭建/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="添加-Books-组件"><a href="#添加-Books-组件" class="headerlink" title="添加 Books 组件"></a>添加 Books 组件</h2><p>新建组件<code>src/components/Books.vue</code>：</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;container&quot;&gt;</span><br><span class="line">      &lt;p&gt;books&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">&#x2F;* eslint-disable *&#x2F; </span><br><span class="line">import axios from &#39;axios&#39;;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#39;Books&#39;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">  &#125;,</span><br><span class="line">  created() &#123;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>更新路由如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &#39;vue&#39;;</span><br><span class="line">import Router from &#39;vue-router&#39;;</span><br><span class="line">import HelloWorld from &#39;@&#x2F;components&#x2F;HelloWorld&#39;;</span><br><span class="line">import Ping from &#39;@&#x2F;components&#x2F;Ping&#39;;</span><br><span class="line">import Books from &#39;@&#x2F;components&#x2F;Books&#39;;</span><br><span class="line"></span><br><span class="line">Vue.use(Router);</span><br><span class="line"></span><br><span class="line">export default new Router(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123;</span><br><span class="line">      path: &#39;&#x2F;&#39;,</span><br><span class="line">      name: &#39;books&#39;,</span><br><span class="line">      component: Books,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      path: &#39;&#x2F;ping&#39;,</span><br><span class="line">      name: &#39;Ping&#39;,</span><br><span class="line">      component: Ping,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      path: &#39;&#x2F;books&#39;,</span><br><span class="line">      name: &#39;Books&#39;,</span><br><span class="line">      component: Books,</span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">  mode: &#39;history&#39;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>修改 Books 组件的样式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;container&quot;&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;row&quot;&gt;</span><br><span class="line">      &lt;div class&#x3D;&quot;col-sm-10&quot;&gt;</span><br><span class="line">        &lt;h1&gt;书籍&lt;&#x2F;h1&gt;</span><br><span class="line">        &lt;hr&gt;&lt;br&gt;&lt;br&gt;</span><br><span class="line">        &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-success btn-sm&quot;&gt;添加&lt;&#x2F;button&gt;</span><br><span class="line">        &lt;br&gt;&lt;br&gt;</span><br><span class="line">        &lt;table class&#x3D;&quot;table table-hover&quot;&gt;</span><br><span class="line">          &lt;thead&gt;</span><br><span class="line">            &lt;tr&gt;</span><br><span class="line">              &lt;th&gt;书名&lt;&#x2F;th&gt;</span><br><span class="line">              &lt;th&gt;作者&lt;&#x2F;th&gt;</span><br><span class="line">              &lt;th&gt;读过？&lt;&#x2F;th&gt;</span><br><span class="line">              &lt;th&gt;&lt;&#x2F;th&gt;</span><br><span class="line">            &lt;&#x2F;tr&gt;</span><br><span class="line">          &lt;&#x2F;thead&gt;</span><br><span class="line">          &lt;tbody&gt;</span><br><span class="line">            &lt;tr&gt;</span><br><span class="line">              &lt;td&gt;失控&lt;&#x2F;td&gt;</span><br><span class="line">              &lt;td&gt;凯文凯利&lt;&#x2F;td&gt;</span><br><span class="line">              &lt;td&gt;是&lt;&#x2F;td&gt;</span><br><span class="line">              &lt;td&gt;</span><br><span class="line">                &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-warning btn-sm&quot;&gt;更新&lt;&#x2F;button&gt;</span><br><span class="line">                &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-danger btn-sm&quot;&gt;删除&lt;&#x2F;button&gt;</span><br><span class="line">              &lt;&#x2F;td&gt;</span><br><span class="line">            &lt;&#x2F;tr&gt;</span><br><span class="line">          &lt;&#x2F;tbody&gt;</span><br><span class="line">        &lt;&#x2F;table&gt;</span><br><span class="line">      &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure>
+<p>接下来，就可以集中处理<code>CRUD</code>的功能逻辑了。</p>
+<h2 id="GET-操作"><a href="#GET-操作" class="headerlink" title="GET 操作"></a>GET 操作</h2><h3 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h3><p>首先，在后台构造书籍数据，修改<code>app.py</code>文件，添加书籍列表，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">BOOKS &#x3D; [</span><br><span class="line">    &#123;</span><br><span class="line">        &#39;title&#39;: &#39;失控&#39;,</span><br><span class="line">        &#39;author&#39;: &#39;凯文凯利&#39;,</span><br><span class="line">        &#39;read&#39;: True</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &#39;title&#39;: &#39;黑客与画家&#39;,</span><br><span class="line">        &#39;author&#39;: &#39;保罗格雷厄姆&#39;,</span><br><span class="line">        &#39;read&#39;: False</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &#39;title&#39;: &#39;未来简史&#39;,</span><br><span class="line">        &#39;author&#39;: &#39;尤瓦尔赫拉利&#39;,</span><br><span class="line">        &#39;read&#39;: True</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>添加路由处理，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@app.route(&#39;&#x2F;books&#39;, methods&#x3D;[&#39;GET&#39;])</span><br><span class="line">def all_books():</span><br><span class="line">    return jsonify(&#123;</span><br><span class="line">        &#39;status&#39;: &#39;success&#39;,</span><br><span class="line">        &#39;books&#39;: BOOKS</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+<p>运行 Flask 应用，手动测试路由：<code>http://localhost:5000/books</code></p>
+<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><p>更新组件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">&lt;tbody&gt;</span><br><span class="line">	 &lt;tr v-for&#x3D;&quot;(book, index) in books&quot; :key&#x3D;&quot;index&quot;&gt;</span><br><span class="line">	     &lt;td&gt;&#123;&#123; book.title &#125;&#125;&lt;&#x2F;td&gt;</span><br><span class="line">	     &lt;td&gt;&#123;&#123; book.author&#125;&#125;&lt;&#x2F;td&gt;</span><br><span class="line">	     &lt;td&gt;</span><br><span class="line">	         &lt;span v-if&#x3D;&quot;book.read&quot;&gt;是&lt;&#x2F;span&gt;</span><br><span class="line">	         &lt;span v-else&gt;否&lt;&#x2F;span&gt;</span><br><span class="line">	     &lt;&#x2F;td&gt;</span><br><span class="line">	     &lt;td&gt;</span><br><span class="line">	         &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-warning btn-sm&quot;&gt;更新&lt;&#x2F;button&gt;</span><br><span class="line">	         &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-danger btn-sm&quot;&gt;删除&lt;&#x2F;button&gt;</span><br><span class="line">	     &lt;&#x2F;td&gt;</span><br><span class="line">	 &lt;&#x2F;tr&gt;</span><br><span class="line">&lt;&#x2F;tbody&gt;</span><br><span class="line">...</span><br><span class="line">&lt;script&gt;</span><br><span class="line">&#x2F;* eslint-disable *&#x2F; </span><br><span class="line">import axios from &#39;axios&#39;; </span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      books: [],</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    getBooks() &#123;</span><br><span class="line">      const path &#x3D; &#39;http:&#x2F;&#x2F;localhost:5000&#x2F;books&#39;;</span><br><span class="line">      axios.get(path)</span><br><span class="line">        .then((res) &#x3D;&gt; &#123;</span><br><span class="line">          this.books &#x3D; res.data.books;</span><br><span class="line">        &#125;)</span><br><span class="line">        .catch((error) &#x3D;&gt; &#123;</span><br><span class="line">          &#x2F;&#x2F; eslint-disable-next-line</span><br><span class="line">          console.error(error);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  created() &#123;</span><br><span class="line">    this.getBooks();</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="POST-操作"><a href="#POST-操作" class="headerlink" title="POST 操作"></a>POST 操作</h2><p>在点击添加按钮时，我们希望弹出模态对话框，然后键入书籍信息，bootstrap 的 modal 组件使用 jQuery，而 Vue 使用虚Dom，所以，尽量避免 jQuery 和 Vue 同时使用。为此，可使用 Bootstrap Vue 这个库来进行样式处理。</p>
+<h3 id="Bootstrap-Vue"><a href="#Bootstrap-Vue" class="headerlink" title="Bootstrap Vue"></a>Bootstrap Vue</h3><p>执行如下命令，安装 bootstrap-vue ：<br><img src="/images/pasted-39.png" alt="upload successful"></p>
+<p>在 app 的入口文件<code>client/src/main.js</code>中导入<code>bootstrap-vue</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import &#39;bootstrap&#x2F;dist&#x2F;css&#x2F;bootstrap.css&#39;;</span><br><span class="line">import BootstrapVue from &#39;bootstrap-vue&#39;;</span><br><span class="line">import Vue from &#39;vue&#39;;</span><br><span class="line">import App from &#39;.&#x2F;App&#39;;</span><br><span class="line">import router from &#39;.&#x2F;router&#39;;</span><br><span class="line"></span><br><span class="line">Vue.config.productionTip &#x3D; false;</span><br><span class="line"></span><br><span class="line">Vue.use(BootstrapVue);</span><br><span class="line"></span><br><span class="line">&#x2F;* eslint-disable no-new *&#x2F;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: &#39;#app&#39;,</span><br><span class="line">  router,</span><br><span class="line">  components: &#123; App &#125;,</span><br><span class="line">  template: &#39;&lt;App&#x2F;&gt;&#39;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="服务端-1"><a href="#服务端-1" class="headerlink" title="服务端"></a>服务端</h3><p>更新路由函数，使其支持 POST 请求：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask, jsonify, request</span><br><span class="line"></span><br><span class="line">@app.route(&#39;&#x2F;books&#39;, methods&#x3D;[&#39;GET&#39;, &#39;POST&#39;])</span><br><span class="line">def all_books():</span><br><span class="line">    res_obj &#x3D; &#123;&#39;status&#39;: &#39;success&#39;&#125;;</span><br><span class="line">    if request.method &#x3D;&#x3D; &#39;POST&#39;:</span><br><span class="line">        post_data &#x3D; request.get_json()</span><br><span class="line">        BOOKS.append(</span><br><span class="line">            &#123;</span><br><span class="line">                &#39;title&#39;: post_data.get(&#39;title&#39;),</span><br><span class="line">                &#39;author&#39;: post_data.get(&#39;author&#39;),</span><br><span class="line">                &#39;read&#39;: post_data.get(&#39;read&#39;)</span><br><span class="line">            &#125;</span><br><span class="line">        )</span><br><span class="line">        res_obj[&#39;message&#39;] &#x3D; &#39;添加成功！&#39;</span><br><span class="line">    else:</span><br><span class="line">        res_obj[&#39;books&#39;] &#x3D; BOOKS</span><br><span class="line"></span><br><span class="line">    return jsonify(res_obj)</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+<p>在终端中测试如下：<br><img src="/images/pasted-40.png" alt="upload successful"></p>
+<h3 id="客户端-1"><a href="#客户端-1" class="headerlink" title="客户端"></a>客户端</h3><p>增加添加书籍的模态呈现代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;b-modal ref&#x3D;&quot;addBookModal&quot;</span><br><span class="line">         id&#x3D;&quot;book-modal&quot;</span><br><span class="line">         title&#x3D;&quot;添加一本新书&quot;</span><br><span class="line">         hide-footer&gt;</span><br><span class="line">        &lt;b-form @submit&#x3D;&quot;onSubmit&quot; @reset&#x3D;&quot;onReset&quot;&gt;</span><br><span class="line">            &lt;b-form-group id&#x3D;&quot;form-title-group&quot;</span><br><span class="line">                label&#x3D;&quot;书名：&quot;</span><br><span class="line">                label-for&#x3D;&quot;form-title-input&quot;&gt;</span><br><span class="line">                &lt;b-form-input id&#x3D;&quot;form-title-input&quot;</span><br><span class="line">                    type&#x3D;&quot;text&quot;</span><br><span class="line">                    v-model&#x3D;&quot;addBookForm.title&quot;</span><br><span class="line">                    required</span><br><span class="line">                    placeholder&#x3D;&quot;请输入书名&quot;&gt;</span><br><span class="line">                &lt;&#x2F;b-form-input&gt;</span><br><span class="line">            &lt;&#x2F;b-form-group&gt;</span><br><span class="line">            &lt;b-form-group id&#x3D;&quot;form-author-group&quot;</span><br><span class="line">                  label&#x3D;&quot;作者：&quot;</span><br><span class="line">                  label-for&#x3D;&quot;form-author-input&quot;&gt;</span><br><span class="line">                &lt;b-form-input id&#x3D;&quot;form-author-input&quot;</span><br><span class="line">                      type&#x3D;&quot;text&quot;</span><br><span class="line">                      v-model&#x3D;&quot;addBookForm.author&quot;</span><br><span class="line">                      required</span><br><span class="line">                      placeholder&#x3D;&quot;请输入作者&quot;&gt;</span><br><span class="line">                &lt;&#x2F;b-form-input&gt;</span><br><span class="line">            &lt;&#x2F;b-form-group&gt;</span><br><span class="line">            &lt;b-form-group id&#x3D;&quot;form-read-group&quot;&gt;</span><br><span class="line">                &lt;b-form-checkbox-group v-model&#x3D;&quot;addBookForm.read&quot; id&#x3D;&quot;form-checks&quot;&gt;</span><br><span class="line">                    &lt;b-form-checkbox value&#x3D;&quot;true&quot;&gt;读过?&lt;&#x2F;b-form-checkbox&gt;</span><br><span class="line">                &lt;&#x2F;b-form-checkbox-group&gt;</span><br><span class="line">            &lt;&#x2F;b-form-group&gt;</span><br><span class="line">            &lt;b-button type&#x3D;&quot;submit&quot; variant&#x3D;&quot;primary&quot;&gt;提交&lt;&#x2F;b-button&gt;</span><br><span class="line">            &lt;b-button type&#x3D;&quot;reset&quot; variant&#x3D;&quot;danger&quot;&gt;取消&lt;&#x2F;b-button&gt;</span><br><span class="line">        &lt;&#x2F;b-form&gt;</span><br><span class="line">&lt;&#x2F;b-modal&gt;</span><br></pre></td></tr></table></figure>
+<p>以上代码插入在最后一个封闭的 div 之前。</p>
+<p>接着，更新 <code>script</code> 部分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">&#x2F;* eslint-disable *&#x2F; </span><br><span class="line">import axios from &#39;axios&#39;;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#39;Books&#39;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">        books: [],</span><br><span class="line">        addBookForm: &#123;</span><br><span class="line">            title: &#39;&#39;,</span><br><span class="line">            author: &#39;&#39;,</span><br><span class="line">            read: [],</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">      getBooks() &#123;</span><br><span class="line">          const path &#x3D; &quot;http:&#x2F;&#x2F;localhost:5000&#x2F;books&quot;;</span><br><span class="line">          axios.get(path).then(</span><br><span class="line">              (res) &#x3D;&gt; &#123;</span><br><span class="line">                  this.books &#x3D; res.data.books;</span><br><span class="line">              &#125;</span><br><span class="line">          ).catch(</span><br><span class="line">              (error) &#x3D;&gt; &#123;</span><br><span class="line">                  console.error(error);</span><br><span class="line">              &#125;</span><br><span class="line">          );</span><br><span class="line">      &#125;,</span><br><span class="line">      addBook(payload) &#123;</span><br><span class="line">          const path &#x3D; &#39;http:&#x2F;&#x2F;localhost:5000&#x2F;books&#39;;</span><br><span class="line">          axios.post(path, payload).then(</span><br><span class="line">              (res) &#x3D;&gt; &#123;</span><br><span class="line">                  this.getBooks();</span><br><span class="line">              &#125;</span><br><span class="line">          ).catch(</span><br><span class="line">              (error) &#x3D;&gt; &#123;</span><br><span class="line">                  console.error(error);</span><br><span class="line">                  this.getBooks();</span><br><span class="line">              &#125;</span><br><span class="line">          );</span><br><span class="line">    &#125;,</span><br><span class="line">    initForm() &#123;</span><br><span class="line">        this.addBookForm.title &#x3D; &quot;&quot;;</span><br><span class="line">        this.addBookForm.author &#x3D; &quot;&quot;;</span><br><span class="line">        this.addBookForm.read &#x3D; [];</span><br><span class="line">    &#125;,</span><br><span class="line">    onSubmit(evt) &#123;</span><br><span class="line">        evt.preventDefault();</span><br><span class="line">        this.$refs.addBookModal.hide();</span><br><span class="line">        let read &#x3D; false;</span><br><span class="line">        if (this.addBookForm.read[0]) read &#x3D; true;</span><br><span class="line">        const payload &#x3D; &#123;</span><br><span class="line">            title: this.addBookForm.title,</span><br><span class="line">            author: this.addBookForm.author,</span><br><span class="line">            read, &#x2F;&#x2F; property shorthand</span><br><span class="line">        &#125;;</span><br><span class="line">        this.addBook(payload);</span><br><span class="line">        this.initForm();</span><br><span class="line">    &#125;,</span><br><span class="line">    onReset(evt) &#123;</span><br><span class="line">        evt.preventDefault();</span><br><span class="line">        this.$refs.addBookModal.hide();</span><br><span class="line">        this.initForm();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  created() &#123;</span><br><span class="line">      this.getBooks();</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>最后，在模板中更新<code>添加</code>按钮，使点击按钮时出现模态对话框：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-success btn-sm&quot; v-b-modal.book-modal&gt;添加&lt;&#x2F;button&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Alert-组件"><a href="#Alert-组件" class="headerlink" title="Alert 组件"></a>Alert 组件</h3><p>接着，添加 Alert 组件用来向用户展示添加新书后的消息。</p>
+<h4 id="测试版"><a href="#测试版" class="headerlink" title="测试版"></a>测试版</h4><p>首先，添加新的组件<code>client/src/components</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;p&gt;It works!&lt;&#x2F;p&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure>
+<p>接着，在 Books 组件中导入并注册该组件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">import axios from &#39;axios&#39;;</span><br><span class="line">import Alert from &#39;.&#x2F;Alert&#39;;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      books: [],</span><br><span class="line">      addBookForm: &#123;</span><br><span class="line">        title: &#39;&#39;,</span><br><span class="line">        author: &#39;&#39;,</span><br><span class="line">        read: [],</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    alert: Alert,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>现在就可以在模板中使用该组件了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;container&quot;&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;row&quot;&gt;</span><br><span class="line">      &lt;div class&#x3D;&quot;col-sm-10&quot;&gt;</span><br><span class="line">        &lt;h1&gt;书籍&lt;&#x2F;h1&gt;</span><br><span class="line">        &lt;hr&gt;&lt;br&gt;&lt;br&gt;</span><br><span class="line">        &lt;alert&gt;&lt;&#x2F;alert&gt;</span><br><span class="line">        &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-success btn-sm&quot; v-b-modal.book-modal&gt;添加&lt;&#x2F;button&gt;</span><br><span class="line">        ...</span><br></pre></td></tr></table></figure>
+<p>刷新浏览器，能看到该组件生效了：<br><img src="/images/pasted-41.png" alt="upload successful"></p>
+<h4 id="真实版"><a href="#真实版" class="headerlink" title="真实版"></a>真实版</h4><p>接下来，在<code>Alert</code>组件中添加真正的<code>b-alert</code>组件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;b-alert variant&#x3D;&quot;success&quot; show&gt;&#123;&#123; message &#125;&#125;&lt;&#x2F;b-alert&gt;</span><br><span class="line">    &lt;br&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  props: [&#39;message&#39;],</span><br><span class="line">&#125;;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>试着在父组件<code>Books</code>中，向 <code>message</code>属性传值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;alert message&#x3D;&quot;hi&quot;&gt;&lt;&#x2F;alert&gt;</span><br></pre></td></tr></table></figure>
+<p>浏览器结果如下所示：<br><img src="/images/pasted-42.png" alt="upload successful"></p>
+<p>为了真正实现动态消息，在<code>Books</code>组件中，进行数据绑定：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;alert :message&#x3D;&quot;message&quot;&gt;&lt;&#x2F;alert&gt;</span><br></pre></td></tr></table></figure>
+<p>然后，在<code>data</code>选项中，添加<code>message</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">data() &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    books: [],</span><br><span class="line">    addBookForm: &#123;</span><br><span class="line">      title: &#39;&#39;,</span><br><span class="line">      author: &#39;&#39;,</span><br><span class="line">      read: [],</span><br><span class="line">    &#125;,</span><br><span class="line">    message: &#39;&#39;,</span><br><span class="line">    showMsg: false,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>接着，在<code>addBook</code>中，更新<code>message</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">addBook(payload) &#123;</span><br><span class="line">            const path &#x3D; &#39;http:&#x2F;&#x2F;localhost:5000&#x2F;books&#39;;</span><br><span class="line">            axios.post(path, payload).then(</span><br><span class="line">                (res) &#x3D;&gt; &#123;</span><br><span class="line">                    this.getBooks();</span><br><span class="line">                    this.message &#x3D; &#39;添加成功！&#39;;</span><br><span class="line">                    this.showMsg &#x3D; true;</span><br><span class="line">                &#125;</span><br><span class="line">            ).catch(</span><br><span class="line">                (error) &#x3D;&gt; &#123;</span><br><span class="line">                    console.error(error);</span><br><span class="line">                    this.getBooks();</span><br><span class="line">                &#125;</span><br><span class="line">            );</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h2 id="PUT-操作"><a href="#PUT-操作" class="headerlink" title="PUT 操作"></a>PUT 操作</h2><h3 id="服务端-2"><a href="#服务端-2" class="headerlink" title="服务端"></a>服务端</h3><p>考虑到更新书的内容，书必须有一个唯一的标识符。可以使用 python 的 <code>uuid</code>库。</p>
+<p>更新 <code>app.py</code> 中的 <code>BOOKS</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import uuid</span><br><span class="line"></span><br><span class="line">BOOKS &#x3D; [</span><br><span class="line">    &#123;</span><br><span class="line">        &#39;id&#39;: uuid.uuid4().hex,</span><br><span class="line">        &#39;title&#39;: &#39;失控&#39;,</span><br><span class="line">        &#39;author&#39;: &#39;凯文凯利&#39;,</span><br><span class="line">        &#39;read&#39;: True</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &#39;id&#39;: uuid.uuid4().hex,</span><br><span class="line">        &#39;title&#39;: &#39;黑客与画家&#39;,</span><br><span class="line">        &#39;author&#39;: &#39;保罗格雷厄姆&#39;,</span><br><span class="line">        &#39;read&#39;: False</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &#39;id&#39;: uuid.uuid4().hex,</span><br><span class="line">        &#39;title&#39;: &#39;未来简史&#39;,</span><br><span class="line">        &#39;author&#39;: &#39;尤瓦尔赫拉利&#39;,</span><br><span class="line">        &#39;read&#39;: True</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>重构<code>all_books</code>方法，为每一个新添加的书添加<code>id</code>字段：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@app.route(&#39;&#x2F;books&#39;, methods&#x3D;[&#39;GET&#39;, &#39;POST&#39;])</span><br><span class="line">def all_books():</span><br><span class="line">    res_obj &#x3D; &#123;&#39;status&#39;: &#39;success&#39;&#125;;</span><br><span class="line">    if request.method &#x3D;&#x3D; &#39;POST&#39;:</span><br><span class="line">        post_data &#x3D; request.get_json()</span><br><span class="line">        BOOKS.append(</span><br><span class="line">            &#123;</span><br><span class="line">                &#39;id&#39;: uuid.uuid4().hex,</span><br><span class="line">                &#39;title&#39;: post_data.get(&#39;title&#39;),</span><br><span class="line">                &#39;author&#39;: post_data.get(&#39;author&#39;),</span><br><span class="line">                &#39;read&#39;: post_data.get(&#39;read&#39;)</span><br><span class="line">            &#125;</span><br><span class="line">        )</span><br><span class="line">        res_obj[&#39;message&#39;] &#x3D; &#39;添加成功！&#39;</span><br><span class="line">    else:</span><br><span class="line">        res_obj[&#39;books&#39;] &#x3D; BOOKS</span><br><span class="line"></span><br><span class="line">    return jsonify(res_obj)</span><br></pre></td></tr></table></figure>
+<p>添加新的路由处理：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">@app.route(&#39;&#x2F;books&#x2F;&lt;book_id&gt;&#39;, methods&#x3D;[&#39;PUT&#39;])</span><br><span class="line">def single_book(book_id):</span><br><span class="line">    response_object &#x3D; &#123;&#39;status&#39;: &#39;success&#39;&#125;</span><br><span class="line">    if request.method &#x3D;&#x3D; &#39;PUT&#39;:</span><br><span class="line">        post_data &#x3D; request.get_json()</span><br><span class="line">        remove_book(book_id)</span><br><span class="line">        BOOKS.append(&#123;</span><br><span class="line">            &#39;id&#39;: uuid.uuid4().hex,</span><br><span class="line">            &#39;title&#39;: post_data.get(&#39;title&#39;),</span><br><span class="line">            &#39;author&#39;: post_data.get(&#39;author&#39;),</span><br><span class="line">            &#39;read&#39;: post_data.get(&#39;read&#39;)</span><br><span class="line">        &#125;)</span><br><span class="line">        response_object[&#39;message&#39;] &#x3D; &#39;更新成功！&#39;</span><br><span class="line">    return jsonify(response_object)</span><br><span class="line"></span><br><span class="line">def remove_book(book_id):</span><br><span class="line">    for book in BOOKS:</span><br><span class="line">        if book[&#39;id&#39;] &#x3D;&#x3D; book_id:</span><br><span class="line">            BOOKS.remove(book)</span><br><span class="line">            return True</span><br><span class="line">    return False</span><br></pre></td></tr></table></figure>
+<h3 id="客户端-2"><a href="#客户端-2" class="headerlink" title="客户端"></a>客户端</h3><h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><ol>
+<li>添加 modal 和 form</li>
+<li>处理更新按钮的点击事件</li>
+<li>进行 AJAX 请求</li>
+<li>提醒用户</li>
+<li>处理取消按钮点击事件</li>
+</ol>
+<h4 id="添加-modal-和-form"><a href="#添加-modal-和-form" class="headerlink" title="添加 modal 和 form"></a>添加 modal 和 form</h4><p>增加新的更新书籍的模态对话框：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;b-modal ref&#x3D;&quot;editBookModal&quot;</span><br><span class="line">     id&#x3D;&quot;book-update-modal&quot;</span><br><span class="line">     title&#x3D;&quot;更新&quot;</span><br><span class="line">     hide-footer&gt;</span><br><span class="line">    &lt;b-form @submit&#x3D;&quot;onSubmitUpdate&quot; @reset&#x3D;&quot;onResetUpdate&quot;&gt;</span><br><span class="line">        &lt;b-form-group id&#x3D;&quot;form-title-edit-group&quot;</span><br><span class="line">                    label&#x3D;&quot;书名：&quot;</span><br><span class="line">                    label-for&#x3D;&quot;form-title-edit-input&quot;&gt;</span><br><span class="line">        &lt;b-form-input id&#x3D;&quot;form-title-edit-input&quot;</span><br><span class="line">                        type&#x3D;&quot;text&quot;</span><br><span class="line">                        v-model&#x3D;&quot;editForm.title&quot;</span><br><span class="line">                        required</span><br><span class="line">                        placeholder&#x3D;&quot;请输入书名&quot;&gt;</span><br><span class="line">        &lt;&#x2F;b-form-input&gt;</span><br><span class="line">        &lt;&#x2F;b-form-group&gt;</span><br><span class="line">        &lt;b-form-group id&#x3D;&quot;form-author-edit-group&quot;</span><br><span class="line">                    label&#x3D;&quot;作者：&quot;</span><br><span class="line">                    label-for&#x3D;&quot;form-author-edit-input&quot;&gt;</span><br><span class="line">            &lt;b-form-input id&#x3D;&quot;form-author-edit-input&quot;</span><br><span class="line">                        type&#x3D;&quot;text&quot;</span><br><span class="line">                        v-model&#x3D;&quot;editForm.author&quot;</span><br><span class="line">                        required</span><br><span class="line">                        placeholder&#x3D;&quot;请输入作者&quot;&gt;</span><br><span class="line">            &lt;&#x2F;b-form-input&gt;</span><br><span class="line">        &lt;&#x2F;b-form-group&gt;</span><br><span class="line">        &lt;b-form-group id&#x3D;&quot;form-read-edit-group&quot;&gt;</span><br><span class="line">        &lt;b-form-checkbox-group v-model&#x3D;&quot;editForm.read&quot; id&#x3D;&quot;form-checks&quot;&gt;</span><br><span class="line">            &lt;b-form-checkbox value&#x3D;&quot;true&quot;&gt;读过?&lt;&#x2F;b-form-checkbox&gt;</span><br><span class="line">        &lt;&#x2F;b-form-checkbox-group&gt;</span><br><span class="line">        &lt;&#x2F;b-form-group&gt;</span><br><span class="line">        &lt;b-button type&#x3D;&quot;submit&quot; variant&#x3D;&quot;primary&quot;&gt;更新&lt;&#x2F;b-button&gt;</span><br><span class="line">        &lt;b-button type&#x3D;&quot;reset&quot; variant&#x3D;&quot;danger&quot;&gt;取消&lt;&#x2F;b-button&gt;</span><br><span class="line">    &lt;&#x2F;b-form&gt;</span><br><span class="line">&lt;&#x2F;b-modal&gt;</span><br></pre></td></tr></table></figure>
+<p>在<code>data</code>选项中添加 <code>editForm</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">editForm: &#123;</span><br><span class="line">  id: &#39;&#39;,</span><br><span class="line">  title: &#39;&#39;,</span><br><span class="line">  author: &#39;&#39;,</span><br><span class="line">  read: [],</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h4 id="处理更新按钮的点击事件"><a href="#处理更新按钮的点击事件" class="headerlink" title="处理更新按钮的点击事件"></a>处理更新按钮的点击事件</h4><p>在模板中增加<code>更新</code>按钮的点击事件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;button</span><br><span class="line">     type&#x3D;&quot;button&quot;</span><br><span class="line">     class&#x3D;&quot;btn btn-warning btn-sm&quot;</span><br><span class="line">     v-b-modal.book-update-modal</span><br><span class="line">     @click&#x3D;&quot;editBook(book)&quot;&gt;更新</span><br><span class="line">&lt;&#x2F;button&gt;</span><br></pre></td></tr></table></figure>
+<p>增加新的方法，用来更新<code>editForm</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">editBook(book) &#123;</span><br><span class="line">  this.editForm &#x3D; book;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>接着，增加<code>提交</code>按钮的处理方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">onSubmitUpdate(evt) &#123;</span><br><span class="line">  evt.preventDefault();</span><br><span class="line">  this.$refs.editBookModal.hide();</span><br><span class="line">  let read &#x3D; false;</span><br><span class="line">  if (this.editForm.read[0]) read &#x3D; true;</span><br><span class="line">  const payload &#x3D; &#123;</span><br><span class="line">    title: this.editForm.title,</span><br><span class="line">    author: this.editForm.author,</span><br><span class="line">    read,</span><br><span class="line">  &#125;;</span><br><span class="line">  this.updateBook(payload, this.editForm.id);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h4 id="进行-AJAX-请求"><a href="#进行-AJAX-请求" class="headerlink" title="进行 AJAX 请求"></a>进行 AJAX 请求</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">updateBook(payload, bookID) &#123;</span><br><span class="line">  const path &#x3D; &#96;http:&#x2F;&#x2F;localhost:5000&#x2F;books&#x2F;$&#123;bookID&#125;&#96;;</span><br><span class="line">  axios.put(path, payload)</span><br><span class="line">    .then(() &#x3D;&gt; &#123;</span><br><span class="line">      this.getBooks();</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch((error) &#x3D;&gt; &#123;</span><br><span class="line">      &#x2F;&#x2F; eslint-disable-next-line</span><br><span class="line">      console.error(error);</span><br><span class="line">      this.getBooks();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h4 id="提醒用户"><a href="#提醒用户" class="headerlink" title="提醒用户"></a>提醒用户</h4><p>更新<code>updateBook</code>，增加如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">this.message &#x3D; &#39;已更新！&#39;;</span><br><span class="line">this.showMsg &#x3D; true;</span><br></pre></td></tr></table></figure>
+<h4 id="处理取消按钮点击事件"><a href="#处理取消按钮点击事件" class="headerlink" title="处理取消按钮点击事件"></a>处理取消按钮点击事件</h4><p>添加处理方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">onResetUpdate(evt) &#123;</span><br><span class="line">  evt.preventDefault();</span><br><span class="line">  this.$refs.editBookModal.hide();</span><br><span class="line">  this.initForm();</span><br><span class="line">  this.getBooks();</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>更新<code>initForm</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">initForm() &#123;</span><br><span class="line">  this.addBookForm.title &#x3D; &#39;&#39;;</span><br><span class="line">  this.addBookForm.author &#x3D; &#39;&#39;;</span><br><span class="line">  this.addBookForm.read &#x3D; [];</span><br><span class="line">  this.editForm.id &#x3D; &#39;&#39;;</span><br><span class="line">  this.editForm.title &#x3D; &#39;&#39;;</span><br><span class="line">  this.editForm.author &#x3D; &#39;&#39;;</span><br><span class="line">  this.editForm.read &#x3D; [];</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h2 id="DELETE-操作"><a href="#DELETE-操作" class="headerlink" title="DELETE 操作"></a>DELETE 操作</h2><h3 id="服务端-3"><a href="#服务端-3" class="headerlink" title="服务端"></a>服务端</h3><p>更新路由处理：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@app.route(&#39;&#x2F;books&#x2F;&lt;book_id&gt;&#39;, methods&#x3D;[&#39;PUT&#39;, &#39;DELETE&#39;])</span><br><span class="line">def single_book(book_id):</span><br><span class="line">    response_object &#x3D; &#123;&#39;status&#39;: &#39;success&#39;&#125;</span><br><span class="line">    if request.method &#x3D;&#x3D; &#39;PUT&#39;:</span><br><span class="line">        post_data &#x3D; request.get_json()</span><br><span class="line">        remove_book(book_id)</span><br><span class="line">        BOOKS.append(&#123;</span><br><span class="line">            &#39;id&#39;: uuid.uuid4().hex,</span><br><span class="line">            &#39;title&#39;: post_data.get(&#39;title&#39;),</span><br><span class="line">            &#39;author&#39;: post_data.get(&#39;author&#39;),</span><br><span class="line">            &#39;read&#39;: post_data.get(&#39;read&#39;)</span><br><span class="line">        &#125;)</span><br><span class="line">        response_object[&#39;message&#39;] &#x3D; &#39;更新成功！&#39;</span><br><span class="line">    if request.method &#x3D;&#x3D; &#39;DELETE&#39;:</span><br><span class="line">        remove_book(book_id)</span><br><span class="line">        response_object[&#39;message&#39;] &#x3D; &#39;已移除！&#39;</span><br><span class="line">    return jsonify(response_object)</span><br></pre></td></tr></table></figure>
+<h3 id="客户端-3"><a href="#客户端-3" class="headerlink" title="客户端"></a>客户端</h3><p>更新模板中的<code>删除</code>按钮：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;button</span><br><span class="line">        type&#x3D;&quot;button&quot;</span><br><span class="line">        class&#x3D;&quot;btn btn-danger btn-sm&quot;</span><br><span class="line">        @click&#x3D;&quot;onDeleteBook(book)&quot;&gt;删除</span><br><span class="line">&lt;&#x2F;button&gt;</span><br></pre></td></tr></table></figure>
+<p>添加如下方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">removeBook(bookID) &#123;</span><br><span class="line">  const path &#x3D; &#96;http:&#x2F;&#x2F;localhost:5000&#x2F;books&#x2F;$&#123;bookID&#125;&#96;;</span><br><span class="line">  axios.delete(path)</span><br><span class="line">    .then(() &#x3D;&gt; &#123;</span><br><span class="line">      this.getBooks();</span><br><span class="line">      this.message &#x3D; &#39;已移除！&#39;;</span><br><span class="line">      this.showMessage &#x3D; true;</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch((error) &#x3D;&gt; &#123;</span><br><span class="line">      &#x2F;&#x2F; eslint-disable-next-line</span><br><span class="line">      console.error(error);</span><br><span class="line">      this.getBooks();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;,</span><br><span class="line">onDeleteBook(book) &#123;</span><br><span class="line">  this.removeBook(book.id);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/flask/" rel="tag"># flask</a>
+              <a href="/tags/vue/" rel="tag"># vue</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/07/22/Flask-Vue-Crud-01-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D%E5%8F%8A%E6%90%AD%E5%BB%BA/" rel="prev" title="Flask-Vue-Crud - 01. 项目介绍及搭建">
+                  <i class="fa fa-chevron-left"></i> Flask-Vue-Crud - 01. 项目介绍及搭建
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/08/07/Django-Blog-01-%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8%E6%90%AD%E5%BB%BA/" rel="next" title="Django Blog - 01. 基本应用搭建">
+                  Django Blog - 01. 基本应用搭建 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      <div class="tabs tabs-comment">
+        <ul class="nav-tabs">
+            <li class="tab"><a href="#comment-disqus">disqus</a></li>
+            <li class="tab"><a href="#comment-livere">livere</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane disqus" id="comment-disqus">
+              
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+            </div>
+            <div class="tab-pane livere" id="comment-livere">
+              <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8yOTY4Ni82MjU0"></div>
+            </div>
+        </div>
+      </div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dorayo</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5936753169093c09" async="async"></script>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      const visitors = document.querySelector('.leancloud_visitors');
+      const url = decodeURI(visitors.id);
+      const title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            const counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      const visitors = document.querySelectorAll('.leancloud_visitors');
+      const entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            const target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    const { app_id, app_key, server_url } = {"enable":true,"app_id":"ywQkqG2l9SsqzzmDrXnAyW0U-gzGzoHsz","app_key":"7xSSREfSb99X2Wif4LT3RwL6","server_url":null,"security":true};
+    function fetchData(api_server) {
+      const Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    const api_server = app_id.slice(-9) === '-MdYXbMMI' ? `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com` : server_url;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://dorayo.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://dorayo.com/2018/07/22/Flask-Vue-Crud-02-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D%E5%8F%8A%E6%90%AD%E5%BB%BA/";
+    this.page.identifier = "2018/07/22/Flask-Vue-Crud-02-项目介绍及搭建/";
+    this.page.title = "Flask-Vue-Crud - 02. 添加组件及CRUD操作";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://dorayo.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+<script>
+NexT.utils.loadComments('#lv-container', () => {
+  window.livereOptions = {
+    refer: "2018/07/22/Flask-Vue-Crud-02-项目介绍及搭建/"
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+</body>
+</html>
