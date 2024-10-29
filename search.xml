@@ -51,7 +51,6 @@
 <p><img src="/images/pasted-52.png" alt="upload successful"></p>
 ]]></content>
       <categories>
-        <category>学习</category>
         <category>技术</category>
         <category>python</category>
       </categories>
@@ -82,7 +81,6 @@
 <p>执行如下命令，运行测试用例：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python manage.py test</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>学习</category>
         <category>技术</category>
         <category>python</category>
       </categories>
@@ -126,7 +124,6 @@
 <h3 id="更新路由-2"><a href="#更新路由-2" class="headerlink" title="更新路由"></a>更新路由</h3><p>修改<code>blog/urls.py</code>文件，添加新的 URL 配置，代码如下：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">from django.urls import path</span><br><span class="line"></span><br><span class="line">from . import views</span><br><span class="line"></span><br><span class="line">urlpatterns &#x3D; [</span><br><span class="line">    path(&#39;&#39;, views.BlogListView.as_view(), name&#x3D;&#39;home&#39;),</span><br><span class="line">    path(&#39;post&#x2F;&lt;int:pk&gt;&#x2F;&#39;, views.BlogDetailView.as_view(), name&#x3D;&#39;post_detail&#39;),</span><br><span class="line">    path(&#39;post&#x2F;new&#x2F;&#39;, views.BlogCreateView.as_view(), name&#x3D;&#39;post_new&#39;),</span><br><span class="line">    path(&#39;post&#x2F;&lt;int:pk&gt;&#x2F;edit&#x2F;&#39;, views.BlogUpdateView.as_view(), name&#x3D;&#39;post_edit&#39;),</span><br><span class="line">    path(&#39;post&#x2F;&lt;int:pk&gt;&#x2F;delete&#x2F;&#39;, views.BlogDeleteView.as_view(), name&#x3D;&#39;post_delete&#39;),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>学习</category>
         <category>技术</category>
         <category>python</category>
       </categories>
@@ -181,7 +178,6 @@
 <p>运行服务之后，如下图所示：<br><img src="/images/pasted-56.png" alt="upload successful"></p>
 ]]></content>
       <categories>
-        <category>学习</category>
         <category>技术</category>
         <category>python</category>
       </categories>
@@ -299,7 +295,6 @@
 <p>再次访问<code>http://localhost:8080/ping</code>查看效果如下：<br><img src="/images/pasted-38.png" alt="upload successful"></p>
 ]]></content>
       <categories>
-        <category>学习</category>
         <category>技术</category>
       </categories>
       <tags>
@@ -396,7 +391,6 @@
 <p>添加如下方法：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">removeBook(bookID) &#123;</span><br><span class="line">  const path &#x3D; &#96;http:&#x2F;&#x2F;localhost:5000&#x2F;books&#x2F;$&#123;bookID&#125;&#96;;</span><br><span class="line">  axios.delete(path)</span><br><span class="line">    .then(() &#x3D;&gt; &#123;</span><br><span class="line">      this.getBooks();</span><br><span class="line">      this.message &#x3D; &#39;已移除！&#39;;</span><br><span class="line">      this.showMessage &#x3D; true;</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch((error) &#x3D;&gt; &#123;</span><br><span class="line">      &#x2F;&#x2F; eslint-disable-next-line</span><br><span class="line">      console.error(error);</span><br><span class="line">      this.getBooks();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;,</span><br><span class="line">onDeleteBook(book) &#123;</span><br><span class="line">  this.removeBook(book.id);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>学习</category>
         <category>技术</category>
       </categories>
       <tags>
@@ -481,7 +475,6 @@
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; x &#x3D; &#123;&#39;Alice&#39;: 18&#125;</span><br><span class="line">&gt;&gt;&gt; y &#x3D; &#123;&#39;Bob&#39;: 27, &#39;Ann&#39;: 22&#125;</span><br><span class="line">&gt;&gt;&gt; z &#x3D; &#123;**x, **y&#125;</span><br><span class="line">&gt;&gt;&gt; print(z)</span><br><span class="line">&#123;&#39;Alice&#39;: 18, &#39;Bob&#39;: 27, &#39;Ann&#39;: 22&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>学习</category>
         <category>技术</category>
         <category>python</category>
       </categories>
@@ -511,7 +504,6 @@
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
         <category>技术</category>
         <category>python</category>
       </categories>
@@ -566,164 +558,11 @@
 <h2 id="通过插槽分发内容"><a href="#通过插槽分发内容" class="headerlink" title="通过插槽分发内容"></a>通过插槽分发内容</h2><p><code>demo</code></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;slot_demo&quot;&gt;</span><br><span class="line">    &lt;alert-box&gt;</span><br><span class="line">        Something bad happened.</span><br><span class="line">    &lt;&#x2F;alert-box&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;vue&#x2F;dist&#x2F;vue.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">Vue.component(&#39;alert-box&#39;, &#123;</span><br><span class="line">    template: &#96;</span><br><span class="line">        &lt;div class&#x3D;&quot;demo-alert-box&quot;&gt;</span><br><span class="line">        &lt;strong&gt;Error!&lt;&#x2F;strong&gt;</span><br><span class="line">        &lt;slot&gt;&lt;&#x2F;slot&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">    &#96;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">new Vue(&#123;</span><br><span class="line">    el: &#39;#slot_demo&#39;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>学习</category>
         <category>技术</category>
         <category>前端</category>
       </categories>
       <tags>
         <tag>vue</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>What&#39;s new in Python 3.8 ?</title>
-    <url>/2019/09/24/What&#39;s%20new%20in%20Python%203.8%20/</url>
-    <content><![CDATA[<h2 id="Major-new-features"><a href="#Major-new-features" class="headerlink" title="Major new features"></a>Major new features</h2><p><code>3.8  compared to 3.7</code></p>
-<ul>
-<li>PEP 570, Positional-only arguments</li>
-<li>PEP 572, Assignment expressions</li>
-<li>PEP 578, Runtime audit hooks</li>
-<li>Feature: Asyncio REPL</li>
-<li>Feature: f-strings debug</li>
-<li>Feature: json.tool –json-lines</li>
-<li>Feature: Exception Hook for threading</li>
-<li>Feature: Generalized iterable unpacking in <code>yield</code> and <code>return</code></li>
-<li>Feature: New Module</li>
-<li>Feature: multiprocessing.shared_memory</li>
-<li>Feature: Math</li>
-<li>Feature: socket:Create a server</li>
-</ul>
-<a id="more"></a>
-
-<h2 id="PEP-570-Python-Position-Only-parameters"><a href="#PEP-570-Python-Position-Only-parameters" class="headerlink" title="PEP 570: Python Position-Only parameters"></a>PEP 570: Python Position-Only parameters</h2><p><code>before:</code></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">pow</span>(<span class="params">x, y, mod=<span class="literal">None</span></span>):</span></span><br><span class="line"><span class="meta">... </span>    r = x ** y</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">if</span> mod <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line"><span class="meta">... </span>            r %= mod</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> r</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">pow</span>(<span class="number">2</span>, <span class="number">10</span>)</span><br><span class="line"><span class="number">1024</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">pow</span>(<span class="number">2</span>, <span class="number">10</span>, <span class="number">17</span>)</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">pow</span>(<span class="number">2</span>, <span class="number">10</span>, mod=<span class="number">17</span>)</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">pow</span>(x=<span class="number">2</span>, y=<span class="number">10</span>, mod=<span class="number">17</span>)</span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
-<p><code>after:</code></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">pow</span>(<span class="params">x, y, /, mod=<span class="literal">None</span></span>):</span></span><br><span class="line"><span class="meta">... </span>    r = x ** y</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">if</span> mod <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line"><span class="meta">... </span>            r %= mod</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> r</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">pow</span>(<span class="number">2</span>, <span class="number">10</span>)</span><br><span class="line"><span class="number">1024</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">pow</span>(<span class="number">2</span>, <span class="number">10</span>, <span class="number">17</span>)</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">pow</span>(<span class="number">2</span>, <span class="number">10</span>, mod=<span class="number">17</span>)</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">pow</span>(x=<span class="number">2</span>, y=<span class="number">10</span>, mod=<span class="number">17</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: <span class="built_in">pow</span>() got some positional-only arguments passed <span class="keyword">as</span> keyword arguments: <span class="string">&#x27;x, y&#x27;</span></span><br></pre></td></tr></table></figure>
-<h2 id="PEP-572-Assignment-Expressions-aka-Walrus-Operator"><a href="#PEP-572-Assignment-Expressions-aka-Walrus-Operator" class="headerlink" title="PEP 572: Assignment Expressions(aka Walrus Operator)"></a>PEP 572: Assignment Expressions(aka Walrus Operator)</h2><p><code>before:</code></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>params = &#123;<span class="string">&#x27;foo&#x27;</span>: <span class="string">&#x27;bar&#x27;</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = params.get(<span class="string">&#x27;foo&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">if</span> x <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line"><span class="meta">... </span>    print(x)</span><br><span class="line">...</span><br><span class="line">bar</span><br></pre></td></tr></table></figure>
-<p><code>after:</code></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>params = &#123;<span class="string">&#x27;foo&#x27;</span>: <span class="string">&#x27;bar&#x27;</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">if</span> x := params.get(<span class="string">&#x27;foo&#x27;</span>):</span><br><span class="line"><span class="meta">... </span>    print(x)</span><br><span class="line">...</span><br><span class="line">bar</span><br></pre></td></tr></table></figure>
-<h2 id="PEP-578-Python-Runtime-Audit-Hooks"><a href="#PEP-578-Python-Runtime-Audit-Hooks" class="headerlink" title="PEP 578: Python Runtime Audit Hooks"></a>PEP 578: Python Runtime Audit Hooks</h2><ul>
-<li>Allow to generate event for some(C-API and Python) fucntions</li>
-<li>Allow the monitoring of low-level access</li>
-<li>The events can be watched with hooks</li>
-<li><code>A Hook can&#39;t be removed or replaced</code></li>
-</ul>
-<h3 id="Declare-a-audit-hook"><a href="#Declare-a-audit-hook" class="headerlink" title="Declare a audit hook"></a>Declare a audit hook</h3><blockquote>
-<p>sys.addaudithook(hook: Callable(Undefined, Undefined))</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> reduce</span><br><span class="line"><span class="keyword">from</span> contextlib <span class="keyword">import</span> suppress</span><br><span class="line"><span class="keyword">from</span> urllib.request <span class="keyword">import</span> urlopen</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">audit_hook</span>(<span class="params">event, args</span>):</span></span><br><span class="line">    <span class="keyword">if</span> event <span class="keyword">in</span> [<span class="string">&#x27;urllib.Request&#x27;</span>]:</span><br><span class="line">        print(<span class="string">f&#x27;Network <span class="subst">&#123;event=&#125;</span> <span class="subst">&#123;args=&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line">sys.addaudithook(audit_hook)</span><br><span class="line"></span><br><span class="line">urlopen(<span class="string">&#x27;http://dorayo.com&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Network event&#x3D;&#39;urllib.Request&#39; args&#x3D;(&#39;http:&#x2F;&#x2F;dorayo.com&#39;, None, &#123;&#125;, &#39;GET&#39;)</span><br></pre></td></tr></table></figure>
-<h3 id="Emit-an-event"><a href="#Emit-an-event" class="headerlink" title="Emit an event"></a>Emit an event</h3><blockquote>
-<p>sys.audit(str, *args)</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> reduce</span><br><span class="line"><span class="keyword">from</span> urllib.request <span class="keyword">import</span> urlopen</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_request</span>(<span class="params">url</span>):</span></span><br><span class="line">    sys.audit(<span class="string">&#x27;make_request&#x27;</span>, url)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">product</span>(<span class="params">series</span>):</span></span><br><span class="line">    make_request(<span class="string">&#x27;http://dorayo.com&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> reduce(<span class="keyword">lambda</span> acc, num: acc * num, series)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">audit_hook</span>(<span class="params">event, args</span>):</span></span><br><span class="line">    <span class="keyword">if</span> event <span class="keyword">in</span> [<span class="string">&#x27;make_request&#x27;</span>]:</span><br><span class="line">        print(<span class="string">f&#x27;Network <span class="subst">&#123;event=&#125;</span> <span class="subst">&#123;args=&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line">sys.addaudithook(audit_hook)</span><br><span class="line"></span><br><span class="line">result = product(<span class="built_in">range</span>(<span class="number">1</span>, <span class="number">10</span>))</span><br><span class="line"></span><br><span class="line">print(<span class="string">f&#x27;<span class="subst">&#123;result=&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Network event&#x3D;&#39;make_request&#39; args&#x3D;(&#39;http:&#x2F;&#x2F;dorayo.com&#39;,)</span><br><span class="line">result&#x3D;362880</span><br></pre></td></tr></table></figure>
-<h3 id="List-of-Events"><a href="#List-of-Events" class="headerlink" title="List of Events"></a>List of Events</h3><table>
-<thead>
-<tr>
-<th align="left">Hook</th>
-<th align="left">Description</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">sys.addaudithook</td>
-<td align="left">Detect when new audit hooks are being added</td>
-</tr>
-<tr>
-<td align="left">compile</td>
-<td align="left">Detect dynamic code compilation</td>
-</tr>
-<tr>
-<td align="left">exec</td>
-<td align="left">Detect dynamic execution of code objects</td>
-</tr>
-<tr>
-<td align="left">import</td>
-<td align="left">Detect when modules are imported</td>
-</tr>
-<tr>
-<td align="left">io.open</td>
-<td align="left">Detect when a file is about to be opend</td>
-</tr>
-<tr>
-<td align="left">object.setattr</td>
-<td align="left">Detect monkey patching</td>
-</tr>
-<tr>
-<td align="left">object.delattr</td>
-<td align="left">Detect deletion of object attributes</td>
-</tr>
-<tr>
-<td align="left">object.getattr</td>
-<td align="left">Detect access to restricted attributes</td>
-</tr>
-<tr>
-<td align="left">urllib.Request</td>
-<td align="left">Detect URLs request</td>
-</tr>
-<tr>
-<td align="left">…</td>
-<td align="left">…</td>
-</tr>
-</tbody></table>
-<h3 id="Basic-Example"><a href="#Basic-Example" class="headerlink" title="Basic Example"></a>Basic Example</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">audit_hook</span>(<span class="params">event, args</span>):</span></span><br><span class="line">    print(<span class="string">f&#x27;<span class="subst">&#123;event=&#125;</span> <span class="subst">&#123;args=&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line">sys.addaudithook(audit_hook)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">event&#x3D;&#39;import&#39; args&#x3D;(&#39;collections&#39;, None, [&#39;&#x2F;Users&#x2F;dorayo&#39;, &#39;&#x2F;Library&#x2F;Frameworks&#x2F;Python.framework&#x2F;Versions&#x2F;3.8&#x2F;lib&#x2F;python38.zip&#39;, &#39;&#x2F;Library&#x2F;Frameworks&#x2F;Python.framework&#x2F;Versions&#x2F;3.8&#x2F;lib&#x2F;python3.8&#39;, &#39;&#x2F;Library&#x2F;Frameworks&#x2F;Python.framework&#x2F;Versions&#x2F;3.8&#x2F;lib&#x2F;python3.8&#x2F;lib-dynload&#39;, &#39;&#x2F;Library&#x2F;Frameworks&#x2F;Python.framework&#x2F;Versions&#x2F;3.8&#x2F;lib&#x2F;python3.8&#x2F;site-packages&#39;], [&lt;class &#39;_frozen_importlib.BuiltinImporter&#39;&gt;, &lt;class &#39;_frozen_importlib.FrozenImporter&#39;&gt;, &lt;class &#39;_frozen_importlib_external.PathFinder&#39;&gt;], [&lt;class &#39;zipimport.zipimporter&#39;&gt;, &lt;function FileFinder.path_hook.&lt;locals&gt;.path_hook_for_FileFinder at 0x101c54dc0&gt;])</span><br><span class="line">event&#x3D;&#39;os.listdir&#39; args&#x3D;(&#39;&#x2F;Users&#x2F;dorayo&#39;,)</span><br><span class="line">event&#x3D;&#39;open&#39; args&#x3D;(&#39;&#x2F;Library&#x2F;Frameworks&#x2F;Python.framework&#x2F;Versions&#x2F;3.8&#x2F;lib&#x2F;python3.8&#x2F;collections&#x2F;__pycache__&#x2F;__init__.cpython-38.pyc&#39;, &#39;r&#39;, 16777216)</span><br><span class="line">event&#x3D;&#39;exec&#39; args&#x3D;(&lt;code object &lt;module&gt; at 0x101e519d0, file &quot;&#x2F;Library&#x2F;Frameworks&#x2F;Python.framework&#x2F;Versions&#x2F;3.8&#x2F;lib&#x2F;python3.8&#x2F;collections&#x2F;__init__.py&quot;, line 1&gt;,)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<h2 id="Feature-Asyncio-REPL"><a href="#Feature-Asyncio-REPL" class="headerlink" title="Feature: Asyncio REPL"></a>Feature: Asyncio REPL</h2><p><code>Python3.7</code></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">say</span>(<span class="params">what, when</span>):</span></span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(when)</span><br><span class="line">    print(what)</span><br><span class="line"></span><br><span class="line">asyncio.run(say(<span class="string">&#x27;hello world&#x27;</span>, <span class="number">1</span>))</span><br></pre></td></tr></table></figure>
-<p><code>Python3.8</code></p>
-<blockquote>
-<p>python3 -m asyncio</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">say</span>(<span class="params">what, when</span>):</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">await</span> asyncio.sleep(when)</span><br><span class="line"><span class="meta">... </span>    print(what)</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">await</span> say(<span class="string">&#x27;hello world&#x27;</span>, <span class="number">1</span>)</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
-<h2 id="Feature-f-strings-debug"><a href="#Feature-f-strings-debug" class="headerlink" title="Feature: f-strings debug"></a>Feature: f-strings debug</h2><p><code>Before:</code></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = <span class="number">10</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f&#x27;x:<span class="subst">&#123;x&#125;</span>&#x27;</span></span><br><span class="line"><span class="string">&#x27;x:10&#x27;</span></span><br></pre></td></tr></table></figure>
-<p><code>Now:</code></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = <span class="number">10</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f&#x27;<span class="subst">&#123;x=&#125;</span>&#x27;</span></span><br><span class="line"><span class="string">&#x27;x=10&#x27;</span></span><br></pre></td></tr></table></figure>
-<h3 id="f-string-with-string-formatting"><a href="#f-string-with-string-formatting" class="headerlink" title="f-string with string formatting"></a>f-string with string formatting</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> datetime <span class="keyword">import</span> date</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>user=<span class="string">&#x27;dorayo&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>birthday = date(<span class="number">1986</span>, <span class="number">5</span>, <span class="number">4</span>)</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>delta = date.today() - birthday</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f&#x27;<span class="subst">&#123;user=&#125;</span> <span class="subst">&#123;delta.days=:,d&#125;</span>&#x27;</span></span><br><span class="line"><span class="string">&quot;user=&#x27;dorayo&#x27; delta.days=12,218&quot;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">f&#x27;<span class="subst">&#123;user=!s&#125;</span> <span class="subst">&#123;delta.days=:,d&#125;</span>&#x27;</span></span><br><span class="line"><span class="string">&#x27;user=dorayo delta.days=12,218&#x27;</span></span><br></pre></td></tr></table></figure>
-<h2 id="Feature-json-tool-–-json-lines"><a href="#Feature-json-tool-–-json-lines" class="headerlink" title="Feature: json.tool – json-lines"></a>Feature: json.tool – json-lines</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">echo  <span class="string">&#x27;&#123;&quot;countries&quot;:[&quot;China&quot;, &quot;US&quot;, &quot;Japan&quot;]&#125;\n&#123;&quot;Provinces&quot;:[&quot;Henan&quot;, &quot;Guangdong&quot;]&#125;&#x27;</span> | python3 -m json.tool --json-lines</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;countries&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;China&quot;</span>,</span><br><span class="line">        <span class="string">&quot;US&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Japan&quot;</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;Provinces&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;Henan&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Guangdong&quot;</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Feature-Exception-Hook-for-threading"><a href="#Feature-Exception-Hook-for-threading" class="headerlink" title="Feature: Exception Hook for threading"></a>Feature: Exception Hook for threading</h2><p><code>Before:</code></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">log_exception</span>(<span class="params">*args</span>):</span></span><br><span class="line">    print(<span class="string">f&#x27;got exception <span class="subst">&#123;args&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span>():</span></span><br><span class="line">    a = <span class="number">1</span> / <span class="number">0</span></span><br><span class="line"></span><br><span class="line">threading.Thread(target=foo).start()</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Exception in thread Thread-1:</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&#x2F;Library&#x2F;Frameworks&#x2F;Python.framework&#x2F;Versions&#x2F;3.8&#x2F;lib&#x2F;python3.8&#x2F;threading.py&quot;, line 932, in _bootstrap_inner</span><br><span class="line">    self.run()</span><br><span class="line">  File &quot;&#x2F;Library&#x2F;Frameworks&#x2F;Python.framework&#x2F;Versions&#x2F;3.8&#x2F;lib&#x2F;python3.8&#x2F;threading.py&quot;, line 870, in run</span><br><span class="line">    self._target(*self._args, **self._kwargs)</span><br><span class="line">  File &quot;exception_hook_for_threading.py&quot;, line 7, in foo</span><br><span class="line">    a &#x3D; 1 &#x2F; 0</span><br><span class="line">ZeroDivisionError: division by zero</span><br></pre></td></tr></table></figure>
-<p><code>Now:</code></p>
-<blockquote>
-<p>Add function <code>threading.excepthook</code></p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">log_exception</span>(<span class="params">*args</span>):</span></span><br><span class="line">    print(<span class="string">f&#x27;got exception <span class="subst">&#123;args&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span>():</span></span><br><span class="line">    a = <span class="number">1</span> / <span class="number">0</span></span><br><span class="line"></span><br><span class="line">threading.excepthook = log_exception</span><br><span class="line"></span><br><span class="line">threading.Thread(target=foo).start()</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">got exception (_thread.ExceptHookArgs(exc_type&#x3D;&lt;class &#39;ZeroDivisionError&#39;&gt;, exc_value&#x3D;ZeroDivisionError(&#39;division by zero&#39;), exc_traceback&#x3D;&lt;traceback object at 0x109109a40&gt;, thread&#x3D;&lt;Thread(Thread-1, started 123145463410688)&gt;),)</span><br></pre></td></tr></table></figure>
-<h2 id="Feature-Generalized-iterable-unpacking-in-yield-and-return"><a href="#Feature-Generalized-iterable-unpacking-in-yield-and-return" class="headerlink" title="Feature: Generalized iterable unpacking in yield and return"></a>Feature: Generalized iterable unpacking in <code>yield</code> and <code>return</code></h2><p><code>Before:</code></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">family</span>):</span></span><br><span class="line">    lastname, *members = family.split()</span><br><span class="line">    <span class="keyword">return</span> lastname.upper(), *members</span><br><span class="line"></span><br><span class="line">print(parse(<span class="string">&#x27;dora yo emon mi&#x27;</span>))</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  File &quot;unpacking.py&quot;, line 3</span><br><span class="line">    return lastname.upper(), *members</span><br><span class="line">                             ^</span><br><span class="line">SyntaxError: invalid syntax</span><br></pre></td></tr></table></figure>
-<p><code>Now:</code></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(&#39;DORA&#39;, &#39;yo&#39;, &#39;emon&#39;, &#39;mi&#39;)</span><br></pre></td></tr></table></figure>
-
-<h2 id="Feature-New-Module"><a href="#Feature-New-Module" class="headerlink" title="Feature: New Module"></a>Feature: New Module</h2><h3 id="importlib"><a href="#importlib" class="headerlink" title="importlib"></a><code>importlib</code></h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> importlib.metadata <span class="keyword">import</span> versions, requires, files</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>version(<span class="string">&#x27;requests&#x27;</span>)</span><br><span class="line"><span class="string">&#x27;2.22.0&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">list</span>(requires(<span class="string">&#x27;requests&#x27;</span>))</span><br><span class="line">[<span class="string">&#x27;chardet (&lt;3.1.0,&gt;=3.0.2)&#x27;</span>, <span class="string">&#x27;idna (&lt;2.9,&gt;=2.5)&#x27;</span>, <span class="string">&#x27;urllib3 (!=1.25.0,!=1.25.1,&lt;1.26,&gt;=1.21.1)&#x27;</span>, <span class="string">&#x27;certifi (&gt;=2017.4.17)&#x27;</span>, <span class="string">&quot;pyOpenSSL (&gt;=0.14) ; extra == &#x27;security&#x27;&quot;</span>, <span class="string">&quot;cryptography (&gt;=1.3.4) ; extra == &#x27;security&#x27;&quot;</span>, <span class="string">&quot;idna (&gt;=2.0.0) ; extra == &#x27;security&#x27;&quot;</span>, <span class="string">&quot;PySocks (!=1.5.7,&gt;=1.5.6) ; extra == &#x27;socks&#x27;&quot;</span>, <span class="string">&#x27;win-inet-pton ; (sys_platform == &quot;win32&quot; and python_version == &quot;2.7&quot;) and extra == \&#x27;socks\&#x27;&#x27;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">list</span>(files(<span class="string">&#x27;requests&#x27;</span>))[:<span class="number">2</span>]</span><br><span class="line">[PackagePath(<span class="string">&#x27;requests-2.22.0.dist-info/INSTALLER&#x27;</span>), PackagePath(<span class="string">&#x27;requests-2.22.0.dist-info/LICENSE&#x27;</span>)]</span><br></pre></td></tr></table></figure>
-
-<h2 id="Feature-multiprocessing-shared-memory"><a href="#Feature-multiprocessing-shared-memory" class="headerlink" title="Feature: multiprocessing.shared_memory"></a>Feature: multiprocessing.shared_memory</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># process1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> shared_memory</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = shared_memory.ShareableList(<span class="built_in">range</span>(<span class="number">5</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(a.shm.name)</span><br><span class="line">psm_042f73e9</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(a)</span><br><span class="line">ShareableList([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], name=<span class="string">&#x27;psm_042f73e9&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># process2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> shared_memory</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = shared_memory.ShareableList(name=<span class="string">&#x27;psm_042f73e9&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(b)</span><br><span class="line">ShareableList([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], name=<span class="string">&#x27;psm_042f73e9&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b[-<span class="number">1</span>] = <span class="number">10</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(b)</span><br><span class="line">ShareableList([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">10</span>], name=<span class="string">&#x27;psm_042f73e9&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># process1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(a)</span><br><span class="line">ShareableList([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">10</span>], name=<span class="string">&#x27;psm_042f73e9&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="Feature-Math"><a href="#Feature-Math" class="headerlink" title="Feature: Math"></a>Feature: Math</h2><h3 id="Add"><a href="#Add" class="headerlink" title="Add"></a>Add</h3><ul>
-<li><code>math.prod</code> for the product of an iterable of numbers</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>math.prod([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line"><span class="number">24</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>math.isqrt</code> for integer square roots</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>math.isqrt(<span class="number">4</span>)</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
-<h3 id="Changes"><a href="#Changes" class="headerlink" title="Changes"></a>Changes</h3><ul>
-<li><code>math.factorial</code> only for int</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>math.factorial(<span class="number">4</span>)</span><br><span class="line"><span class="number">24</span></span><br></pre></td></tr></table></figure>
-<h2 id="Feature-socket-Create-a-server"><a href="#Feature-socket-Create-a-server" class="headerlink" title="Feature: socket:Create a server"></a>Feature: socket:Create a server</h2><p><code>Before:</code></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line">sock = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)</span><br><span class="line">sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, <span class="number">1</span>)</span><br><span class="line">sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, <span class="number">1</span>)</span><br><span class="line">sock.setsockopt(socket.IPPROTO_IPV6, socket.IPV6_V6ONLY, <span class="number">0</span>)</span><br><span class="line">sock.bind((<span class="string">&quot;&quot;</span>, <span class="number">8080</span>))</span><br><span class="line">sock.listen()</span><br></pre></td></tr></table></figure>
-<p><code>Now:</code></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line">addr = (<span class="string">&quot;&quot;</span>, <span class="number">8080</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> socket.has_dualstack_ipv6():</span><br><span class="line">    s = socket.create_server(addr, family=socket.AF_INET6, dualstack_ipv6=<span class="literal">True</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    s = socket.create_server(addr)</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>学习</category>
-        <category>技术</category>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -774,7 +613,6 @@
 <p>在 Vue 里，一个组件本质上是一个拥有预定义选项的一个 Vue 实例。Vue 组件非常类似自定义元素，相比自定义元素，Vue 组件的表现在所有支持的浏览器上表现一致，还有些其他自定义组件没有的功能。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;app-7&quot;&gt;</span><br><span class="line">   &lt;ol&gt;</span><br><span class="line">   &lt;!--</span><br><span class="line">     现在我们为每个 todo-item 提供 todo 对象</span><br><span class="line">     todo 对象是变量，即其内容可以是动态的。</span><br><span class="line">     我们也需要为每个组件提供一个“key”，稍后再</span><br><span class="line">     作详细解释。</span><br><span class="line">   --&gt;</span><br><span class="line">     &lt;todo-item</span><br><span class="line">       v-for&#x3D;&quot;item in groceryList&quot;</span><br><span class="line">       v-bind:todo&#x3D;&quot;item&quot;</span><br><span class="line">       v-bind:key&#x3D;&quot;item.id&quot;&gt;</span><br><span class="line">     &lt;&#x2F;todo-item&gt;</span><br><span class="line">   &lt;&#x2F;ol&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">Vue.component(&#39;todo-item&#39;, &#123;</span><br><span class="line">  props: [&#39;todo&#39;],</span><br><span class="line">  template: &#39;&lt;li&gt;&#123;&#123; todo.text &#125;&#125;&lt;&#x2F;li&gt;&#39;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">var app7 &#x3D; new Vue(&#123;</span><br><span class="line">  el: &#39;#app-7&#39;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    groceryList: [</span><br><span class="line">      &#123; id: 0, text: &#39;蔬菜&#39; &#125;,</span><br><span class="line">      &#123; id: 1, text: &#39;奶酪&#39; &#125;,</span><br><span class="line">      &#123; id: 2, text: &#39;随便其它什么人吃的东西&#39; &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>学习</category>
         <category>技术</category>
         <category>前端</category>
       </categories>
@@ -827,8 +665,8 @@
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
         <category>技术</category>
+        <category>tools</category>
       </categories>
       <tags>
         <tag>zsh</tag>
@@ -895,10 +733,12 @@
 </ul>
 ]]></content>
       <categories>
-        <category>学习</category>
         <category>技术</category>
         <category>区块链</category>
       </categories>
+      <tags>
+        <tag>ETH</tag>
+      </tags>
   </entry>
   <entry>
     <title>Git Submodule 使用教程</title>
@@ -954,8 +794,8 @@
 <p><code>–recursive</code>参数的含义：可以在克隆项目时同时克隆关联的submodules</p>
 <h2 id="移除-submodules"><a href="#移除-submodules" class="headerlink" title="移除 submodules"></a>移除 submodules</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git submodule deinit libs&#x2F;lib1</span><br><span class="line">git rm libs&#x2F;lib1</span><br><span class="line">git ci -m &quot;remove libs&#x2F;lib1&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>学习</category>
         <category>技术</category>
+        <category>tools</category>
       </categories>
       <tags>
         <tag>git</tag>
@@ -971,7 +811,6 @@
 ]]></content>
       <categories>
         <category>学习</category>
-        <category>人文</category>
       </categories>
       <tags>
         <tag>国学</tag>
@@ -985,7 +824,6 @@
 <p>关于互联网隐私的解决方案从来都没有停止过脚步，早在 1981 年，安全人员就试着通过密码学去尝试解决，无疾而终。1993 年天才数学家戴维·查姆提出了 eCash 系统，不过当时的在线购物人员并不关心网络上的隐私和安全问题，最终戴维·查姆的 DigiCash 在 1998 年宣告破产。之后，戴维·查姆的一个同事尼克·邵博写了一篇题为「上帝协议」的简短论文，在这篇文章中设想了一种无所不能、可以取代所有中间机构的技术协议，即让「上帝」  在一切的交易中扮演可信的第三方。(未完待续…)</p>
 ]]></content>
       <categories>
-        <category>学习</category>
         <category>技术</category>
         <category>区块链</category>
       </categories>
@@ -1039,7 +877,6 @@
 </ol>
 ]]></content>
       <categories>
-        <category>学习</category>
         <category>技术</category>
         <category>数据库</category>
       </categories>
@@ -1125,7 +962,6 @@
       </categories>
       <tags>
         <tag>栾川</tag>
-        <tag>旅游</tag>
       </tags>
   </entry>
   <entry>
@@ -1183,7 +1019,6 @@
 </ul>
 ]]></content>
       <categories>
-        <category>学习</category>
         <category>技术</category>
         <category>区块链</category>
       </categories>
@@ -1265,8 +1100,8 @@
 <h2 id="05-Git-Submodule"><a href="#05-Git-Submodule" class="headerlink" title="05. Git Submodule"></a>05. Git Submodule</h2><p><code>(详见《Git Submodule 使用教程》)</code></p>
 ]]></content>
       <categories>
-        <category>学习</category>
         <category>技术</category>
+        <category>tools</category>
       </categories>
       <tags>
         <tag>git</tag>
@@ -1314,6 +1149,31 @@
       <tags>
         <tag>认知</tag>
         <tag>复盘</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>思维巨人与脑残</title>
+    <url>/2024/10/29/%E6%80%9D%E7%BB%B4%E5%B7%A8%E4%BA%BA%E4%B8%8E%E8%84%91%E6%AE%8B/</url>
+    <content><![CDATA[<p>保罗·格雷厄姆最近发了一篇博客 <a href="https://paulgraham.com/writes.html">“Writes and Write-Nots”</a>。</p>
+<p>保罗·格雷厄姆是我打开新世界的启蒙人。YC 创始人，《黑客与画家》作者，Hacker News（我在这里第一次知道的 BTC） 网站作者。这里不多介绍，但强烈建议大家去认真了解并关注一下这位大神。</p>
+<p>作者开篇就表达了观点：</p>
+<blockquote>
+<p>我通常不愿意对技术做出预测，但对这一观点，非常有信心：几十年后，会写作的人将不会很多。</p>
+</blockquote>
+<a id="more"></a>
+
+<p>文末，作者还升级了观点：</p>
+<blockquote>
+<p>将未来的世界分为写和不会并没有听起来那么危险，事实上，未来将是一个思考和不思考的世界。</p>
+</blockquote>
+<p>原文并不长，作者思路清晰，有理有据，并非哗众取宠。那为什么保罗·格雷厄姆会这么说，甚至专门写一篇文章来阐述？这也正是我今天开始重拾写作，并开始写下本文的原因！</p>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>AI</tag>
+        <tag>写作</tag>
       </tags>
   </entry>
 </search>
