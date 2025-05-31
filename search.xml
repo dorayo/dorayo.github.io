@@ -399,6 +399,99 @@
       </tags>
   </entry>
   <entry>
+    <title>Git Submodule 使用教程</title>
+    <url>/2018/03/08/Git-Submodule-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="创建测试项目"><a href="#创建测试项目" class="headerlink" title="创建测试项目"></a>创建测试项目</h2><h3 id="准备环境"><a href="#准备环境" class="headerlink" title="准备环境"></a>准备环境</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 创建测试目录</span><br><span class="line">mkdir git_submodule</span><br><span class="line">cd git_submodule</span><br><span class="line"># 创建本地裸仓库</span><br><span class="line">mkdir repos</span><br><span class="line">cd repos</span><br><span class="line">git init --bare lib1.git</span><br><span class="line">git init --bare lib2.git</span><br><span class="line">git init --bare project1.git</span><br><span class="line">git init --bare project2.git</span><br><span class="line"># 创建工作区目录</span><br><span class="line">cd ..</span><br><span class="line">mkdir ws</span><br><span class="line">cd ws</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="初始化测试项目-project1-和-project2"><a href="#初始化测试项目-project1-和-project2" class="headerlink" title="初始化测试项目 project1 和 project2"></a>初始化测试项目 project1 和 project2</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 初始化 project1</span><br><span class="line">git clone ..&#x2F;repos&#x2F;project1.git</span><br><span class="line">cd project1</span><br><span class="line">echo &quot;project1&quot; &gt; project_infos.txt</span><br><span class="line">git add .</span><br><span class="line">git ci -m &quot;init project1&quot;</span><br><span class="line"># 初始化 project2</span><br><span class="line">cd ..</span><br><span class="line">git clone ..&#x2F;repos&#x2F;project2.git</span><br><span class="line">cd project2</span><br><span class="line">echo &quot;project2&quot; &gt; project_infos.txt</span><br><span class="line">git add .</span><br><span class="line">git ci -m &quot;init project2&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="初始化公共类库-lib1-和-lib2"><a href="#初始化公共类库-lib1-和-lib2" class="headerlink" title="初始化公共类库 lib1 和 lib2"></a>初始化公共类库 lib1 和 lib2</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 初始化公共类库 lib1</span><br><span class="line">cd ..</span><br><span class="line">git clone ..&#x2F;repos&#x2F;lib1.git</span><br><span class="line">cd lib1</span><br><span class="line">echo &quot;This is lib1&quot; &gt; lib1_features</span><br><span class="line">git add .</span><br><span class="line">git ci -m &quot;init lib1&quot;</span><br><span class="line">git push origin master</span><br><span class="line"># 初始化公共类库 lib2</span><br><span class="line">cd ..</span><br><span class="line">git clone ..&#x2F;repos&#x2F;lib2.git</span><br><span class="line">cd lib2</span><br><span class="line">echo &quot;This is lib2&quot; &gt; lib2_features</span><br><span class="line">git add .</span><br><span class="line">git ci -m &quot;init lib2&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<h2 id="为-project1-添加-submodules-lib1-和-lib2"><a href="#为-project1-添加-submodules-lib1-和-lib2" class="headerlink" title="为 project1 添加 submodules ( lib1 和 lib2 )"></a>为 project1 添加 submodules ( lib1 和 lib2 )</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ..&#x2F;project1</span><br><span class="line">git submodule add ..&#x2F;..&#x2F;repos&#x2F;lib1.git libs&#x2F;lib1</span><br><span class="line">git submodule add ..&#x2F;..&#x2F;repos&#x2F;lib2.git libs&#x2F;lib2</span><br></pre></td></tr></table></figure>
+<p>此时，执行<code>ls</code>命令，会发现多了个<code>libs</code>目录<br><img src="/images/pasted-12.png" alt="upload successful"></p>
+<p>接着，查看状态，会发现<code>lib1</code>、<code>lib2</code>和另外一个新文件<code>.gitmodules</code>都已经被加入了暂存区<br><img src="/images/pasted-13.png" alt="upload successful"></p>
+<p>先看一下<code>lib1</code>和<code>lib2</code>里面的文件的内容，跟公共类库内容一致<br><img src="/images/pasted-14.png" alt="upload successful"></p>
+<p>接着看一下<code>.gitmodules</code>的内容，会发现 <code>.gitmodules</code>记录了每个         Submodules 的引用信息（在当前项目的位置以及引用仓库的URL）<br><img src="/images/pasted-15.png" alt="upload successful"></p>
+<p>最后，执行如下命令，将更改提交并推送到远程仓库</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git ci -a -m &quot;add submodules[lib1,lib2] to project1&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<h2 id="模拟开发人员-B-对-submodules-的修改"><a href="#模拟开发人员-B-对-submodules-的修改" class="headerlink" title="模拟开发人员 B 对 submodules 的修改"></a>模拟开发人员 B 对 submodules 的修改</h2><h3 id="开发人员-B-克隆测试项目-project1"><a href="#开发人员-B-克隆测试项目-project1" class="headerlink" title="开发人员 B 克隆测试项目 project1"></a>开发人员 B 克隆测试项目 project1</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ..</span><br><span class="line">git clone ..&#x2F;repos&#x2F;project1.git project1-b</span><br><span class="line">cd project1-b</span><br></pre></td></tr></table></figure>
+<p>执行<code>git submodule</code>命令，会发现列出了所有子模块(Submodules)，但是，hash 码前面有一个<code>-</code>号，表明该子模块还没有检出<br><img src="/images/pasted-16.png" alt="upload successful"></p>
+<p>接下来，检出 project1-b 的所有子模块，执行<code>git submodule init</code>命令<br><img src="/images/pasted-17.png" alt="upload successful"></p>
+<p>上一步，仅完成了子模块在当前项目的注册，想检出子模块的内容，还需要执行<code>git submodule update</code>命令<br><img src="/images/pasted-18.png" alt="upload successful"></p>
+<h3 id="开发人员-B-修改子模块-lib1"><a href="#开发人员-B-修改子模块-lib1" class="headerlink" title="开发人员 B 修改子模块 lib1"></a>开发人员 B 修改子模块 lib1</h3><p>首先，进入<code>lib1</code>所在的目录，并查看状态<br><img src="/images/pasted-19.png" alt="upload successful"></p>
+<p>要修改<code>lib1</code>的文件，首先需要切换到相应的分支<br><img src="/images/pasted-20.png" alt="upload successful"></p>
+<p>修改、提交、推送</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">echo &#39;added by developer B&#39; &gt;&gt; lib1_features</span><br><span class="line">git add .</span><br><span class="line">git ci -m &quot;update lib1_features by developer B&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<h3 id="开发人员-B-在项目-project1-b-目录中，提交更新并推送"><a href="#开发人员-B-在项目-project1-b-目录中，提交更新并推送" class="headerlink" title="开发人员 B 在项目(project1-b)目录中，提交更新并推送"></a>开发人员 B 在项目(project1-b)目录中，提交更新并推送</h3><p>回到<code>project1-b</code>所在的目录，会发现<code>project1-b</code>的状态发生了变化，很好理解，因为我们更改了子模块里面的文件，子模块也属于项目<code>project1-b</code>本身<br><img src="/images/pasted-21.png" alt="upload successful"></p>
+<p>最后一步，在<code>project1-b</code>项目中提交更新，并推送</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git add .</span><br><span class="line">git ci -m &quot;update libs&#x2F;lib1 by developer B&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<h2 id="在-project1-中同步开发人员-B-对-submodules-做的修改"><a href="#在-project1-中同步开发人员-B-对-submodules-做的修改" class="headerlink" title="在 project1 中同步开发人员 B 对 submodules 做的修改"></a>在 project1 中同步开发人员 B 对 submodules 做的修改</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ..&#x2F;project1</span><br><span class="line">git pull origin master</span><br></pre></td></tr></table></figure>
+<p>查看状态，会发现<code>libs/lib1</code>处于<code>modified</code><br><img src="/images/pasted-22.png" alt="upload successful"></p>
+<p>很好理解，我们需要手动更新 submodules 的更新<br><img src="/images/pasted-23.png" alt="upload successful"></p>
+<p>至此，我们就在 project1 中成功同步了开发人员 B 对 submodules 所做的修改了</p>
+<h2 id="为-project2-添加-submodules-lib1-和-lib2"><a href="#为-project2-添加-submodules-lib1-和-lib2" class="headerlink" title="为 project2 添加 submodules ( lib1 和 lib2 )"></a>为 project2 添加 submodules ( lib1 和 lib2 )</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ..&#x2F;project2</span><br><span class="line">git submodule add ..&#x2F;..&#x2F;repos&#x2F;lib1.git libs&#x2F;lib1</span><br><span class="line">git submodule add ..&#x2F;..&#x2F;repos&#x2F;lib2.git libs&#x2F;lib2</span><br><span class="line">git add .</span><br><span class="line">git ci -m &quot;add submodules[lib1,lib2] to project2&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<h2 id="在-project2-中修改-lib1-和-lib2-并同步到-project1-中"><a href="#在-project2-中修改-lib1-和-lib2-并同步到-project1-中" class="headerlink" title="在 project2 中修改 lib1 和 lib2 并同步到 project1 中"></a>在 project2 中修改 lib1 和 lib2 并同步到 project1 中</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 在 lib1 中添加一个文件 README</span><br><span class="line">cd libs&#x2F;lib1</span><br><span class="line">echo &quot;This is lib1 readme contents&quot; &gt; README</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;add README for lib1&quot;</span><br><span class="line">git push origin master</span><br><span class="line">cd ..</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;update lib1 - add README&quot;</span><br><span class="line"></span><br><span class="line"># 修改 lib2 中的 lib2-features 文件</span><br><span class="line">cd libs&#x2F;lib2</span><br><span class="line">echo &quot;some new feature&quot; &gt;&gt; lib2_features</span><br><span class="line">git add .</span><br><span class="line">git ci -m &quot;add some new feature into lib2_features&quot;</span><br><span class="line">git push origin master</span><br><span class="line">cd ..&#x2F;..&#x2F;</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;update lib2 - add some new features&quot;</span><br><span class="line"></span><br><span class="line"># 推送 project2 的修改</span><br><span class="line">git push origin master</span><br><span class="line"></span><br><span class="line"># 在 project1 中更新 lib1 和 lib2 的最新修改，并推送</span><br><span class="line">cd ..&#x2F;project1</span><br><span class="line">git pull origin master</span><br><span class="line">cd libs&#x2F;lib1</span><br><span class="line">git co master</span><br><span class="line">git pull origin master</span><br><span class="line">cd ..&#x2F;lib2</span><br><span class="line">git pull</span><br><span class="line">cd ..&#x2F;..&#x2F;</span><br><span class="line">git ci -a -m &quot;update lib1 and lib2 to new version&quot;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+<h2 id="更新-project1-b-项目的子模块"><a href="#更新-project1-b-项目的子模块" class="headerlink" title="更新 project1-b 项目的子模块"></a>更新 project1-b 项目的子模块</h2><p>根据以上的操作，我们总结出来了修改并更新子模块的基本流程</p>
+<ul>
+<li>切换到子模块的某个分支</li>
+<li>修改子模块</li>
+<li>提交子模块的修改</li>
+<li>推送子模块的修改</li>
+<li>在项目目录提交子模块的修改</li>
+<li>在项目目录推送子模块的修改</li>
+<li>在其他项目的项目目录新(pull)子模块的修改</li>
+<li>在其他项目的子模块目录中依次更新(pull)</li>
+<li>在其他项目的项目目录中提交并推送修改</li>
+</ul>
+<p>事实上，修改子模块、提交和推送的操作确实需要一步步细致地进行，不过在其他项目中，更新对子模块的修改，步骤太繁琐。幸运的是我们可以使用<code>git submodule foreach git pull</code>命令，一步到位完成各子模块的同步更新。</p>
+<p>最后，在项目目录中提交并推送</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ..&#x2F;project1-b</span><br><span class="line">git pull</span><br><span class="line">git submodule foreach git pull</span><br><span class="line">git ci -a -m &quot;update libs1 and libs2 to new version&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
+<h2 id="新成员加入团队，一次性克隆项目和-submodules"><a href="#新成员加入团队，一次性克隆项目和-submodules" class="headerlink" title="新成员加入团队，一次性克隆项目和 submodules"></a>新成员加入团队，一次性克隆项目和 submodules</h2><p>根据已有知识，我们可以这样操作</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone &#x2F;path&#x2F;to&#x2F;repos&#x2F;foo.git</span><br><span class="line">git submodule init</span><br><span class="line">git submodule update</span><br></pre></td></tr></table></figure>
+<p>幸运的是，我们可以一行命令搞定</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone --recursive ..&#x2F;repos&#x2F;foo.git </span><br></pre></td></tr></table></figure>
+<p><code>–recursive</code>参数的含义：可以在克隆项目时同时克隆关联的submodules</p>
+<h2 id="移除-submodules"><a href="#移除-submodules" class="headerlink" title="移除 submodules"></a>移除 submodules</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git submodule deinit libs&#x2F;lib1</span><br><span class="line">git rm libs&#x2F;lib1</span><br><span class="line">git ci -m &quot;remove libs&#x2F;lib1&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>技术</category>
+        <category>tools</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Installing python3.6 on CENTOS 6.8</title>
+    <url>/2017/10/20/Installing-python3-6-on-CENTOS-6-8/</url>
+    <content><![CDATA[<ol>
+<li><p>Installing the prerequisite package to build python from source </p>
+<p> <code>yum -y groupinstall &quot;Development tools&quot;</code><br> <code>yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel</code><br> <code># below is optional:</code><br> <code>yum -y install sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel</code></p>
+</li>
+<li><p>Download the python source</p>
+<p> <code>wget https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tgz</code><br> <code>tar xfvz Python-3.6.3.tgz</code><br> <code>cd Python-3.6.3</code></p>
+</li>
+<li><p>Compiling and install the python from source code</p>
+<p> <code>./configure --prefix=/usr/local --enable-shared LDFLAGS=&quot;-Wl,-rpath /usr/local/lib&quot;</code><br> <code>make &amp;&amp; make altinstall</code><br> <code>ln -s /usr/local/bin/python3.6 /usr/bin/python3.6</code><br> <code>ln -s /usr/local/bin/python3.6 /usr/bin/python3</code></p>
+</li>
+<li><p>Download and install pip</p>
+<p> <code>wget https://bootstrap.pypa.io/get-pip.py</code><br> <code>python3 get-pip.py</code><br> <code>ln -s /usr/local/bin/pip3.6 /usr/bin/pip3</code></p>
+</li>
+<li><p>Python3.6 and Pip3 is ready now</p>
+<p> <code>[root@iZm5eah3mqbzffv5h0fremZ Python-3.6.3]# python3 -V</code><br> <code>Python 3.6.3</code><br> <code>[root@iZm5eah3mqbzffv5h0fremZ Python-3.6.3]# pip3 -V</code><br> <code>pip 9.0.1 from /usr/local/lib/python3.6/site-packages (python 3.6)</code></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>技术</category>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>python3</tag>
+        <tag>centos</tag>
+        <tag>centos6</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Python Tricks</title>
     <url>/2019/09/24/Python-tricks/</url>
     <content><![CDATA[<h2 id="18-map-func-iter"><a href="#18-map-func-iter" class="headerlink" title="18. map(func, iter)"></a>18. map(func, iter)</h2><blockquote>
@@ -483,89 +576,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Installing python3.6 on CENTOS 6.8</title>
-    <url>/2017/10/20/Installing-python3-6-on-CENTOS-6-8/</url>
-    <content><![CDATA[<ol>
-<li><p>Installing the prerequisite package to build python from source </p>
-<p> <code>yum -y groupinstall &quot;Development tools&quot;</code><br> <code>yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel</code><br> <code># below is optional:</code><br> <code>yum -y install sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel</code></p>
-</li>
-<li><p>Download the python source</p>
-<p> <code>wget https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tgz</code><br> <code>tar xfvz Python-3.6.3.tgz</code><br> <code>cd Python-3.6.3</code></p>
-</li>
-<li><p>Compiling and install the python from source code</p>
-<p> <code>./configure --prefix=/usr/local --enable-shared LDFLAGS=&quot;-Wl,-rpath /usr/local/lib&quot;</code><br> <code>make &amp;&amp; make altinstall</code><br> <code>ln -s /usr/local/bin/python3.6 /usr/bin/python3.6</code><br> <code>ln -s /usr/local/bin/python3.6 /usr/bin/python3</code></p>
-</li>
-<li><p>Download and install pip</p>
-<p> <code>wget https://bootstrap.pypa.io/get-pip.py</code><br> <code>python3 get-pip.py</code><br> <code>ln -s /usr/local/bin/pip3.6 /usr/bin/pip3</code></p>
-</li>
-<li><p>Python3.6 and Pip3 is ready now</p>
-<p> <code>[root@iZm5eah3mqbzffv5h0fremZ Python-3.6.3]# python3 -V</code><br> <code>Python 3.6.3</code><br> <code>[root@iZm5eah3mqbzffv5h0fremZ Python-3.6.3]# pip3 -V</code><br> <code>pip 9.0.1 from /usr/local/lib/python3.6/site-packages (python 3.6)</code></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>技术</category>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>python3</tag>
-        <tag>centos</tag>
-        <tag>centos6</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vue2.0 简明教程 - 02. 组件基础</title>
-    <url>/2018/07/19/Vue2-0-%E7%AE%80%E6%98%8E%E6%95%99%E7%A8%8B-02-%E7%BB%84%E4%BB%B6%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<h2 id="基本示例"><a href="#基本示例" class="headerlink" title="基本示例"></a>基本示例</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;vue&#x2F;dist&#x2F;vue.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;div id&#x3D;&quot;components-demo&quot;&gt;</span><br><span class="line">        &lt;button-counter&gt;&lt;&#x2F;button-counter&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">&#x2F;&#x2F; 定义一个名为 button-counter 的新组件</span><br><span class="line">Vue.component(&#39;button-counter&#39;, &#123;</span><br><span class="line">  data: function () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      count: 0</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  template: &#39;&lt;button v-on:click&#x3D;&quot;count++&quot;&gt;You clicked me &#123;&#123; count &#125;&#125; times.&lt;&#x2F;button&gt;&#39;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">new Vue(&#123; el: &#39;#components-demo&#39; &#125;)</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-<p>组件是可复用的 Vue 实例，且带有一个名字：在这个例子中是 <code>&lt;button-counter&gt;</code>。</p>
-<p>我们可以在一个通过 new Vue 创建的 Vue 根实例中，把这个组件作为自定义元素来使用。</p>
-<p>因为组件是可复用的 Vue 实例，所以它们与 <code>new Vue</code> 接收相同的选项，例如 <code>data</code>、<code>computed</code>、<code>watch</code>、<code>methods</code> 以及生命周期钩子等。仅有的例外是像 <code>el</code> 这样根实例特有的选项。</p>
-<a id="more"></a>
-
-<h2 id="组件的复用"><a href="#组件的复用" class="headerlink" title="组件的复用"></a>组件的复用</h2><p>可以将组件进行任意次数的复用：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;components-demo&quot;&gt;</span><br><span class="line">  &lt;button-counter&gt;&lt;&#x2F;button-counter&gt;</span><br><span class="line">  &lt;button-counter&gt;&lt;&#x2F;button-counter&gt;</span><br><span class="line">  &lt;button-counter&gt;&lt;&#x2F;button-counter&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
-<p>当点击按钮时，每个组件都会各自独立维护它的 <code>count</code>。因为你每用一次组件，就会有一个它的新实例被创建。</p>
-<h3 id="data-必须是一个函数"><a href="#data-必须是一个函数" class="headerlink" title="data 必须是一个函数"></a><code>data</code> 必须是一个函数</h3><p>当我们定义这个 <button-counter> 组件时，你可能会发现它的 data 并不是像这样直接提供一个对象：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">  count: 0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>取而代之的是，一个组件的 data 选项必须是一个函数，因此每个实例返回的对象都是各自独立的：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">data: function () &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    count: 0</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="全局注册与局部注册"><a href="#全局注册与局部注册" class="headerlink" title="全局注册与局部注册"></a>全局注册与局部注册</h2><p>用 <code>Vue.component</code>函数注册组件为全局组件，全局注册的组件可以用在其被注册之后的任何 (通过 new Vue) 新创建的 Vue 根实例中，也包括其组件树中的所有子组件的模板中。但全局注册也会有其他的不理想的地方，比如，你使用一个像 webpack 这样的构建系统，全局注册的组件意味着即使你已经不再使用该组件了，它仍然会被包含在你最终的构建结果中。这造成了用户下载的 JavaScript 的无谓的增加。</p>
-<p>这种情况下，可以通过一个普通的 Javascript 对象来定义组件，然后在<code>components</code>选项中定义你想要使用的组件：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var ComponentA &#x3D; &#123; &#x2F;* ... *&#x2F; &#125;</span><br><span class="line">var ComponentB &#x3D; &#123; &#x2F;* ... *&#x2F; &#125;</span><br><span class="line">var ComponentC &#x3D; &#123; &#x2F;* ... *&#x2F; &#125;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: &#39;#app&#39;</span><br><span class="line">  components: &#123;</span><br><span class="line">    &#39;component-a&#39;: ComponentA,</span><br><span class="line">    &#39;component-b&#39;: ComponentB</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>局部注册的组件在其子组件中不可用，例如，如果希望<code>ComponentA</code>在<code>ComponentB</code>中可用，则需要这样写：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var ComponentA &#x3D; &#123; &#x2F;* ... *&#x2F; &#125;</span><br><span class="line"></span><br><span class="line">var ComponentB &#x3D; &#123;</span><br><span class="line">  components: &#123;</span><br><span class="line">    &#39;component-a&#39;: ComponentA</span><br><span class="line">  &#125;,</span><br><span class="line">  &#x2F;&#x2F; ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>或者通过 Babel 和 webpack 使用 ES2015模块，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import ComponentA from &#39;.&#x2F;ComponentA.vue&#39;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  components: &#123;</span><br><span class="line">    ComponentA</span><br><span class="line">  &#125;,</span><br><span class="line">  &#x2F;&#x2F; ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="通过-prop-向子组件传递数据"><a href="#通过-prop-向子组件传递数据" class="headerlink" title="通过 prop 向子组件传递数据"></a>通过 prop 向子组件传递数据</h2><p>Prop 是指你可以在组件上注册一些自定义属性。当一个值传递给一个 prop 属性的时候，它就变成了那个组件实例的一个属性。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Vue.component(&#39;blog-post&#39;, &#123;</span><br><span class="line">  props: [&#39;title&#39;],</span><br><span class="line">  template: &#39;&lt;h3&gt;&#123;&#123; title &#125;&#125;&lt;&#x2F;h3&gt;&#39;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>一个 prop 被注册之后，你就可以像如下这样把数据作为一个自定义属性传递进来：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;blog-post title&#x3D;&quot;My journey with Vue&quot;&gt;&lt;&#x2F;blog-post&gt;</span><br><span class="line">&lt;blog-post title&#x3D;&quot;Blogging with Vue&quot;&gt;&lt;&#x2F;blog-post&gt;</span><br><span class="line">&lt;blog-post title&#x3D;&quot;Why Vue is so fun&quot;&gt;&lt;&#x2F;blog-post&gt;</span><br></pre></td></tr></table></figure>
-<p>实际应用中，很可能在 Vue 实例的<code>data</code>里有一个 blog 的数组，如下所示：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">new Vue(&#123;</span><br><span class="line">  el: &#39;#components-demo&#39;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    posts: [</span><br><span class="line">      &#123; id: 1, title: &#39;My journey with Vue&#39; &#125;,</span><br><span class="line">      &#123; id: 2, title: &#39;Blogging with Vue&#39; &#125;,</span><br><span class="line">      &#123; id: 3, title: &#39;Why Vue is so fun&#39; &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>然后，在模板中通过<code>v-bind</code>动态渲染每一个 blog</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;blog-post</span><br><span class="line">  v-for&#x3D;&quot;post in posts&quot;</span><br><span class="line">  v-bind:key&#x3D;&quot;post.id&quot;</span><br><span class="line">  v-bind:title&#x3D;&quot;post.title&quot;</span><br><span class="line">&gt;&lt;&#x2F;blog-post&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="props-类型验证"><a href="#props-类型验证" class="headerlink" title="props 类型验证"></a>props 类型验证</h3><p>可以为 props 中的值提供一个带有验证需求的对象，而不仅仅是一个字符串数组，例如：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Vue.component(&#39;my-component&#39;, &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    &#x2F;&#x2F; 基础的类型检查 (&#96;null&#96; 匹配任何类型)</span><br><span class="line">    propA: Number,</span><br><span class="line">    &#x2F;&#x2F; 多个可能的类型</span><br><span class="line">    propB: [String, Number],</span><br><span class="line">    &#x2F;&#x2F; 必填的字符串</span><br><span class="line">    propC: &#123;</span><br><span class="line">      type: String,</span><br><span class="line">      required: true</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F; 带有默认值的数字</span><br><span class="line">    propD: &#123;</span><br><span class="line">      type: Number,</span><br><span class="line">      default: 100</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F; 带有默认值的对象</span><br><span class="line">    propE: &#123;</span><br><span class="line">      type: Object,</span><br><span class="line">      &#x2F;&#x2F; 对象或数组且一定会从一个工厂函数返回默认值</span><br><span class="line">      default: function () &#123;</span><br><span class="line">        return &#123; message: &#39;hello&#39; &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F; 自定义验证函数</span><br><span class="line">    propF: &#123;</span><br><span class="line">      validator: function (value) &#123;</span><br><span class="line">        &#x2F;&#x2F; 这个值必须匹配下列字符串中的一个</span><br><span class="line">        return [&#39;success&#39;, &#39;warning&#39;, &#39;danger&#39;].indexOf(value) !&#x3D;&#x3D; -1</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h2 id="通过事件向父级组件发送事件"><a href="#通过事件向父级组件发送事件" class="headerlink" title="通过事件向父级组件发送事件"></a>通过事件向父级组件发送事件</h2><p>通过一个按钮来放大 blog 的字号<br><code>demo</code></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;blog-posts-events-demo&quot;&gt;</span><br><span class="line">    &lt;div :style&#x3D;&quot;&#123;fontSize: postFontSize+&#39;em&#39;&#125;&quot;&gt;</span><br><span class="line">        &lt;blog-post  </span><br><span class="line">        v-for&#x3D;&quot;post in posts&quot;</span><br><span class="line">        v-bind:key&#x3D;&quot;post.id&quot;</span><br><span class="line">        v-bind:post&#x3D;&quot;post&quot;</span><br><span class="line">        v-on:enlarge-text&#x3D;&quot;postFontSize +&#x3D; 0.1&quot;&gt;</span><br><span class="line">        &lt;&#x2F;blog-post&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    Vue.component(&#39;blog-post&#39;, &#123;</span><br><span class="line">        props: [&#39;post&#39;],</span><br><span class="line">        template: &#96;</span><br><span class="line">            &lt;div class&#x3D;&quot;blog-post&quot;&gt;</span><br><span class="line">                &lt;h3&gt;&#123;&#123; post.title &#125;&#125;&lt;&#x2F;h3&gt;</span><br><span class="line">                &lt;button v-on:click&#x3D;&quot;$emit(&#39;enlarge-text&#39;)&quot;&gt;</span><br><span class="line">                Enlarge text</span><br><span class="line">                &lt;&#x2F;button&gt;</span><br><span class="line">                &lt;div v-html&#x3D;&quot;post.content&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">            &lt;&#x2F;div&gt;</span><br><span class="line">        &#96; </span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    new Vue(&#123;</span><br><span class="line">        el: &#39;#blog-posts-events-demo&#39;,</span><br><span class="line">        data: &#123;</span><br><span class="line">            posts: [</span><br><span class="line">                &#123; id: 1, title: &#39;My journey with Vue&#39;, content: &#39;&lt;h2&gt;This is the first content&lt;&#x2F;h2&gt;&#39; &#125;,</span><br><span class="line">                &#123; id: 2, title: &#39;Blogging with Vue&#39;, content: &#39;&lt;h2&gt;This is the second content&lt;&#x2F;h2&gt;&#39;&#125;,</span><br><span class="line">                &#123; id: 3, title: &#39;Why Vue is so fun&#39;, content: &#39;&lt;h2&gt;This is the third content&lt;&#x2F;h2&gt;&#39; &#125;</span><br><span class="line">            ],</span><br><span class="line">            postFontSize: 1</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="使用事件抛出一个值"><a href="#使用事件抛出一个值" class="headerlink" title="使用事件抛出一个值"></a>使用事件抛出一个值</h3><p>如果想要控制每次点击要放大的值，可以用<code>$emit</code>的第二个参数来控制：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;button v-on:click&#x3D;&quot;$emit(&#39;enlarge-text&#39;, 0.1)&quot;&gt;</span><br><span class="line">  Enlarge text</span><br><span class="line">&lt;&#x2F;button&gt;</span><br></pre></td></tr></table></figure>
-<p>然后当在父级组件监听这个事件的时候，我们可以通过<code>$event</code>访问到被抛出的这个值：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;blog-post</span><br><span class="line">  ...</span><br><span class="line">  v-on:enlarge-text&#x3D;&quot;postFontSize +&#x3D; $event&quot;</span><br><span class="line">&gt;&lt;&#x2F;blog-post&gt;</span><br></pre></td></tr></table></figure>
-<p>或者，通过实现处理函数：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;blog-post</span><br><span class="line">  ...</span><br><span class="line">  v-on:enlarge-text&#x3D;&quot;onEnlargeText&quot;</span><br><span class="line">&gt;&lt;&#x2F;blog-post&gt;</span><br><span class="line"></span><br><span class="line">methods: &#123;</span><br><span class="line">  onEnlargeText: function (enlargeAmount) &#123;</span><br><span class="line">    this.postFontSize +&#x3D; enlargeAmount</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="通过插槽分发内容"><a href="#通过插槽分发内容" class="headerlink" title="通过插槽分发内容"></a>通过插槽分发内容</h2><p><code>demo</code></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;slot_demo&quot;&gt;</span><br><span class="line">    &lt;alert-box&gt;</span><br><span class="line">        Something bad happened.</span><br><span class="line">    &lt;&#x2F;alert-box&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;vue&#x2F;dist&#x2F;vue.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">Vue.component(&#39;alert-box&#39;, &#123;</span><br><span class="line">    template: &#96;</span><br><span class="line">        &lt;div class&#x3D;&quot;demo-alert-box&quot;&gt;</span><br><span class="line">        &lt;strong&gt;Error!&lt;&#x2F;strong&gt;</span><br><span class="line">        &lt;slot&gt;&lt;&#x2F;slot&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">    &#96;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">new Vue(&#123;</span><br><span class="line">    el: &#39;#slot_demo&#39;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>技术</category>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>vue</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Vue2.0 简明教程 - 01. 安装与介绍</title>
     <url>/2018/07/19/Vue2-0-%E7%AE%80%E6%98%8E%E6%95%99%E7%A8%8B-01-%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BB%8B%E7%BB%8D/</url>
     <content><![CDATA[<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="00-Vue-Devtools"><a href="#00-Vue-Devtools" class="headerlink" title="00. Vue Devtools"></a>00. Vue Devtools</h3><p><code>Vue Devtools</code> is a browser devtools extension for debugging Vue.js applications</p>
@@ -612,6 +622,57 @@
 <h3 id="04-组件化应用构建"><a href="#04-组件化应用构建" class="headerlink" title="04. 组件化应用构建"></a>04. 组件化应用构建</h3><p>组件系统是 Vue 的另一个重要概念，组件化是指，在大型项目中将应用的界面抽象成一个个小型、独立和可复用的组件数来构建，如下图所示：<br><img src="/images/pasted-28.png"></p>
 <p>在 Vue 里，一个组件本质上是一个拥有预定义选项的一个 Vue 实例。Vue 组件非常类似自定义元素，相比自定义元素，Vue 组件的表现在所有支持的浏览器上表现一致，还有些其他自定义组件没有的功能。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;app-7&quot;&gt;</span><br><span class="line">   &lt;ol&gt;</span><br><span class="line">   &lt;!--</span><br><span class="line">     现在我们为每个 todo-item 提供 todo 对象</span><br><span class="line">     todo 对象是变量，即其内容可以是动态的。</span><br><span class="line">     我们也需要为每个组件提供一个“key”，稍后再</span><br><span class="line">     作详细解释。</span><br><span class="line">   --&gt;</span><br><span class="line">     &lt;todo-item</span><br><span class="line">       v-for&#x3D;&quot;item in groceryList&quot;</span><br><span class="line">       v-bind:todo&#x3D;&quot;item&quot;</span><br><span class="line">       v-bind:key&#x3D;&quot;item.id&quot;&gt;</span><br><span class="line">     &lt;&#x2F;todo-item&gt;</span><br><span class="line">   &lt;&#x2F;ol&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">Vue.component(&#39;todo-item&#39;, &#123;</span><br><span class="line">  props: [&#39;todo&#39;],</span><br><span class="line">  template: &#39;&lt;li&gt;&#123;&#123; todo.text &#125;&#125;&lt;&#x2F;li&gt;&#39;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">var app7 &#x3D; new Vue(&#123;</span><br><span class="line">  el: &#39;#app-7&#39;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    groceryList: [</span><br><span class="line">      &#123; id: 0, text: &#39;蔬菜&#39; &#125;,</span><br><span class="line">      &#123; id: 1, text: &#39;奶酪&#39; &#125;,</span><br><span class="line">      &#123; id: 2, text: &#39;随便其它什么人吃的东西&#39; &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>技术</category>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vue2.0 简明教程 - 02. 组件基础</title>
+    <url>/2018/07/19/Vue2-0-%E7%AE%80%E6%98%8E%E6%95%99%E7%A8%8B-02-%E7%BB%84%E4%BB%B6%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<h2 id="基本示例"><a href="#基本示例" class="headerlink" title="基本示例"></a>基本示例</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;vue&#x2F;dist&#x2F;vue.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;div id&#x3D;&quot;components-demo&quot;&gt;</span><br><span class="line">        &lt;button-counter&gt;&lt;&#x2F;button-counter&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">&#x2F;&#x2F; 定义一个名为 button-counter 的新组件</span><br><span class="line">Vue.component(&#39;button-counter&#39;, &#123;</span><br><span class="line">  data: function () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      count: 0</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  template: &#39;&lt;button v-on:click&#x3D;&quot;count++&quot;&gt;You clicked me &#123;&#123; count &#125;&#125; times.&lt;&#x2F;button&gt;&#39;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">new Vue(&#123; el: &#39;#components-demo&#39; &#125;)</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>组件是可复用的 Vue 实例，且带有一个名字：在这个例子中是 <code>&lt;button-counter&gt;</code>。</p>
+<p>我们可以在一个通过 new Vue 创建的 Vue 根实例中，把这个组件作为自定义元素来使用。</p>
+<p>因为组件是可复用的 Vue 实例，所以它们与 <code>new Vue</code> 接收相同的选项，例如 <code>data</code>、<code>computed</code>、<code>watch</code>、<code>methods</code> 以及生命周期钩子等。仅有的例外是像 <code>el</code> 这样根实例特有的选项。</p>
+<a id="more"></a>
+
+<h2 id="组件的复用"><a href="#组件的复用" class="headerlink" title="组件的复用"></a>组件的复用</h2><p>可以将组件进行任意次数的复用：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;components-demo&quot;&gt;</span><br><span class="line">  &lt;button-counter&gt;&lt;&#x2F;button-counter&gt;</span><br><span class="line">  &lt;button-counter&gt;&lt;&#x2F;button-counter&gt;</span><br><span class="line">  &lt;button-counter&gt;&lt;&#x2F;button-counter&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+<p>当点击按钮时，每个组件都会各自独立维护它的 <code>count</code>。因为你每用一次组件，就会有一个它的新实例被创建。</p>
+<h3 id="data-必须是一个函数"><a href="#data-必须是一个函数" class="headerlink" title="data 必须是一个函数"></a><code>data</code> 必须是一个函数</h3><p>当我们定义这个 <button-counter> 组件时，你可能会发现它的 data 并不是像这样直接提供一个对象：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">  count: 0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>取而代之的是，一个组件的 data 选项必须是一个函数，因此每个实例返回的对象都是各自独立的：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">data: function () &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    count: 0</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="全局注册与局部注册"><a href="#全局注册与局部注册" class="headerlink" title="全局注册与局部注册"></a>全局注册与局部注册</h2><p>用 <code>Vue.component</code>函数注册组件为全局组件，全局注册的组件可以用在其被注册之后的任何 (通过 new Vue) 新创建的 Vue 根实例中，也包括其组件树中的所有子组件的模板中。但全局注册也会有其他的不理想的地方，比如，你使用一个像 webpack 这样的构建系统，全局注册的组件意味着即使你已经不再使用该组件了，它仍然会被包含在你最终的构建结果中。这造成了用户下载的 JavaScript 的无谓的增加。</p>
+<p>这种情况下，可以通过一个普通的 Javascript 对象来定义组件，然后在<code>components</code>选项中定义你想要使用的组件：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var ComponentA &#x3D; &#123; &#x2F;* ... *&#x2F; &#125;</span><br><span class="line">var ComponentB &#x3D; &#123; &#x2F;* ... *&#x2F; &#125;</span><br><span class="line">var ComponentC &#x3D; &#123; &#x2F;* ... *&#x2F; &#125;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: &#39;#app&#39;</span><br><span class="line">  components: &#123;</span><br><span class="line">    &#39;component-a&#39;: ComponentA,</span><br><span class="line">    &#39;component-b&#39;: ComponentB</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>局部注册的组件在其子组件中不可用，例如，如果希望<code>ComponentA</code>在<code>ComponentB</code>中可用，则需要这样写：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var ComponentA &#x3D; &#123; &#x2F;* ... *&#x2F; &#125;</span><br><span class="line"></span><br><span class="line">var ComponentB &#x3D; &#123;</span><br><span class="line">  components: &#123;</span><br><span class="line">    &#39;component-a&#39;: ComponentA</span><br><span class="line">  &#125;,</span><br><span class="line">  &#x2F;&#x2F; ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或者通过 Babel 和 webpack 使用 ES2015模块，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import ComponentA from &#39;.&#x2F;ComponentA.vue&#39;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  components: &#123;</span><br><span class="line">    ComponentA</span><br><span class="line">  &#125;,</span><br><span class="line">  &#x2F;&#x2F; ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="通过-prop-向子组件传递数据"><a href="#通过-prop-向子组件传递数据" class="headerlink" title="通过 prop 向子组件传递数据"></a>通过 prop 向子组件传递数据</h2><p>Prop 是指你可以在组件上注册一些自定义属性。当一个值传递给一个 prop 属性的时候，它就变成了那个组件实例的一个属性。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Vue.component(&#39;blog-post&#39;, &#123;</span><br><span class="line">  props: [&#39;title&#39;],</span><br><span class="line">  template: &#39;&lt;h3&gt;&#123;&#123; title &#125;&#125;&lt;&#x2F;h3&gt;&#39;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>一个 prop 被注册之后，你就可以像如下这样把数据作为一个自定义属性传递进来：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;blog-post title&#x3D;&quot;My journey with Vue&quot;&gt;&lt;&#x2F;blog-post&gt;</span><br><span class="line">&lt;blog-post title&#x3D;&quot;Blogging with Vue&quot;&gt;&lt;&#x2F;blog-post&gt;</span><br><span class="line">&lt;blog-post title&#x3D;&quot;Why Vue is so fun&quot;&gt;&lt;&#x2F;blog-post&gt;</span><br></pre></td></tr></table></figure>
+<p>实际应用中，很可能在 Vue 实例的<code>data</code>里有一个 blog 的数组，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">new Vue(&#123;</span><br><span class="line">  el: &#39;#components-demo&#39;,</span><br><span class="line">  data: &#123;</span><br><span class="line">    posts: [</span><br><span class="line">      &#123; id: 1, title: &#39;My journey with Vue&#39; &#125;,</span><br><span class="line">      &#123; id: 2, title: &#39;Blogging with Vue&#39; &#125;,</span><br><span class="line">      &#123; id: 3, title: &#39;Why Vue is so fun&#39; &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>然后，在模板中通过<code>v-bind</code>动态渲染每一个 blog</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;blog-post</span><br><span class="line">  v-for&#x3D;&quot;post in posts&quot;</span><br><span class="line">  v-bind:key&#x3D;&quot;post.id&quot;</span><br><span class="line">  v-bind:title&#x3D;&quot;post.title&quot;</span><br><span class="line">&gt;&lt;&#x2F;blog-post&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="props-类型验证"><a href="#props-类型验证" class="headerlink" title="props 类型验证"></a>props 类型验证</h3><p>可以为 props 中的值提供一个带有验证需求的对象，而不仅仅是一个字符串数组，例如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Vue.component(&#39;my-component&#39;, &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    &#x2F;&#x2F; 基础的类型检查 (&#96;null&#96; 匹配任何类型)</span><br><span class="line">    propA: Number,</span><br><span class="line">    &#x2F;&#x2F; 多个可能的类型</span><br><span class="line">    propB: [String, Number],</span><br><span class="line">    &#x2F;&#x2F; 必填的字符串</span><br><span class="line">    propC: &#123;</span><br><span class="line">      type: String,</span><br><span class="line">      required: true</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F; 带有默认值的数字</span><br><span class="line">    propD: &#123;</span><br><span class="line">      type: Number,</span><br><span class="line">      default: 100</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F; 带有默认值的对象</span><br><span class="line">    propE: &#123;</span><br><span class="line">      type: Object,</span><br><span class="line">      &#x2F;&#x2F; 对象或数组且一定会从一个工厂函数返回默认值</span><br><span class="line">      default: function () &#123;</span><br><span class="line">        return &#123; message: &#39;hello&#39; &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F; 自定义验证函数</span><br><span class="line">    propF: &#123;</span><br><span class="line">      validator: function (value) &#123;</span><br><span class="line">        &#x2F;&#x2F; 这个值必须匹配下列字符串中的一个</span><br><span class="line">        return [&#39;success&#39;, &#39;warning&#39;, &#39;danger&#39;].indexOf(value) !&#x3D;&#x3D; -1</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="通过事件向父级组件发送事件"><a href="#通过事件向父级组件发送事件" class="headerlink" title="通过事件向父级组件发送事件"></a>通过事件向父级组件发送事件</h2><p>通过一个按钮来放大 blog 的字号<br><code>demo</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;blog-posts-events-demo&quot;&gt;</span><br><span class="line">    &lt;div :style&#x3D;&quot;&#123;fontSize: postFontSize+&#39;em&#39;&#125;&quot;&gt;</span><br><span class="line">        &lt;blog-post  </span><br><span class="line">        v-for&#x3D;&quot;post in posts&quot;</span><br><span class="line">        v-bind:key&#x3D;&quot;post.id&quot;</span><br><span class="line">        v-bind:post&#x3D;&quot;post&quot;</span><br><span class="line">        v-on:enlarge-text&#x3D;&quot;postFontSize +&#x3D; 0.1&quot;&gt;</span><br><span class="line">        &lt;&#x2F;blog-post&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    Vue.component(&#39;blog-post&#39;, &#123;</span><br><span class="line">        props: [&#39;post&#39;],</span><br><span class="line">        template: &#96;</span><br><span class="line">            &lt;div class&#x3D;&quot;blog-post&quot;&gt;</span><br><span class="line">                &lt;h3&gt;&#123;&#123; post.title &#125;&#125;&lt;&#x2F;h3&gt;</span><br><span class="line">                &lt;button v-on:click&#x3D;&quot;$emit(&#39;enlarge-text&#39;)&quot;&gt;</span><br><span class="line">                Enlarge text</span><br><span class="line">                &lt;&#x2F;button&gt;</span><br><span class="line">                &lt;div v-html&#x3D;&quot;post.content&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">            &lt;&#x2F;div&gt;</span><br><span class="line">        &#96; </span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    new Vue(&#123;</span><br><span class="line">        el: &#39;#blog-posts-events-demo&#39;,</span><br><span class="line">        data: &#123;</span><br><span class="line">            posts: [</span><br><span class="line">                &#123; id: 1, title: &#39;My journey with Vue&#39;, content: &#39;&lt;h2&gt;This is the first content&lt;&#x2F;h2&gt;&#39; &#125;,</span><br><span class="line">                &#123; id: 2, title: &#39;Blogging with Vue&#39;, content: &#39;&lt;h2&gt;This is the second content&lt;&#x2F;h2&gt;&#39;&#125;,</span><br><span class="line">                &#123; id: 3, title: &#39;Why Vue is so fun&#39;, content: &#39;&lt;h2&gt;This is the third content&lt;&#x2F;h2&gt;&#39; &#125;</span><br><span class="line">            ],</span><br><span class="line">            postFontSize: 1</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="使用事件抛出一个值"><a href="#使用事件抛出一个值" class="headerlink" title="使用事件抛出一个值"></a>使用事件抛出一个值</h3><p>如果想要控制每次点击要放大的值，可以用<code>$emit</code>的第二个参数来控制：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;button v-on:click&#x3D;&quot;$emit(&#39;enlarge-text&#39;, 0.1)&quot;&gt;</span><br><span class="line">  Enlarge text</span><br><span class="line">&lt;&#x2F;button&gt;</span><br></pre></td></tr></table></figure>
+<p>然后当在父级组件监听这个事件的时候，我们可以通过<code>$event</code>访问到被抛出的这个值：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;blog-post</span><br><span class="line">  ...</span><br><span class="line">  v-on:enlarge-text&#x3D;&quot;postFontSize +&#x3D; $event&quot;</span><br><span class="line">&gt;&lt;&#x2F;blog-post&gt;</span><br></pre></td></tr></table></figure>
+<p>或者，通过实现处理函数：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;blog-post</span><br><span class="line">  ...</span><br><span class="line">  v-on:enlarge-text&#x3D;&quot;onEnlargeText&quot;</span><br><span class="line">&gt;&lt;&#x2F;blog-post&gt;</span><br><span class="line"></span><br><span class="line">methods: &#123;</span><br><span class="line">  onEnlargeText: function (enlargeAmount) &#123;</span><br><span class="line">    this.postFontSize +&#x3D; enlargeAmount</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="通过插槽分发内容"><a href="#通过插槽分发内容" class="headerlink" title="通过插槽分发内容"></a>通过插槽分发内容</h2><p><code>demo</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div id&#x3D;&quot;slot_demo&quot;&gt;</span><br><span class="line">    &lt;alert-box&gt;</span><br><span class="line">        Something bad happened.</span><br><span class="line">    &lt;&#x2F;alert-box&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script src&#x3D;&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;vue&#x2F;dist&#x2F;vue.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">Vue.component(&#39;alert-box&#39;, &#123;</span><br><span class="line">    template: &#96;</span><br><span class="line">        &lt;div class&#x3D;&quot;demo-alert-box&quot;&gt;</span><br><span class="line">        &lt;strong&gt;Error!&lt;&#x2F;strong&gt;</span><br><span class="line">        &lt;slot&gt;&lt;&#x2F;slot&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">    &#96;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">new Vue(&#123;</span><br><span class="line">    el: &#39;#slot_demo&#39;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>技术</category>
         <category>前端</category>
@@ -741,67 +802,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Git Submodule 使用教程</title>
-    <url>/2018/03/08/Git-Submodule-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="创建测试项目"><a href="#创建测试项目" class="headerlink" title="创建测试项目"></a>创建测试项目</h2><h3 id="准备环境"><a href="#准备环境" class="headerlink" title="准备环境"></a>准备环境</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 创建测试目录</span><br><span class="line">mkdir git_submodule</span><br><span class="line">cd git_submodule</span><br><span class="line"># 创建本地裸仓库</span><br><span class="line">mkdir repos</span><br><span class="line">cd repos</span><br><span class="line">git init --bare lib1.git</span><br><span class="line">git init --bare lib2.git</span><br><span class="line">git init --bare project1.git</span><br><span class="line">git init --bare project2.git</span><br><span class="line"># 创建工作区目录</span><br><span class="line">cd ..</span><br><span class="line">mkdir ws</span><br><span class="line">cd ws</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h3 id="初始化测试项目-project1-和-project2"><a href="#初始化测试项目-project1-和-project2" class="headerlink" title="初始化测试项目 project1 和 project2"></a>初始化测试项目 project1 和 project2</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 初始化 project1</span><br><span class="line">git clone ..&#x2F;repos&#x2F;project1.git</span><br><span class="line">cd project1</span><br><span class="line">echo &quot;project1&quot; &gt; project_infos.txt</span><br><span class="line">git add .</span><br><span class="line">git ci -m &quot;init project1&quot;</span><br><span class="line"># 初始化 project2</span><br><span class="line">cd ..</span><br><span class="line">git clone ..&#x2F;repos&#x2F;project2.git</span><br><span class="line">cd project2</span><br><span class="line">echo &quot;project2&quot; &gt; project_infos.txt</span><br><span class="line">git add .</span><br><span class="line">git ci -m &quot;init project2&quot;</span><br></pre></td></tr></table></figure>
-<h3 id="初始化公共类库-lib1-和-lib2"><a href="#初始化公共类库-lib1-和-lib2" class="headerlink" title="初始化公共类库 lib1 和 lib2"></a>初始化公共类库 lib1 和 lib2</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 初始化公共类库 lib1</span><br><span class="line">cd ..</span><br><span class="line">git clone ..&#x2F;repos&#x2F;lib1.git</span><br><span class="line">cd lib1</span><br><span class="line">echo &quot;This is lib1&quot; &gt; lib1_features</span><br><span class="line">git add .</span><br><span class="line">git ci -m &quot;init lib1&quot;</span><br><span class="line">git push origin master</span><br><span class="line"># 初始化公共类库 lib2</span><br><span class="line">cd ..</span><br><span class="line">git clone ..&#x2F;repos&#x2F;lib2.git</span><br><span class="line">cd lib2</span><br><span class="line">echo &quot;This is lib2&quot; &gt; lib2_features</span><br><span class="line">git add .</span><br><span class="line">git ci -m &quot;init lib2&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-<h2 id="为-project1-添加-submodules-lib1-和-lib2"><a href="#为-project1-添加-submodules-lib1-和-lib2" class="headerlink" title="为 project1 添加 submodules ( lib1 和 lib2 )"></a>为 project1 添加 submodules ( lib1 和 lib2 )</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ..&#x2F;project1</span><br><span class="line">git submodule add ..&#x2F;..&#x2F;repos&#x2F;lib1.git libs&#x2F;lib1</span><br><span class="line">git submodule add ..&#x2F;..&#x2F;repos&#x2F;lib2.git libs&#x2F;lib2</span><br></pre></td></tr></table></figure>
-<p>此时，执行<code>ls</code>命令，会发现多了个<code>libs</code>目录<br><img src="/images/pasted-12.png" alt="upload successful"></p>
-<p>接着，查看状态，会发现<code>lib1</code>、<code>lib2</code>和另外一个新文件<code>.gitmodules</code>都已经被加入了暂存区<br><img src="/images/pasted-13.png" alt="upload successful"></p>
-<p>先看一下<code>lib1</code>和<code>lib2</code>里面的文件的内容，跟公共类库内容一致<br><img src="/images/pasted-14.png" alt="upload successful"></p>
-<p>接着看一下<code>.gitmodules</code>的内容，会发现 <code>.gitmodules</code>记录了每个         Submodules 的引用信息（在当前项目的位置以及引用仓库的URL）<br><img src="/images/pasted-15.png" alt="upload successful"></p>
-<p>最后，执行如下命令，将更改提交并推送到远程仓库</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git ci -a -m &quot;add submodules[lib1,lib2] to project1&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-<h2 id="模拟开发人员-B-对-submodules-的修改"><a href="#模拟开发人员-B-对-submodules-的修改" class="headerlink" title="模拟开发人员 B 对 submodules 的修改"></a>模拟开发人员 B 对 submodules 的修改</h2><h3 id="开发人员-B-克隆测试项目-project1"><a href="#开发人员-B-克隆测试项目-project1" class="headerlink" title="开发人员 B 克隆测试项目 project1"></a>开发人员 B 克隆测试项目 project1</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ..</span><br><span class="line">git clone ..&#x2F;repos&#x2F;project1.git project1-b</span><br><span class="line">cd project1-b</span><br></pre></td></tr></table></figure>
-<p>执行<code>git submodule</code>命令，会发现列出了所有子模块(Submodules)，但是，hash 码前面有一个<code>-</code>号，表明该子模块还没有检出<br><img src="/images/pasted-16.png" alt="upload successful"></p>
-<p>接下来，检出 project1-b 的所有子模块，执行<code>git submodule init</code>命令<br><img src="/images/pasted-17.png" alt="upload successful"></p>
-<p>上一步，仅完成了子模块在当前项目的注册，想检出子模块的内容，还需要执行<code>git submodule update</code>命令<br><img src="/images/pasted-18.png" alt="upload successful"></p>
-<h3 id="开发人员-B-修改子模块-lib1"><a href="#开发人员-B-修改子模块-lib1" class="headerlink" title="开发人员 B 修改子模块 lib1"></a>开发人员 B 修改子模块 lib1</h3><p>首先，进入<code>lib1</code>所在的目录，并查看状态<br><img src="/images/pasted-19.png" alt="upload successful"></p>
-<p>要修改<code>lib1</code>的文件，首先需要切换到相应的分支<br><img src="/images/pasted-20.png" alt="upload successful"></p>
-<p>修改、提交、推送</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">echo &#39;added by developer B&#39; &gt;&gt; lib1_features</span><br><span class="line">git add .</span><br><span class="line">git ci -m &quot;update lib1_features by developer B&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-<h3 id="开发人员-B-在项目-project1-b-目录中，提交更新并推送"><a href="#开发人员-B-在项目-project1-b-目录中，提交更新并推送" class="headerlink" title="开发人员 B 在项目(project1-b)目录中，提交更新并推送"></a>开发人员 B 在项目(project1-b)目录中，提交更新并推送</h3><p>回到<code>project1-b</code>所在的目录，会发现<code>project1-b</code>的状态发生了变化，很好理解，因为我们更改了子模块里面的文件，子模块也属于项目<code>project1-b</code>本身<br><img src="/images/pasted-21.png" alt="upload successful"></p>
-<p>最后一步，在<code>project1-b</code>项目中提交更新，并推送</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git add .</span><br><span class="line">git ci -m &quot;update libs&#x2F;lib1 by developer B&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-<h2 id="在-project1-中同步开发人员-B-对-submodules-做的修改"><a href="#在-project1-中同步开发人员-B-对-submodules-做的修改" class="headerlink" title="在 project1 中同步开发人员 B 对 submodules 做的修改"></a>在 project1 中同步开发人员 B 对 submodules 做的修改</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ..&#x2F;project1</span><br><span class="line">git pull origin master</span><br></pre></td></tr></table></figure>
-<p>查看状态，会发现<code>libs/lib1</code>处于<code>modified</code><br><img src="/images/pasted-22.png" alt="upload successful"></p>
-<p>很好理解，我们需要手动更新 submodules 的更新<br><img src="/images/pasted-23.png" alt="upload successful"></p>
-<p>至此，我们就在 project1 中成功同步了开发人员 B 对 submodules 所做的修改了</p>
-<h2 id="为-project2-添加-submodules-lib1-和-lib2"><a href="#为-project2-添加-submodules-lib1-和-lib2" class="headerlink" title="为 project2 添加 submodules ( lib1 和 lib2 )"></a>为 project2 添加 submodules ( lib1 和 lib2 )</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ..&#x2F;project2</span><br><span class="line">git submodule add ..&#x2F;..&#x2F;repos&#x2F;lib1.git libs&#x2F;lib1</span><br><span class="line">git submodule add ..&#x2F;..&#x2F;repos&#x2F;lib2.git libs&#x2F;lib2</span><br><span class="line">git add .</span><br><span class="line">git ci -m &quot;add submodules[lib1,lib2] to project2&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-<h2 id="在-project2-中修改-lib1-和-lib2-并同步到-project1-中"><a href="#在-project2-中修改-lib1-和-lib2-并同步到-project1-中" class="headerlink" title="在 project2 中修改 lib1 和 lib2 并同步到 project1 中"></a>在 project2 中修改 lib1 和 lib2 并同步到 project1 中</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 在 lib1 中添加一个文件 README</span><br><span class="line">cd libs&#x2F;lib1</span><br><span class="line">echo &quot;This is lib1 readme contents&quot; &gt; README</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;add README for lib1&quot;</span><br><span class="line">git push origin master</span><br><span class="line">cd ..</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;update lib1 - add README&quot;</span><br><span class="line"></span><br><span class="line"># 修改 lib2 中的 lib2-features 文件</span><br><span class="line">cd libs&#x2F;lib2</span><br><span class="line">echo &quot;some new feature&quot; &gt;&gt; lib2_features</span><br><span class="line">git add .</span><br><span class="line">git ci -m &quot;add some new feature into lib2_features&quot;</span><br><span class="line">git push origin master</span><br><span class="line">cd ..&#x2F;..&#x2F;</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;update lib2 - add some new features&quot;</span><br><span class="line"></span><br><span class="line"># 推送 project2 的修改</span><br><span class="line">git push origin master</span><br><span class="line"></span><br><span class="line"># 在 project1 中更新 lib1 和 lib2 的最新修改，并推送</span><br><span class="line">cd ..&#x2F;project1</span><br><span class="line">git pull origin master</span><br><span class="line">cd libs&#x2F;lib1</span><br><span class="line">git co master</span><br><span class="line">git pull origin master</span><br><span class="line">cd ..&#x2F;lib2</span><br><span class="line">git pull</span><br><span class="line">cd ..&#x2F;..&#x2F;</span><br><span class="line">git ci -a -m &quot;update lib1 and lib2 to new version&quot;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
-<h2 id="更新-project1-b-项目的子模块"><a href="#更新-project1-b-项目的子模块" class="headerlink" title="更新 project1-b 项目的子模块"></a>更新 project1-b 项目的子模块</h2><p>根据以上的操作，我们总结出来了修改并更新子模块的基本流程</p>
-<ul>
-<li>切换到子模块的某个分支</li>
-<li>修改子模块</li>
-<li>提交子模块的修改</li>
-<li>推送子模块的修改</li>
-<li>在项目目录提交子模块的修改</li>
-<li>在项目目录推送子模块的修改</li>
-<li>在其他项目的项目目录新(pull)子模块的修改</li>
-<li>在其他项目的子模块目录中依次更新(pull)</li>
-<li>在其他项目的项目目录中提交并推送修改</li>
-</ul>
-<p>事实上，修改子模块、提交和推送的操作确实需要一步步细致地进行，不过在其他项目中，更新对子模块的修改，步骤太繁琐。幸运的是我们可以使用<code>git submodule foreach git pull</code>命令，一步到位完成各子模块的同步更新。</p>
-<p>最后，在项目目录中提交并推送</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ..&#x2F;project1-b</span><br><span class="line">git pull</span><br><span class="line">git submodule foreach git pull</span><br><span class="line">git ci -a -m &quot;update libs1 and libs2 to new version&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-
-<h2 id="新成员加入团队，一次性克隆项目和-submodules"><a href="#新成员加入团队，一次性克隆项目和-submodules" class="headerlink" title="新成员加入团队，一次性克隆项目和 submodules"></a>新成员加入团队，一次性克隆项目和 submodules</h2><p>根据已有知识，我们可以这样操作</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone &#x2F;path&#x2F;to&#x2F;repos&#x2F;foo.git</span><br><span class="line">git submodule init</span><br><span class="line">git submodule update</span><br></pre></td></tr></table></figure>
-<p>幸运的是，我们可以一行命令搞定</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone --recursive ..&#x2F;repos&#x2F;foo.git </span><br></pre></td></tr></table></figure>
-<p><code>–recursive</code>参数的含义：可以在克隆项目时同时克隆关联的submodules</p>
-<h2 id="移除-submodules"><a href="#移除-submodules" class="headerlink" title="移除 submodules"></a>移除 submodules</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git submodule deinit libs&#x2F;lib1</span><br><span class="line">git rm libs&#x2F;lib1</span><br><span class="line">git ci -m &quot;remove libs&#x2F;lib1&quot;</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>技术</category>
-        <category>tools</category>
-      </categories>
-      <tags>
-        <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>做一个读书人</title>
     <url>/2016/09/07/%E5%81%9A%E4%B8%80%E4%B8%AA%E8%AF%BB%E4%B9%A6%E4%BA%BA/</url>
     <content><![CDATA[<img src="/2016/09/07/%E5%81%9A%E4%B8%80%E4%B8%AA%E8%AF%BB%E4%B9%A6%E4%BA%BA/zhudeng.jpeg" class="">
@@ -815,6 +815,36 @@
       <tags>
         <tag>国学</tag>
         <tag>读书</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>写作 —— 健脑俱乐部中的杠铃</title>
+    <url>/2024/11/10/%E5%86%99%E4%BD%9C-%E2%80%94%E2%80%94-%E5%81%A5%E8%84%91%E4%BF%B1%E4%B9%90%E9%83%A8%E4%B8%AD%E7%9A%84%E6%9D%A0%E9%93%83/</url>
+    <content><![CDATA[<p>在AI席卷而来的时代浪潮中，我们每个人都面临着一个关键选择：要么沦为AI的附属，任由思维退化；要么主动强化认知能力，成为驾驭AI的思维巨人。面对AI的加速发展，思维能力不再是简单的技能，而是我们独立存在的核心能力。</p>
+<p>就像健身俱乐部里的杠铃声彰显着人类对体能极限的追求，写作，正是『健脑俱乐部』里的杠铃，帮助我们在思维的每次『负重深蹲』中不断突破认知的极限。</p>
+<a id="more"></a>
+
+
+<h3 id="为什么写作是思考训练中最高效的工具？"><a href="#为什么写作是思考训练中最高效的工具？" class="headerlink" title="为什么写作是思考训练中最高效的工具？"></a>为什么写作是思考训练中最高效的工具？</h3><h4 id="思考的本质"><a href="#思考的本质" class="headerlink" title="思考的本质"></a>思考的本质</h4><p><img src="/images/pasted-59.png" alt="upload successful"></p>
+<p>思考是大脑对信息进行筛选、提炼和逻辑加工的迭代过程。通过形成概念、构建关联、推理判断，产生新的认知。</p>
+<p>思考就像烹饪一道美食：精选食材（信息加工）、准备食材（概念形成）、搭配组合（概念关联）、掌握火候（逻辑推理），最终呈现出一道色香味俱全的佳肴（认知生成）。</p>
+<p>正如一位厨师会不断调整配方，思考也是反复推敲、逐步打磨的过程。</p>
+<h4 id="写作的特点"><a href="#写作的特点" class="headerlink" title="写作的特点"></a>写作的特点</h4><p><img src="/images/pasted-60.png" alt="upload successful"></p>
+<p>写作是将思维内容通过文字符号进行结构化表达和优化的迭代过程。通过筛选内容、构建框架、精准表达和情感注入，形成清晰且具感染力的文本作品。</p>
+<p>就像杠铃训练有深蹲、卧推、硬拉等基本动作，写作也有选材、结构、表达等核心环节。而且，写作对思维的训练更为全面。</p>
+<p>如果说力量训练是对肌肉的全面刺激，那写作就是对思维的全方位训练。每一篇文章的写作都像是完成一次思维的组合动作。从信息筛选到逻辑构建，从概念形成到表达优化，全面锻炼着我们的思考能力。</p>
+<h4 id="写作与思考的关系"><a href="#写作与思考的关系" class="headerlink" title="写作与思考的关系"></a>写作与思考的关系</h4><h5 id="写作是思考的组织工具"><a href="#写作是思考的组织工具" class="headerlink" title="写作是思考的组织工具"></a>写作是思考的组织工具</h5><p>写作就像规划力量训练的杠铃配重，把分散的概念和思维碎片通过 <code>内容选取</code> 和 <code>逻辑框架</code> 组织成形，让抽象的想法变得条理清晰。比如这篇文章，最初我只是有一些关于写作和思考的零散想法，通过写作的整理，才逐步形成了现在这个清晰的逻辑框架。</p>
+<h5 id="写作是思考过程的照妖镜"><a href="#写作是思考过程的照妖镜" class="headerlink" title="写作是思考过程的照妖镜"></a>写作是思考过程的照妖镜</h5><p>如果说思考是在头脑中进行的『虚拟训练』，那写作就是真正的『实战演练』。</p>
+<p>我们在脑海中以为合理的逻辑，往往在写作时暴露出漏洞；那些混乱的想法，写下来才发现是情绪化的判断。就像我们健身时，常常以为自己动作标准，但照镜子时才发现动作偏差。写作是让我们发现思维『错误动作』的照妖镜，也是校正思维的练习场。</p>
+<h5 id="写作促进了思考的迭代与反馈"><a href="#写作促进了思考的迭代与反馈" class="headerlink" title="写作促进了思考的迭代与反馈"></a>写作促进了思考的迭代与反馈</h5><p>就像健身俱乐部中的力量训练，一般都先要用轻重量把动作做标准，再逐步增加重量。写作的过程也一样，通过反复的修改和打磨，不断提升思考的『负重』。每次修改都是一次反馈：有时发现逻辑不严谨，就要调整逻辑，补充佐证；有时觉得概念不清晰，就要重新提炼；有时会觉得结构不优雅，就要调整结构。这种反复的迭代，会让思维肌肉逐渐变大。</p>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>如今，AI正在重塑我们的生活和工作方式。就像人们走进健身俱乐部是为了对抗身体的退化，我们也需要通过持续的写作训练来对抗思维的退化。</p>
+<p>让我们一起步入健脑俱乐部，让写作成为我们的思维杠铃，开始这场认知锻炼之旅。</p>
+]]></content>
+      <categories>
+        <category>认知</category>
+      </categories>
+      <tags>
+        <tag>写作</tag>
       </tags>
   </entry>
   <entry>
@@ -884,6 +914,46 @@
         <tag>centos</tag>
         <tag>centos6</tag>
         <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>思维巨人与脑残</title>
+    <url>/2024/10/29/%E6%80%9D%E7%BB%B4%E5%B7%A8%E4%BA%BA%E4%B8%8E%E8%84%91%E6%AE%8B/</url>
+    <content><![CDATA[<p>AI 正在重塑人类的思维版图。最近，YC创始人、《黑客与画家》作者保罗·格雷厄姆发表了一篇引人深思的博客<a href="https://paulgraham.com/writes.html">“Writes and Write-Nots”</a>。</p>
+<p>作者开篇就表达了观点：</p>
+<blockquote>
+<p>我通常不愿意对技术做出预测，但对这一观点，非常有信心：几十年后，会写作的人将不会很多。</p>
+</blockquote>
+<p>文末，作者还升级了观点：</p>
+<blockquote>
+<p>将未来的世界分为写作和不写作并没有听起来那么危险，事实上，未来将是一个思考和不思考的世界。</p>
+</blockquote>
+<a id="more"></a>
+
+<p>原文并不长，但作者思路清晰，有理有据，并非哗众取宠。那为什么保罗·格雷厄姆会这么说，甚至专门写一篇文章来阐述？这也正是我今天开始重拾写作，并开始写下本文的原因！</p>
+<p>我们先做个小实验：如果你已经参加工作超过十年，请试着用笔写下『喷嚏』二字。今天早上我在看到这 <a href="https://globalchinapulse.net/character-amnesia-in-china/">Character Amnesia in China</a> 这篇文章时，第一时间试了一下，我确实写不出来。事实上，我相信很多人应该跟我一样，好多常见汉字都不会写了吧？</p>
+<p>18 世纪，人类发明了蒸汽机，掀起了第一次工业革命，人类从大规模的繁重的体力劳动中解放出来。短短 200 年里，人类的平均体能也以肉眼可见的方式衰退。英国一项追踪研究发现，仅 1985 年到2015 年间，10-12岁儿童的上肢力量就平均下降了26%。</p>
+<p>但与此同时，体能的极限却在不断被打破。1896年第一届现代奥运会的男子100米金牌成绩是12秒，如今人类纪录已经突破到9.58秒。1920年奥运会男子举重纪录是156公斤，现在已达到488公斤。专业运动员借助现代科技和训练方法，把人类体能推向了新的高度。</p>
+<p>随着当下席卷全球的以大语言模型为代表的 AIGC 时代的到来，AI 开始在写作、设计、编程、科研、决策分析等各领域逐步接管人类的脑力劳动。类比思考一下，我认为，未来，人类的思维能力也会出现两个极端的分化图景。大部分人会弱化成为不具备思考能力的『脑残』，而少数人会借助 AI 无限拓展认知边界，最终进化成前所未有的『思维巨人』。</p>
+<p>最后，再次回到保罗·格雷厄姆的这篇文章上。作者文中反复提到一个观点：写作就是思考。莱斯利·兰波特 （Leslie Lamport）更好地表达了这一点：</p>
+<blockquote>
+<p>If you’re thinking without writing, you only think you’re thinking.</p>
+</blockquote>
+<blockquote>
+<p>『如果你只思考而不写作，你只是认为你在思考。』</p>
+</blockquote>
+<p>我是一个喜欢拥抱新技术的人，更不是一个会因为新技术而焦虑的人，但这次生成式 AI 的技术浪潮，足以值得我们每一个人重视起来。</p>
+<p>工业革命后的这一两百年，才有了『健身』这个概念，随之诞生了『健身房』、『健身教练』和『健身器械』。未来，人类可能也需要『健脑』了。我们可能会看到『健脑房』，『思维教练』成为新兴职业，『认知训练』变成日常刚需。毕竟，大多数人并不想成为『脑残』吧？而正如保罗·格雷厄姆说的，写作就是思考。写作也无疑是一个不错的『健脑』运动。</p>
+<p>是成为『思维巨人』还是成为『脑残』，选择权在于自己。</p>
+<p>就像现在，有人在健身房挥汗如雨，有人在沙发上刷短剧。有人规律去『健脑』，有人习惯性把思考外包。</p>
+<p>今天，我做出了自己的选择，你选好了吗？</p>
+]]></content>
+      <categories>
+        <category>认知</category>
+      </categories>
+      <tags>
+        <tag>写作</tag>
+        <tag>AI</tag>
       </tags>
   </entry>
   <entry>
@@ -1108,6 +1178,19 @@
       </tags>
   </entry>
   <entry>
+    <title>重生</title>
+    <url>/2017/04/19/%E9%87%8D%E7%94%9F/</url>
+    <content><![CDATA[<p>​再过两天我就该过31周岁生日了，韶华易逝，红颜易老，是时候对过往经历进行复盘了。<a id="more"></a><br>大学<br>复盘过往的成长经历，还要先从我高中毕业时说起，毕竟那是我第一次独立生活，独自面对社会，独自做出选择，我成年了。我当年高考六百多分，全县前二十名，填报志愿时狂妄地不勾选「服从调剂」的选项，最后落榜去了一所二流的本科院校，随意地选了当时最热门但后来发现自己并不喜欢的专业——机械工程及自动化。<br>大一时，通过学校三轮筛选，最后被选上代表学校参加天津市数学竞赛，高数免考直接给最高绩点5。<br>大一结束时，全校C语言考试，我以满分的成绩考了全校第一。后来，我就天天抱着各种英文编程书，对着电脑死磕代码。单片机、C、C++、Java、Javascript、Linux、Shell，见啥学啥。<br>大二时，疯狂地迷恋李小龙，大二结束时，我开始先学习跆拳道，第一次跆拳道考级，我就考了WTF韩国国际院颁发的最佳品势奖。之后，大三参加学校大学生社团展示月的闭幕式并做跆拳道压轴表演，大四在北京一个教堂的三周年庆典上做跆拳道压轴表演。<br>大三时，被微机原理与接口技术的专业课老师叫去，做了学校工程训练中心的信息管理系统。<br>大三时，因液压老师的一句「同学们，大三了，大家该收收心了」而拒绝了6Green网站抛出的橄榄枝。<br>大四时，被朋友推荐，在一个日韩人居住较多的高档小区替一名日本人经营了一家小区便利店，二八分成，日本人二，我八。<br>大四毕业时，毕设做了自行车自动存管装置，涉及了机械、自动化和计算机这三个学科。后来，该课题被拿去成功申请了专利。<br>大学四年，一直拿一等奖学金。<br>总得来说，大学四年本专业的学习，弄懂了装配图和零件图的区别，会熟练使用AutoCAD，了解了车、钳、刨、铣都是干啥的，每门课考试成绩都数一数二，但要说真正明白了啥，估计就是明白了自己实在是不喜欢机械吧。至于计算机技术，我基本上被动承包了很多同学的电脑技术支持和网络技术支持及网站技术支持工作，说白了，就是免费给大家修电脑、摆置宽带网络和做网站。后来，学校里流传着一句话：「某某」是机械学院最懂自动化的，自动化学院最懂计算机的，计算机学院最懂机械的。接着说跆拳道，总共练了快三年，到该考黑带时，有事给耽搁了，然后就放下了。还有，这几年被一个「朋友」坑过钱，为一个朋友出头打过架，替宿舍哥们儿打抱不平手上被缝了13针线，还被人关过小黑屋恐吓过。<br>大学生活，就这么切切实实地过去了，很多大学同学都说我是长期介于牛A和牛C之间的人。<br>工作<br>大学毕业后，我签了一家全球500强的风力发电外企，全天津只招15人，招当时很时髦的技术管理培训生（Technology management trainee）。三轮面试后，我通过，很开心，每天早晨都是笑醒的，似乎已经是人生赢家了。再后来，赶上09年金融危机，厌恶了没有核心竞争力的管理岗位后，我毅然辞职去了北京，开始了逐梦之旅，做起了程序员。期间在中科院软件研究所下属的一家公司里做过Linux桌面应用开发、Linux内核驱动开发、上网本开发和高铁MVB通信协议栈研发。离开时，发现我所在的研发团队，除了我之外，剩下的都是北航、北大、清华的。再后来，拿到了华为北研所的Offer，去了华为北研所，跟我一起参加华为大队培训的那帮小伙伴里，我是第一个参加预备PL培训的，后来带队做了IPv6用户上线连接管理的设计和开发和其他的BRAS产品增值业务开发，直到11年底离开华为。<br>总之，在北京工作的那段时间，我没日没夜的读书、学习，市面上经典的C语言、计算机网络、操作系统及数据结构和算法的好书很多都读过、练过。<br>中国有句古话，读万卷书，不如行万里路，行万里路，不如名师指路。所以，从华为辞职后，我自驾去了一趟西藏，川藏进、青藏出，见到了各地的人的各种不同的生活方式，才发现原来人还可以那样与众不同的过一生。之后，在家看了三个月的杂书，易经、失控、GEB、三体……。<br>从大学开始，到离开华为后自驾去西藏后，总共过了七年多的时间，这是我成年后度过的「第一辈子」。很多朋友都觉得我这「第一辈子」很出彩，是个牛人。<br>婚姻<br>离开华为后，在家呆的那段日子里，我遇到了我现在的老婆，两人老家一个地方，在那个年龄，在那种环境，一旦开始了以结婚为目的的恋爱，结婚的进程就真得进行得飞快了。后来，迫于结婚筹备和生活的压力，我决定再次回到北京——工作、赚钱。<br>去北京的机会，来自于猎头为惠普中国研究院（HP Labs China）招一名高级软件工程师，负责当时还属IEEE草案期的Hotspot2.0技术在AP上的协议研发。当时，该职位已经招了快一年，一直没有物色到合适的人选，我觉得很有挑战，也很感兴趣，就应聘了，顺利通过了，很开心。不得不说，惠普中国研究院的Style真得很迷人，弹性工作制，上下班不打卡，有专门的Pantry摆放着各种茶、饮品、点心供自由取用。工作上除了每双周例会时同惠普总部Palo Alto的Fellow汇报和交流外，其他情况都可自行安排自己的时间，整个Lab充满了浓厚的分享文化和共享精神。<br>那段时间，过得很充实，感觉身边尽是牛人，每个人的履历都是分分钟闪瞎眼睛的那种。到处都是本科清华、北大、中科大，研究生或博士读的国外常春藤大学。每天大家讨论的话题，从量子物理到当时一枚还不到500人民币的比特币。工作场合见不到中文，全天候的英文环境。服务器在硅谷，所以，也从来不用考虑科学上网的问题。那段时间我开始在Coursera上学习各种国外的公开课，从计算机编程领域到心理学领域再到金融领域。阅读英文技术文档和论文也从刚开始盯着发呆到后来能快速扫视即可获取想要的信息。上下班地铁通勤的时间里，也从没停止过用kindle阅读。<br>一切似乎都很不错，但是，当时却一直有个致命的问题，萦绕在我的脑海里，挥之不去：我来北京工作赚钱，当初是为结婚做准备的，那我的下一步到底该如何走？<br>当时的女朋友（现在的老婆）在我们老家，央企正式员工，有着很多人羡慕的稳定且待遇不错的工作，还有很充裕的自由时间支配，让她放弃一切跟我结婚并留在北京，于情于理，都不现实。<br>后来，我果断做了个决定：先结婚！<br>很多人都觉得我很牛，在大部分人都还迷茫的时候，做到了事业、婚姻两不误。<br>创业<br>结了婚，我就开始留意可以回家乡的机会，也在考虑着回家创业。有一天，我接到一个电话，一个在北京仅见过两次面的朋友，邀请我回到老家以技术入股的方式，一起创业做IT培训。IT培训，那时我也有在考虑的，移动互联网当时已经呈现出即将火爆的态势了，不管移动互联网项目成败与否，提供人才培训服务，总不会错的。最重要的是，我可以提前回家启动创业计划了，我很兴奋。所以，我同意了，回到了老家，开始了第一次创业。<br>种种原因，那段创业经历，我今天并不想着墨太多。总得来说，第一年，我边讲课、边出课程体系、边带老师，是公司的教学总监。第二年，我负责教学团队和就业团队，是产品中心负责人。第三年，下半年，我出任公司CEO。三年的创业经历，我从中学到了很多做人、做事和管理的经验，感谢这段经历。<br>现在我已经离开了当初第一次创业的那家公司，并刚刚成立了自己的新公司，打造了自己心心念念的「速度与激情」团队，开始以自己喜欢的方式和节奏startup。<br>从再次北上工作到结婚到创业再到现在二次创业，我又过了快「一辈子」，这是我成年后度过的「第二辈子」。 很多同学和朋友都觉得我这「第二辈子」很勇敢、很出彩，是个牛人 。<br>重生<br>以上所述，都是我的真人真事，可是，我内心一直不安，一直在怀疑：难道我真得是个牛人吗？<br>答案是：不是。不光如此，用我现今的认知来看，我这过去的「两辈子」甚至是失败的！<br>想当年王阳明，用了几十年，才在36岁时龙场悟道。于是有了「我心自有光明月，千古团圆永无缺」的心学。他是从小立志做圣贤的人，是中国两个半完人中的一个。 我从没想过做圣人，可我用了近「两辈子」，才发现我过去的「两辈子」根本没有活明白！<br>过去的我，根本不知道自己想要啥，三观不稳，还一直苛责自己。<br>过去的我，被各种外部因素困扰着，左右着，看似每次都是自己的选择，实则根本没有选择。<br>过去的我，哪怕只是想学习点理财知识，我就会去学习整个经济学，只因经济学里要用到些许概率论，又会去学习整个概率论和线性代数。<br>过去的我，总喜欢跟周围的人比，总想超越周围的人。就连一群人K歌，我也要成为K歌之王。<br>过去的我， 上厕所都要拿本书，开车都要听广播，就连陪老婆孩子时都会见缝插针地看订阅文章，日程安排得满满的，神经绷得紧紧的。<br>过去的我，……<br>这样看来，过去的我，就是失败的！<br>而直到现在，我才清楚地明白，自己这接下来的这「第三辈子」该如何度过。<br>我重新定了「成功」：清楚自己想要啥，并始终悦纳自己。做个对别人、对社会有用的人！<br>一片叶子，看似自由，质量极小，甚至连地心引力都能摆脱，没有束缚。但那不是自由，它只能随风飘荡，随波逐流，根本无法左右自己的方向和未来！<br>我重新定义了「自由」：真正的自由，源于高度的自律！自由，是有选择的权利！<br>我深刻意识到，「用功」并不等于「精进」，在通往「精进」的道路上，到处都是坑。<br>有个坑叫「躁进」：躁进的人，以理想主义的激情，走着现实主义的道路。胡子眉毛啥都抓。<br>有个坑叫「狂进」：狂进的人，兴趣广泛却画地为牢。在自己的舒适区里享受着优越感。<br>有个坑叫「乱进」：乱进的人，是一台不下电的机器，是时间的奴隶。<br>我深入地理解了，「投机」并不是「投资」 ，「投机」搏的是短期收益，「投资」求的是复利效应。<br>我开始意识到「长期」 的重要性。每天进步一点点，1.01的365次方≈38，1.01的3650次方≈无穷大。 每天退步一点点，0.99的365次方≈0.026，0.99的3650次方≈无穷小。<br>我开始笃信：量变必然引起质变！<br>我开始抛弃掉大学中学习的马克思主义政治经济学中关于商品价值的定义：即价值就是凝结在商品中的无差别的人类劳动。我现在认同新古典主义经济学派对商品价值的定义：即商品的价值取决于对于该商品的需求，跟成本无关。以此作为推论，我开始强烈地意识到：一个人的价值，取决于他是否被人需要，是否被这个社会需要。 所以，一个真正有价值的人，一定是对别人有用的人，对这个社会有用的人，这才是成功人士的概念。所以，从小我们被教育的：「你长大后要做个对这个社会有用的人」 原来是这么的正确！同理，一个成功的企业也应该是对这个世界有用的。<br>我开始……<br>现在的我，正在经历一种重生的蜕变。「种一棵树最好的时间是十年前，其次是现在」，很庆幸赶在自己「第三辈子」开始之际，已经进行了一次认知的革新，准确地说，我称之为「认知操作系统（Cognition Operating System）」的升级。伴随着这次升级，我愈发地意识到，现在社会，人与人之间，企业与企业之间，一切的差异，一切的竞争，都源于认知的差异，认知的竞争。</p>
+]]></content>
+      <categories>
+        <category>认知</category>
+      </categories>
+      <tags>
+        <tag>认知</tag>
+        <tag>复盘</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>跑步元思考</title>
     <url>/2013/12/26/%E8%B7%91%E6%AD%A5%E5%85%83%E6%80%9D%E8%80%83/</url>
     <content><![CDATA[<p>经不起某人三番五次地念叨，受不住李小龙变成洪金宝的奚落，在深思熟虑半下午之后，我决定开始重塑光辉形象了，哥要甩掉「发福」「变胖」等字眼，重新健身塑形了！  </p>
@@ -1139,86 +1222,104 @@
       </tags>
   </entry>
   <entry>
-    <title>重生</title>
-    <url>/2017/04/19/%E9%87%8D%E7%94%9F/</url>
-    <content><![CDATA[<p>​再过两天我就该过31周岁生日了，韶华易逝，红颜易老，是时候对过往经历进行复盘了。<a id="more"></a><br>大学<br>复盘过往的成长经历，还要先从我高中毕业时说起，毕竟那是我第一次独立生活，独自面对社会，独自做出选择，我成年了。我当年高考六百多分，全县前二十名，填报志愿时狂妄地不勾选「服从调剂」的选项，最后落榜去了一所二流的本科院校，随意地选了当时最热门但后来发现自己并不喜欢的专业——机械工程及自动化。<br>大一时，通过学校三轮筛选，最后被选上代表学校参加天津市数学竞赛，高数免考直接给最高绩点5。<br>大一结束时，全校C语言考试，我以满分的成绩考了全校第一。后来，我就天天抱着各种英文编程书，对着电脑死磕代码。单片机、C、C++、Java、Javascript、Linux、Shell，见啥学啥。<br>大二时，疯狂地迷恋李小龙，大二结束时，我开始先学习跆拳道，第一次跆拳道考级，我就考了WTF韩国国际院颁发的最佳品势奖。之后，大三参加学校大学生社团展示月的闭幕式并做跆拳道压轴表演，大四在北京一个教堂的三周年庆典上做跆拳道压轴表演。<br>大三时，被微机原理与接口技术的专业课老师叫去，做了学校工程训练中心的信息管理系统。<br>大三时，因液压老师的一句「同学们，大三了，大家该收收心了」而拒绝了6Green网站抛出的橄榄枝。<br>大四时，被朋友推荐，在一个日韩人居住较多的高档小区替一名日本人经营了一家小区便利店，二八分成，日本人二，我八。<br>大四毕业时，毕设做了自行车自动存管装置，涉及了机械、自动化和计算机这三个学科。后来，该课题被拿去成功申请了专利。<br>大学四年，一直拿一等奖学金。<br>总得来说，大学四年本专业的学习，弄懂了装配图和零件图的区别，会熟练使用AutoCAD，了解了车、钳、刨、铣都是干啥的，每门课考试成绩都数一数二，但要说真正明白了啥，估计就是明白了自己实在是不喜欢机械吧。至于计算机技术，我基本上被动承包了很多同学的电脑技术支持和网络技术支持及网站技术支持工作，说白了，就是免费给大家修电脑、摆置宽带网络和做网站。后来，学校里流传着一句话：「某某」是机械学院最懂自动化的，自动化学院最懂计算机的，计算机学院最懂机械的。接着说跆拳道，总共练了快三年，到该考黑带时，有事给耽搁了，然后就放下了。还有，这几年被一个「朋友」坑过钱，为一个朋友出头打过架，替宿舍哥们儿打抱不平手上被缝了13针线，还被人关过小黑屋恐吓过。<br>大学生活，就这么切切实实地过去了，很多大学同学都说我是长期介于牛A和牛C之间的人。<br>工作<br>大学毕业后，我签了一家全球500强的风力发电外企，全天津只招15人，招当时很时髦的技术管理培训生（Technology management trainee）。三轮面试后，我通过，很开心，每天早晨都是笑醒的，似乎已经是人生赢家了。再后来，赶上09年金融危机，厌恶了没有核心竞争力的管理岗位后，我毅然辞职去了北京，开始了逐梦之旅，做起了程序员。期间在中科院软件研究所下属的一家公司里做过Linux桌面应用开发、Linux内核驱动开发、上网本开发和高铁MVB通信协议栈研发。离开时，发现我所在的研发团队，除了我之外，剩下的都是北航、北大、清华的。再后来，拿到了华为北研所的Offer，去了华为北研所，跟我一起参加华为大队培训的那帮小伙伴里，我是第一个参加预备PL培训的，后来带队做了IPv6用户上线连接管理的设计和开发和其他的BRAS产品增值业务开发，直到11年底离开华为。<br>总之，在北京工作的那段时间，我没日没夜的读书、学习，市面上经典的C语言、计算机网络、操作系统及数据结构和算法的好书很多都读过、练过。<br>中国有句古话，读万卷书，不如行万里路，行万里路，不如名师指路。所以，从华为辞职后，我自驾去了一趟西藏，川藏进、青藏出，见到了各地的人的各种不同的生活方式，才发现原来人还可以那样与众不同的过一生。之后，在家看了三个月的杂书，易经、失控、GEB、三体……。<br>从大学开始，到离开华为后自驾去西藏后，总共过了七年多的时间，这是我成年后度过的「第一辈子」。很多朋友都觉得我这「第一辈子」很出彩，是个牛人。<br>婚姻<br>离开华为后，在家呆的那段日子里，我遇到了我现在的老婆，两人老家一个地方，在那个年龄，在那种环境，一旦开始了以结婚为目的的恋爱，结婚的进程就真得进行得飞快了。后来，迫于结婚筹备和生活的压力，我决定再次回到北京——工作、赚钱。<br>去北京的机会，来自于猎头为惠普中国研究院（HP Labs China）招一名高级软件工程师，负责当时还属IEEE草案期的Hotspot2.0技术在AP上的协议研发。当时，该职位已经招了快一年，一直没有物色到合适的人选，我觉得很有挑战，也很感兴趣，就应聘了，顺利通过了，很开心。不得不说，惠普中国研究院的Style真得很迷人，弹性工作制，上下班不打卡，有专门的Pantry摆放着各种茶、饮品、点心供自由取用。工作上除了每双周例会时同惠普总部Palo Alto的Fellow汇报和交流外，其他情况都可自行安排自己的时间，整个Lab充满了浓厚的分享文化和共享精神。<br>那段时间，过得很充实，感觉身边尽是牛人，每个人的履历都是分分钟闪瞎眼睛的那种。到处都是本科清华、北大、中科大，研究生或博士读的国外常春藤大学。每天大家讨论的话题，从量子物理到当时一枚还不到500人民币的比特币。工作场合见不到中文，全天候的英文环境。服务器在硅谷，所以，也从来不用考虑科学上网的问题。那段时间我开始在Coursera上学习各种国外的公开课，从计算机编程领域到心理学领域再到金融领域。阅读英文技术文档和论文也从刚开始盯着发呆到后来能快速扫视即可获取想要的信息。上下班地铁通勤的时间里，也从没停止过用kindle阅读。<br>一切似乎都很不错，但是，当时却一直有个致命的问题，萦绕在我的脑海里，挥之不去：我来北京工作赚钱，当初是为结婚做准备的，那我的下一步到底该如何走？<br>当时的女朋友（现在的老婆）在我们老家，央企正式员工，有着很多人羡慕的稳定且待遇不错的工作，还有很充裕的自由时间支配，让她放弃一切跟我结婚并留在北京，于情于理，都不现实。<br>后来，我果断做了个决定：先结婚！<br>很多人都觉得我很牛，在大部分人都还迷茫的时候，做到了事业、婚姻两不误。<br>创业<br>结了婚，我就开始留意可以回家乡的机会，也在考虑着回家创业。有一天，我接到一个电话，一个在北京仅见过两次面的朋友，邀请我回到老家以技术入股的方式，一起创业做IT培训。IT培训，那时我也有在考虑的，移动互联网当时已经呈现出即将火爆的态势了，不管移动互联网项目成败与否，提供人才培训服务，总不会错的。最重要的是，我可以提前回家启动创业计划了，我很兴奋。所以，我同意了，回到了老家，开始了第一次创业。<br>种种原因，那段创业经历，我今天并不想着墨太多。总得来说，第一年，我边讲课、边出课程体系、边带老师，是公司的教学总监。第二年，我负责教学团队和就业团队，是产品中心负责人。第三年，下半年，我出任公司CEO。三年的创业经历，我从中学到了很多做人、做事和管理的经验，感谢这段经历。<br>现在我已经离开了当初第一次创业的那家公司，并刚刚成立了自己的新公司，打造了自己心心念念的「速度与激情」团队，开始以自己喜欢的方式和节奏startup。<br>从再次北上工作到结婚到创业再到现在二次创业，我又过了快「一辈子」，这是我成年后度过的「第二辈子」。 很多同学和朋友都觉得我这「第二辈子」很勇敢、很出彩，是个牛人 。<br>重生<br>以上所述，都是我的真人真事，可是，我内心一直不安，一直在怀疑：难道我真得是个牛人吗？<br>答案是：不是。不光如此，用我现今的认知来看，我这过去的「两辈子」甚至是失败的！<br>想当年王阳明，用了几十年，才在36岁时龙场悟道。于是有了「我心自有光明月，千古团圆永无缺」的心学。他是从小立志做圣贤的人，是中国两个半完人中的一个。 我从没想过做圣人，可我用了近「两辈子」，才发现我过去的「两辈子」根本没有活明白！<br>过去的我，根本不知道自己想要啥，三观不稳，还一直苛责自己。<br>过去的我，被各种外部因素困扰着，左右着，看似每次都是自己的选择，实则根本没有选择。<br>过去的我，哪怕只是想学习点理财知识，我就会去学习整个经济学，只因经济学里要用到些许概率论，又会去学习整个概率论和线性代数。<br>过去的我，总喜欢跟周围的人比，总想超越周围的人。就连一群人K歌，我也要成为K歌之王。<br>过去的我， 上厕所都要拿本书，开车都要听广播，就连陪老婆孩子时都会见缝插针地看订阅文章，日程安排得满满的，神经绷得紧紧的。<br>过去的我，……<br>这样看来，过去的我，就是失败的！<br>而直到现在，我才清楚地明白，自己这接下来的这「第三辈子」该如何度过。<br>我重新定了「成功」：清楚自己想要啥，并始终悦纳自己。做个对别人、对社会有用的人！<br>一片叶子，看似自由，质量极小，甚至连地心引力都能摆脱，没有束缚。但那不是自由，它只能随风飘荡，随波逐流，根本无法左右自己的方向和未来！<br>我重新定义了「自由」：真正的自由，源于高度的自律！自由，是有选择的权利！<br>我深刻意识到，「用功」并不等于「精进」，在通往「精进」的道路上，到处都是坑。<br>有个坑叫「躁进」：躁进的人，以理想主义的激情，走着现实主义的道路。胡子眉毛啥都抓。<br>有个坑叫「狂进」：狂进的人，兴趣广泛却画地为牢。在自己的舒适区里享受着优越感。<br>有个坑叫「乱进」：乱进的人，是一台不下电的机器，是时间的奴隶。<br>我深入地理解了，「投机」并不是「投资」 ，「投机」搏的是短期收益，「投资」求的是复利效应。<br>我开始意识到「长期」 的重要性。每天进步一点点，1.01的365次方≈38，1.01的3650次方≈无穷大。 每天退步一点点，0.99的365次方≈0.026，0.99的3650次方≈无穷小。<br>我开始笃信：量变必然引起质变！<br>我开始抛弃掉大学中学习的马克思主义政治经济学中关于商品价值的定义：即价值就是凝结在商品中的无差别的人类劳动。我现在认同新古典主义经济学派对商品价值的定义：即商品的价值取决于对于该商品的需求，跟成本无关。以此作为推论，我开始强烈地意识到：一个人的价值，取决于他是否被人需要，是否被这个社会需要。 所以，一个真正有价值的人，一定是对别人有用的人，对这个社会有用的人，这才是成功人士的概念。所以，从小我们被教育的：「你长大后要做个对这个社会有用的人」 原来是这么的正确！同理，一个成功的企业也应该是对这个世界有用的。<br>我开始……<br>现在的我，正在经历一种重生的蜕变。「种一棵树最好的时间是十年前，其次是现在」，很庆幸赶在自己「第三辈子」开始之际，已经进行了一次认知的革新，准确地说，我称之为「认知操作系统（Cognition Operating System）」的升级。伴随着这次升级，我愈发地意识到，现在社会，人与人之间，企业与企业之间，一切的差异，一切的竞争，都源于认知的差异，认知的竞争。</p>
-]]></content>
-      <categories>
-        <category>认知</category>
-      </categories>
-      <tags>
-        <tag>认知</tag>
-        <tag>复盘</tag>
-      </tags>
+    <title>draft</title>
+    <url>/2025/05/31/draft/</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>思维巨人与脑残</title>
-    <url>/2024/10/29/%E6%80%9D%E7%BB%B4%E5%B7%A8%E4%BA%BA%E4%B8%8E%E8%84%91%E6%AE%8B/</url>
-    <content><![CDATA[<p>AI 正在重塑人类的思维版图。最近，YC创始人、《黑客与画家》作者保罗·格雷厄姆发表了一篇引人深思的博客<a href="https://paulgraham.com/writes.html">“Writes and Write-Nots”</a>。</p>
-<p>作者开篇就表达了观点：</p>
+    <title>当AI开始抢饭碗，Agent Engineering成了新时代的诺亚方舟</title>
+    <url>/2025/05/31/%E5%BD%93AI%E5%BC%80%E5%A7%8B%E6%8A%A2%E9%A5%AD%E7%A2%97%EF%BC%8CAgent-Engineering%E6%88%90%E4%BA%86%E6%96%B0%E6%97%B6%E4%BB%A3%E7%9A%84%E8%AF%BA%E4%BA%9A%E6%96%B9%E8%88%9F/</url>
+    <content><![CDATA[<p>#AI创业血泪史 #Agent时代来了</p>
+<h1 id="当AI开始抢饭碗，Agent-Engineering成了新时代的诺亚方舟"><a href="#当AI开始抢饭碗，Agent-Engineering成了新时代的诺亚方舟" class="headerlink" title="当AI开始抢饭碗，Agent Engineering成了新时代的诺亚方舟"></a>当AI开始抢饭碗，Agent Engineering成了新时代的诺亚方舟</h1><h2 id="一个关于定义的有趣故事"><a href="#一个关于定义的有趣故事" class="headerlink" title="一个关于定义的有趣故事"></a>一个关于定义的有趣故事</h2><p>Simon Willison，这个名字你可能不熟悉，但他创造的Django框架估计运行着你每天使用的无数网站。现在他全职开发Datasette和LLM工具，算是独立开源开发者界的传奇人物。最近几年，Simon有个特别的爱好：在各种AI会议上问同一个问题——“你怎么定义AI Agent？”</p>
+<p>结果呢？他收集了超过250个答案，没有两个完全相同的。</p>
+<p>这就像问一百个人”什么是爱情”一样。每个人都觉得自己最懂，但说出来的答案千奇百怪。有人说爱情是荷尔蒙作祟，有人说是灵魂契合，还有人说是利益互换。AI Agent的定义困境也是如此——人们总是从自己的角度出发，强调自己擅长的那部分，然后轻描淡写地带过其他方面。</p>
+<h2 id="OpenAI的”不完整”答案"><a href="#OpenAI的”不完整”答案" class="headerlink" title="OpenAI的”不完整”答案"></a>OpenAI的”不完整”答案</h2><p>更有意思的是，连OpenAI内部都没统一标准。在最近的开发者大会上，他们推出了Agent SDK，给出了一个看起来很工程化的定义：</p>
 <blockquote>
-<p>我通常不愿意对技术做出预测，但对这一观点，非常有信心：几十年后，会写作的人将不会很多。</p>
+<p>Agent = 模型 + 指令 + 工具 + 运行时环境</p>
 </blockquote>
-<p>文末，作者还升级了观点：</p>
+<p>他们甚至给这个定义起了个好记的缩写——“TRIM”（修剪）。听起来挺专业的，对不对？</p>
+<p>但问题来了。OpenAI自己的前副总裁Lilian Weng（现在和前CTO Mira Murati一起创办了估值百亿美元的Thinking Machines Lab）早就在她的博客里写过：</p>
 <blockquote>
-<p>将未来的世界分为写作和不写作并没有听起来那么危险，事实上，未来将是一个思考和不思考的世界。</p>
+<p>Agent = LLM + 记忆 + 规划能力 + 工具使用</p>
 </blockquote>
-<a id="more"></a>
-
-<p>原文并不长，但作者思路清晰，有理有据，并非哗众取宠。那为什么保罗·格雷厄姆会这么说，甚至专门写一篇文章来阐述？这也正是我今天开始重拾写作，并开始写下本文的原因！</p>
-<p>我们先做个小实验：如果你已经参加工作超过十年，请试着用笔写下『喷嚏』二字。今天早上我在看到这 <a href="https://globalchinapulse.net/character-amnesia-in-china/">Character Amnesia in China</a> 这篇文章时，第一时间试了一下，我确实写不出来。事实上，我相信很多人应该跟我一样，好多常见汉字都不会写了吧？</p>
-<p>18 世纪，人类发明了蒸汽机，掀起了第一次工业革命，人类从大规模的繁重的体力劳动中解放出来。短短 200 年里，人类的平均体能也以肉眼可见的方式衰退。英国一项追踪研究发现，仅 1985 年到2015 年间，10-12岁儿童的上肢力量就平均下降了26%。</p>
-<p>但与此同时，体能的极限却在不断被打破。1896年第一届现代奥运会的男子100米金牌成绩是12秒，如今人类纪录已经突破到9.58秒。1920年奥运会男子举重纪录是156公斤，现在已达到488公斤。专业运动员借助现代科技和训练方法，把人类体能推向了新的高度。</p>
-<p>随着当下席卷全球的以大语言模型为代表的 AIGC 时代的到来，AI 开始在写作、设计、编程、科研、决策分析等各领域逐步接管人类的脑力劳动。类比思考一下，我认为，未来，人类的思维能力也会出现两个极端的分化图景。大部分人会弱化成为不具备思考能力的『脑残』，而少数人会借助 AI 无限拓展认知边界，最终进化成前所未有的『思维巨人』。</p>
-<p>最后，再次回到保罗·格雷厄姆的这篇文章上。作者文中反复提到一个观点：写作就是思考。莱斯利·兰波特 （Leslie Lamport）更好地表达了这一点：</p>
-<blockquote>
-<p>If you’re thinking without writing, you only think you’re thinking.</p>
-</blockquote>
-<blockquote>
-<p>『如果你只思考而不写作，你只是认为你在思考。』</p>
-</blockquote>
-<p>我是一个喜欢拥抱新技术的人，更不是一个会因为新技术而焦虑的人，但这次生成式 AI 的技术浪潮，足以值得我们每一个人重视起来。</p>
-<p>工业革命后的这一两百年，才有了『健身』这个概念，随之诞生了『健身房』、『健身教练』和『健身器械』。未来，人类可能也需要『健脑』了。我们可能会看到『健脑房』，『思维教练』成为新兴职业，『认知训练』变成日常刚需。毕竟，大多数人并不想成为『脑残』吧？而正如保罗·格雷厄姆说的，写作就是思考。写作也无疑是一个不错的『健脑』运动。</p>
-<p>是成为『思维巨人』还是成为『脑残』，选择权在于自己。</p>
-<p>就像现在，有人在健身房挥汗如雨，有人在沙发上刷短剧。有人规律去『健脑』，有人习惯性把思考外包。</p>
-<p>今天，我做出了自己的选择，你选好了吗？</p>
+<p>你发现了吗？OpenAI的”官方”定义完全忽略了记忆和规划这两个关键要素。这就像描述一个人时说”人类 = 大脑 + 四肢 + 器官 + 皮肤”，却忘了提到意识和思考能力。</p>
+<h2 id="IMPACT框架：重新理解Agent的本质"><a href="#IMPACT框架：重新理解Agent的本质" class="headerlink" title="IMPACT框架：重新理解Agent的本质"></a>IMPACT框架：重新理解Agent的本质</h2><p>在分析了这250多个定义后，我们发现了一个有趣的规律。虽然每个人的表达不同，但基本都围绕着六个核心要素。我们把它们组合成了一个新的框架——IMPACT：</p>
+<h3 id="I-Intent（意图理解）"><a href="#I-Intent（意图理解）" class="headerlink" title="I - Intent（意图理解）"></a>I - Intent（意图理解）</h3><p>这是Agent的”初心”。现在的Agent需要处理多模态输入——语音、图像、文字，甚至是你的表情和语调。它们要能理解你真正想要的是什么，而不仅仅是你说了什么。</p>
+<p>就像一个好的助手，不只是听你的指令，还要理解你的真实需求。你说”我有点累”，可能真正需要的是调暗灯光、播放轻音乐，而不是一句”那你去休息吧”。</p>
+<h3 id="M-Memory（长期记忆）"><a href="#M-Memory（长期记忆）" class="headerlink" title="M - Memory（长期记忆）"></a>M - Memory（长期记忆）</h3><p>没有记忆的Agent就像《记忆碎片》里的主角，每次对话都要重新开始。真正有用的Agent需要记住你的偏好、习惯、过往的对话，甚至从错误中学习。</p>
+<p>更重要的是，它们需要建立可重用的技能库。当一个Agent学会了如何帮你写邮件，这个技能应该能在其他类似任务中复用，而不是每次都从零开始。</p>
+<h3 id="P-Planning（多步规划）"><a href="#P-Planning（多步规划）" class="headerlink" title="P - Planning（多步规划）"></a>P - Planning（多步规划）</h3><p>这是区分真正Agent和简单聊天机器人的关键。一个好的Agent能够将复杂任务分解成多个步骤，更重要的是，能在执行过程中动态调整计划。</p>
+<p>当前最先进的方法叫”可编辑计划”。Agent不仅会制定计划，还会根据实际情况修改计划。就像一个经验丰富的项目经理，既有全局视野，又能灵活应变。</p>
+<h3 id="A-Authority（委托权限）"><a href="#A-Authority（委托权限）" class="headerlink" title="A - Authority（委托权限）"></a>A - Authority（委托权限）</h3><p>这是最容易被忽视但最关键的要素。信任是Agent系统的基石。</p>
+<p>想想看，如果你不相信Agent能正确地代表你行动，你还会给它权限吗？在企业环境中，这个问题更加复杂。Agent需要获得足够的权限来完成工作，但又不能超越安全边界。</p>
+<h3 id="C-Control-Flow（控制流程）"><a href="#C-Control-Flow（控制流程）" class="headerlink" title="C - Control Flow（控制流程）"></a>C - Control Flow（控制流程）</h3><p>Harrison Chase，LangChain的CEO（这个工具现在每月下载量超过1500万次），说过一句话：”一个应用越是Agent化，LLM就越多地决定应用的控制流程。”</p>
+<p>传统软件是按照预设流程工作的，就像按菜谱做菜。而Agent是根据情况动态决定下一步做什么，更像一个有经验的厨师，根据现有食材和客人喜好即兴创作。</p>
+<h3 id="T-Tools（工具集成）"><a href="#T-Tools（工具集成）" class="headerlink" title="T - Tools（工具集成）"></a>T - Tools（工具集成）</h3><p>这是唯一一个所有人都同意的要素。现代Agent的”三件套”包括：</p>
+<ul>
+<li><strong>RAG（检索增强生成）</strong>：让Agent获取最新、最准确的信息</li>
+<li><strong>代码执行环境</strong>：让Agent能够运行代码和测试想法</li>
+<li><strong>界面自动化</strong>：让Agent能够与现实世界的系统交互</li>
+</ul>
+<h2 id="技能要求的新定义"><a href="#技能要求的新定义" class="headerlink" title="技能要求的新定义"></a>技能要求的新定义</h2><p>现在说到重点了。成为一个Agent Engineering师到底需要什么技能？这可不是简单的”学会Python就行”。</p>
+<p>根据LangChain团队的总结，核心技能包括：</p>
+<p><strong>提示工程</strong>：这不是简单地和AI聊天，而是精确地引导LLM产生期望的输出和行为。就像导演指导演员，需要知道什么样的指令能激发出最佳表现。</p>
+<p><strong>Agent编排</strong>：设计和实现控制Agent内部以及多Agent之间信息流和行动的逻辑。这就像指挥一个交响乐团，每个乐器都要在正确的时间演奏正确的音符。</p>
+<p><strong>工具集成</strong>：将Agent与外部工具和API连接，扩展其超越语言处理的能力。这需要深度理解各种API、数据库和系统架构。</p>
+<p><strong>领域专业知识</strong>：理解特定领域的上下文和挑战，才能开发出真正有用的Agent。一个财务Agent的开发者最好懂点会计，医疗Agent的开发者最好了解医疗流程。</p>
+<p><strong>评估和监控</strong>：设置指标和流程来评估Agent性能并持续改进。这就像给Agent装上”体检系统”，随时知道它的健康状况。</p>
+<p><strong>LLM深度理解</strong>：了解大语言模型的工作原理、优势和局限性。知道什么时候该用GPT-4，什么时候Claude更合适，什么情况下需要开源模型。</p>
+<p><strong>软件工程基础</strong>：扎实的编程技能，特别是Python，以及构建和部署软件的经验。但这不是传统的软件开发，而是要理解如何与AI系统协作。</p>
+<h2 id="职场变革的残酷现实"><a href="#职场变革的残酷现实" class="headerlink" title="职场变革的残酷现实"></a>职场变革的残酷现实</h2><p>现在我们得聊聊大象房间里的大象——AI确实会抢走很多人的饭碗。</p>
+<p>Daniel Miessler，这位前苹果、Robinhood的网络安全专家，现在全职研究AI对社会的影响。他创建的Fabric AI框架在GitHub上有超过3万个星标。他最近写道：”2025年可能是AI实用性和一致性达到临界点的一年。”</p>
+<p><strong>知识工作者的危机</strong>：财务分析、法律研究、市场调研、内容创作——这些依赖信息处理的工作正是AI的强项。不是说这些工作会完全消失，而是需要的人数会大幅减少。</p>
+<p><strong>中层管理的困境</strong>：很多中层管理职位本质上就是”人肉中继器”——接收信息、处理信息、传递决策。这些功能完全可以由设计精良的Agent系统承担。</p>
+<p><strong>专业服务的重构</strong>：会计、咨询、设计等行业面临根本性改变。标准化程度高的工作将被AI接管，人类的价值将集中在创意、战略和复杂决策上。</p>
+<h2 id="Agent-Engineering的架构思维"><a href="#Agent-Engineering的架构思维" class="headerlink" title="Agent Engineering的架构思维"></a>Agent Engineering的架构思维</h2><p>在深入职业变革之前，我们先理解一下Agent Engineering的技术本质。一个真正的Agent系统包含几个核心组件：</p>
+<p><strong>LLM作为大脑</strong>：这是自然语言理解和生成的核心。但就像人脑一样，光有大脑是不够的，还需要感官系统、记忆系统和执行系统。</p>
+<p><strong>提示系统</strong>：这不是简单的用户指令，而是引导LLM行为的”DNA”。好的提示设计师就像电影导演，知道如何激发演员的最佳表现。</p>
+<p><strong>工具生态</strong>：外部资源如API、数据库、应用程序。Agent的能力边界很大程度上取决于它能调用什么工具。</p>
+<p><strong>记忆机制</strong>：存储和检索过去交互的系统。没有记忆的Agent每次对话都是初次见面。</p>
+<p><strong>编排层</strong>：决定控制流程的逻辑，选择使用哪个工具，管理组件间的交互。这是Agent的”执行总裁”。</p>
+<p><strong>评估监控系统</strong>：衡量Agent性能并识别改进空间。就像给Agent装上了”健康追踪器”。</p>
+<h2 id="Agent能力的光谱化理解"><a href="#Agent能力的光谱化理解" class="headerlink" title="Agent能力的光谱化理解"></a>Agent能力的光谱化理解</h2><p>Harrison Chase提出了一个重要观点：与其纠结Agent的严格定义，不如把Agent能力看作一个光谱，就像自动驾驶汽车的Level 1到Level 5。</p>
+<p><strong>Level 1 - 工具调用</strong>：基础的函数调用能力，能够使用预定义的工具 <strong>Level 2 - 简单编排</strong>：能够串联多个工具完成复杂任务 <strong>Level 3 - 动态规划</strong>：根据情况调整执行计划 <strong>Level 4 - 自主学习</strong>：从经验中学习并改进性能 <strong>Level 5 - 创造性解决</strong>：面对未知问题能够创新性地寻找解决方案</p>
+<p>这种理解方式让我们意识到，Agent Engineering不是非黑即白的技能，而是一个渐进的能力发展过程。</p>
+<h2 id="人机协作的艺术"><a href="#人机协作的艺术" class="headerlink" title="人机协作的艺术"></a>人机协作的艺术</h2><p>LangChain特别强调”可控性”——Agent系统必须是高度可控的。这背后反映了一个深刻的哲学：最好的Agent不是完全自主的，而是与人类协作的。</p>
+<p>想象一个理想的Agent系统：它有足够的自主性来处理日常任务，但在遇到复杂或敏感情况时，会主动寻求人类指导。这就像一个好的副手，能够独立处理80%的工作，但知道什么时候该向老板汇报。</p>
+<h2 id="Agent-Engineering：新时代的救生筏"><a href="#Agent-Engineering：新时代的救生筏" class="headerlink" title="Agent Engineering：新时代的救生筏"></a>Agent Engineering：新时代的救生筏</h2><p>但这里有个反转。每一次技术革命都会消灭一些岗位，同时创造新的机会。Agent Engineering就是这次AI革命中最大的新机会。</p>
+<p>想象一下，如果AI系统要替代1000万个传统岗位，那么可能需要100-200万个Agent Engineering师来设计、部署和维护这些系统。虽然数量上看起来是”减员”，但考虑到Agent Engineering师的技能价值和薪资水平，这是一个”质量升级”的过程。</p>
+<p><strong>早期红利</strong>：现在学习Agent Engineering就像90年代学习Web开发一样。技术刚刚成熟，需求爆炸式增长，而真正懂行的人还很少。早期进入者将享受到巨大的职业红利。</p>
+<p><strong>技能迁移的优势</strong>：很多传统岗位的经验都可以迁移到Agent Engineering中。财务专家可以成为财务Agent的设计师，医生可以指导医疗Agent的开发，律师可以参与法律Agent的训练。</p>
+<p><strong>持续需求</strong>：与其他可能被自动化的工作不同，Agent Engineering师的工作是”元级别”的——他们设计和改进自动化系统本身。就像工厂需要工程师来设计和维护机器人一样，AI时代需要Agent Engineering师来设计和维护智能系统。</p>
+<h2 id="从生活中的小痛点开始你的Agent之旅"><a href="#从生活中的小痛点开始你的Agent之旅" class="headerlink" title="从生活中的小痛点开始你的Agent之旅"></a>从生活中的小痛点开始你的Agent之旅</h2><p>忘掉那些高大上的企业级项目吧。真正的Agent Engineering之路，从解决你自己的小痛点开始。</p>
+<p><strong>发现需求的艺术</strong>：每天观察自己的工作和生活，哪些重复性任务让你感到厌烦？哪些信息收集工作占用了太多时间？哪些决策过程可以被优化？这些都是潜在的Agent应用场景。</p>
+<p>比如，你可能需要一个Agent来：</p>
+<ul>
+<li>每天早上整理你关注的行业新闻</li>
+<li>分析你的邮件并提醒重要事项</li>
+<li>根据你的日程安排推荐最佳的会议时间</li>
+<li>帮你管理个人财务并提供投资建议</li>
+</ul>
+<p><strong>AI协作而非编程</strong>：这里有个颠覆性的观点——你不需要成为编程专家。现在的LLM已经强大到可以帮你写代码、设计API、处理数据库操作。你的价值在于提出正确的问题，设计合理的流程，评估结果的质量。</p>
+<p>想象一下：你告诉ChatGPT或Claude你想要一个什么样的Agent，它帮你写代码，你来测试和改进。这就像有了一个超级程序员助手，你专注于产品设计和用户体验。</p>
+<p><strong>从个人助手到专业工具</strong>：从为自己构建Agent开始，你自然会发现其他人也有类似需求。你的个人邮件管理Agent可能变成团队协作工具，你的新闻整理Agent可能成为行业分析平台。</p>
+<p>这种自下而上的学习方式比参加培训班或读技术文档有效得多。因为你在解决真实问题，有直接的反馈，能够快速迭代改进。</p>
+<h2 id="一个关于未来的有趣实验"><a href="#一个关于未来的有趣实验" class="headerlink" title="一个关于未来的有趣实验"></a>一个关于未来的有趣实验</h2><p>让我给你讲个故事。</p>
+<p>想象现在是2030年，你在一家咖啡店遇到了两个人。第一个人叫张三，2025年时他是一个传统的财务分析师，每天处理Excel表格，制作报告，分析数据。当AI开始接管这些工作时，他选择了抵抗，坚持认为”AI永远无法替代人类的判断力”。现在他在一家小公司做着越来越边缘化的工作，薪水比五年前还低。</p>
+<p>第二个人叫李四，2025年时她也是财务分析师，但她选择了拥抱变化。她发现自己虽然不会编程，但对财务流程和业务逻辑有深度理解。于是她开始用AI工具为自己构建各种小助手——自动化月报生成器、异常交易识别器、投资风险评估器。这些原本只为自己使用的工具逐渐被同事和其他公司发现，她成为了一个专门为金融行业设计Agent系统的专家。现在她的收入是张三的五倍，工作却比以前更有趣。</p>
+<p>两个人的差别不在于技术能力，而在于对变化的态度和学习的方式。</p>
+<p>这个故事的关键是：李四没有去学习编程、数据库设计或者系统架构。她学会的是如何与AI协作，如何发现真实需求，如何设计解决方案。这些才是Agent Engineering时代最核心的技能。</p>
+<p>现在，回到2025年的你。你会选择做张三还是李四？</p>
+<p>更有趣的是，也许五年后你会发现，那个在咖啡店里给你讲这个故事的人，其实是一个Agent。而你，已经成为了设计这个Agent的那个人。</p>
+<p>技术变革从不等人，但它永远眷顾有准备的人。而准备，从今天开始，从你手边的第一个小Agent开始。</p>
+<hr>
+<p><em>未来已来，只是分布不均。但现在，选择权在你手里。</em></p>
 ]]></content>
       <categories>
-        <category>认知</category>
+        <category>AI</category>
       </categories>
       <tags>
-        <tag>AI</tag>
-        <tag>写作</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>写作 —— 健脑俱乐部中的杠铃</title>
-    <url>/2024/11/10/%E5%86%99%E4%BD%9C-%E2%80%94%E2%80%94-%E5%81%A5%E8%84%91%E4%BF%B1%E4%B9%90%E9%83%A8%E4%B8%AD%E7%9A%84%E6%9D%A0%E9%93%83/</url>
-    <content><![CDATA[<p>在AI席卷而来的时代浪潮中，我们每个人都面临着一个关键选择：要么沦为AI的附属，任由思维退化；要么主动强化认知能力，成为驾驭AI的思维巨人。面对AI的加速发展，思维能力不再是简单的技能，而是我们独立存在的核心能力。</p>
-<p>就像健身俱乐部里的杠铃声彰显着人类对体能极限的追求，写作，正是『健脑俱乐部』里的杠铃，帮助我们在思维的每次『负重深蹲』中不断突破认知的极限。</p>
-<a id="more"></a>
-
-
-<h3 id="为什么写作是思考训练中最高效的工具？"><a href="#为什么写作是思考训练中最高效的工具？" class="headerlink" title="为什么写作是思考训练中最高效的工具？"></a>为什么写作是思考训练中最高效的工具？</h3><h4 id="思考的本质"><a href="#思考的本质" class="headerlink" title="思考的本质"></a>思考的本质</h4><p><img src="/images/pasted-59.png" alt="upload successful"></p>
-<p>思考是大脑对信息进行筛选、提炼和逻辑加工的迭代过程。通过形成概念、构建关联、推理判断，产生新的认知。</p>
-<p>思考就像烹饪一道美食：精选食材（信息加工）、准备食材（概念形成）、搭配组合（概念关联）、掌握火候（逻辑推理），最终呈现出一道色香味俱全的佳肴（认知生成）。</p>
-<p>正如一位厨师会不断调整配方，思考也是反复推敲、逐步打磨的过程。</p>
-<h4 id="写作的特点"><a href="#写作的特点" class="headerlink" title="写作的特点"></a>写作的特点</h4><p><img src="/images/pasted-60.png" alt="upload successful"></p>
-<p>写作是将思维内容通过文字符号进行结构化表达和优化的迭代过程。通过筛选内容、构建框架、精准表达和情感注入，形成清晰且具感染力的文本作品。</p>
-<p>就像杠铃训练有深蹲、卧推、硬拉等基本动作，写作也有选材、结构、表达等核心环节。而且，写作对思维的训练更为全面。</p>
-<p>如果说力量训练是对肌肉的全面刺激，那写作就是对思维的全方位训练。每一篇文章的写作都像是完成一次思维的组合动作。从信息筛选到逻辑构建，从概念形成到表达优化，全面锻炼着我们的思考能力。</p>
-<h4 id="写作与思考的关系"><a href="#写作与思考的关系" class="headerlink" title="写作与思考的关系"></a>写作与思考的关系</h4><h5 id="写作是思考的组织工具"><a href="#写作是思考的组织工具" class="headerlink" title="写作是思考的组织工具"></a>写作是思考的组织工具</h5><p>写作就像规划力量训练的杠铃配重，把分散的概念和思维碎片通过 <code>内容选取</code> 和 <code>逻辑框架</code> 组织成形，让抽象的想法变得条理清晰。比如这篇文章，最初我只是有一些关于写作和思考的零散想法，通过写作的整理，才逐步形成了现在这个清晰的逻辑框架。</p>
-<h5 id="写作是思考过程的照妖镜"><a href="#写作是思考过程的照妖镜" class="headerlink" title="写作是思考过程的照妖镜"></a>写作是思考过程的照妖镜</h5><p>如果说思考是在头脑中进行的『虚拟训练』，那写作就是真正的『实战演练』。</p>
-<p>我们在脑海中以为合理的逻辑，往往在写作时暴露出漏洞；那些混乱的想法，写下来才发现是情绪化的判断。就像我们健身时，常常以为自己动作标准，但照镜子时才发现动作偏差。写作是让我们发现思维『错误动作』的照妖镜，也是校正思维的练习场。</p>
-<h5 id="写作促进了思考的迭代与反馈"><a href="#写作促进了思考的迭代与反馈" class="headerlink" title="写作促进了思考的迭代与反馈"></a>写作促进了思考的迭代与反馈</h5><p>就像健身俱乐部中的力量训练，一般都先要用轻重量把动作做标准，再逐步增加重量。写作的过程也一样，通过反复的修改和打磨，不断提升思考的『负重』。每次修改都是一次反馈：有时发现逻辑不严谨，就要调整逻辑，补充佐证；有时觉得概念不清晰，就要重新提炼；有时会觉得结构不优雅，就要调整结构。这种反复的迭代，会让思维肌肉逐渐变大。</p>
-<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>如今，AI正在重塑我们的生活和工作方式。就像人们走进健身俱乐部是为了对抗身体的退化，我们也需要通过持续的写作训练来对抗思维的退化。</p>
-<p>让我们一起步入健脑俱乐部，让写作成为我们的思维杠铃，开始这场认知锻炼之旅。</p>
-]]></content>
-      <categories>
-        <category>认知</category>
-      </categories>
-      <tags>
-        <tag>写作</tag>
+        <tag>Agent Engineering</tag>
       </tags>
   </entry>
 </search>
