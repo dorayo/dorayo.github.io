@@ -24,23 +24,20 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"dorayo.com","root":"/","images":"/images","scheme":"Muse","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="00. Git 操作一览术语翻译：  Workspace：工作区 Index &#x2F; Stage：暂存区 Repository：版本库、仓库（本地仓库） Remote：远程仓库  补充说明：  上图不是太准确，在Remote 和 Repository 内部都还有个 Branch 的概念，单不太影响整体理解。">
+<meta name="description" content="2005年，国际象棋界做过一个很奇怪的实验。 比赛规则只有一句话： 人类可以借助任何计算机程序参赛，没有限制。 所有人都以为结果毫无悬念。 赢家一定是——顶级棋手 + 最强算法。 但最后夺冠的组合却是： 两个业余棋手，加三台普通电脑。 他们赢过了职业大师，也赢过了超级计算机。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="玩转 Git">
-<meta property="og:url" content="http://dorayo.com/2018/03/08/%E7%8E%A9%E8%BD%AC-Git/index.html">
+<meta property="og:title" content="把 AI 当人">
+<meta property="og:url" content="http://dorayo.com/2026/03/12/%E6%8A%8A-AI-%E5%BD%93%E4%BA%BA/index.html">
 <meta property="og:site_name" content="沉思录">
-<meta property="og:description" content="00. Git 操作一览术语翻译：  Workspace：工作区 Index &#x2F; Stage：暂存区 Repository：版本库、仓库（本地仓库） Remote：远程仓库  补充说明：  上图不是太准确，在Remote 和 Repository 内部都还有个 Branch 的概念，单不太影响整体理解。">
+<meta property="og:description" content="2005年，国际象棋界做过一个很奇怪的实验。 比赛规则只有一句话： 人类可以借助任何计算机程序参赛，没有限制。 所有人都以为结果毫无悬念。 赢家一定是——顶级棋手 + 最强算法。 但最后夺冠的组合却是： 两个业余棋手，加三台普通电脑。 他们赢过了职业大师，也赢过了超级计算机。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://dorayo.com/images/pasted-10.png">
-<meta property="article:published_time" content="2018-03-08T14:50:00.000Z">
-<meta property="article:modified_time" content="2024-10-29T03:42:46.000Z">
+<meta property="article:published_time" content="2026-03-12T10:49:57.000Z">
+<meta property="article:modified_time" content="2026-03-12T10:52:40.817Z">
 <meta property="article:author" content="Dorayo">
-<meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://dorayo.com/images/pasted-10.png">
 
 
-<link rel="canonical" href="http://dorayo.com/2018/03/08/%E7%8E%A9%E8%BD%AC-Git/">
+<link rel="canonical" href="http://dorayo.com/2026/03/12/%E6%8A%8A-AI-%E5%BD%93%E4%BA%BA/">
 
 
 <script class="page-configurations">
@@ -52,7 +49,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>玩转 Git | 沉思录</title>
+<title>把 AI 当人 | 沉思录</title>
   
 
   <script>
@@ -186,7 +183,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -199,7 +196,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#00-Git-%E6%93%8D%E4%BD%9C%E4%B8%80%E8%A7%88"><span class="nav-number">1.</span> <span class="nav-text">00. Git 操作一览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#01-Git-%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">01. Git 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#02-Git-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">02. Git 基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#03-Git-%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C"><span class="nav-number">4.</span> <span class="nav-text">03. Git 分支操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#04-Git-%E8%BF%9C%E7%A8%8B%E6%93%8D%E4%BD%9C"><span class="nav-number">5.</span> <span class="nav-text">04. Git 远程操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#05-Git-Submodule"><span class="nav-number">6.</span> <span class="nav-text">05. Git Submodule</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -305,7 +301,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://dorayo.com/2018/03/08/%E7%8E%A9%E8%BD%AC-Git/">
+    <link itemprop="mainEntityOfPage" href="http://dorayo.com/2026/03/12/%E6%8A%8A-AI-%E5%BD%93%E4%BA%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -318,7 +314,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          玩转 Git
+          把 AI 当人
         </h1>
 
         <div class="post-meta-container">
@@ -329,7 +325,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2018-03-08 22:50:00" itemprop="dateCreated datePublished" datetime="2018-03-08T22:50:00+08:00">2018-03-08</time>
+      <time title="创建时间：2026-03-12 18:49:57" itemprop="dateCreated datePublished" datetime="2026-03-12T18:49:57+08:00">2026-03-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -337,16 +333,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/tools/" itemprop="url" rel="index"><span itemprop="name">tools</span></a>
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
         </span>
     </span>
 
   
-    <span id="/2018/03/08/%E7%8E%A9%E8%BD%AC-Git/" class="post-meta-item leancloud_visitors" data-flag-title="玩转 Git" title="阅读次数">
+    <span id="/2026/03/12/%E6%8A%8A-AI-%E5%BD%93%E4%BA%BA/" class="post-meta-item leancloud_visitors" data-flag-title="把 AI 当人" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -361,8 +353,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2018/03/08/%E7%8E%A9%E8%BD%AC-Git/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/03/08/玩转-Git/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2026/03/12/%E6%8A%8A-AI-%E5%BD%93%E4%BA%BA/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2026/03/12/把-AI-当人/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -374,14 +366,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.5k</span>
+      <span>1.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -392,78 +384,93 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="00-Git-操作一览"><a href="#00-Git-操作一览" class="headerlink" title="00. Git 操作一览"></a>00. Git 操作一览</h2><p><img src="/images/pasted-10.png" alt="upload successful"><br>术语翻译：</p>
-<ul>
-<li>Workspace：工作区</li>
-<li>Index / Stage：暂存区</li>
-<li>Repository：版本库、仓库（本地仓库）</li>
-<li>Remote：远程仓库</li>
-</ul>
-<p>补充说明：</p>
-<blockquote>
-<p>上图不是太准确，在Remote 和 Repository 内部都还有个 Branch 的概念，单不太影响整体理解。<a id="more"></a></p>
-</blockquote>
-<h2 id="01-Git-配置"><a href="#01-Git-配置" class="headerlink" title="01. Git 配置"></a>01. Git 配置</h2><p><code>配置级别</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">--system # 系统级别</span><br><span class="line">--global # 用户全局</span><br><span class="line">--local # 单独一个项目</span><br></pre></td></tr></table></figure>
-<p><code>基本配置</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;xxxx&quot; # 用户名</span><br><span class="line">git config --global user.email &quot;xxxx@xxx.com&quot; # 邮箱</span><br><span class="line">git config --global core.editor vim # 编辑器</span><br></pre></td></tr></table></figure>
-<p><code>设置别名</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git config --global alias.st status</span><br><span class="line">git config --global alias.ci commit</span><br><span class="line">git config --global alias.co checkout</span><br><span class="line">git config --global alias.br branch</span><br><span class="line">git config --global alias.df diff</span><br><span class="line">git config --global alias.unstage reset</span><br><span class="line">git config --global alias.lg &quot;log --color --graph --pretty&#x3D;format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit&quot;</span><br><span class="line">git config --global alias.last &quot;log --color --graph --pretty&#x3D;format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit -1 HEAD&quot;</span><br></pre></td></tr></table></figure>
-<p><code>列出所有配置</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config -l</span><br><span class="line"># git config 命令实际上就是在操作 .gitconfig 文件</span><br></pre></td></tr></table></figure>
-<h2 id="02-Git-基本操作"><a href="#02-Git-基本操作" class="headerlink" title="02. Git 基本操作"></a>02. Git 基本操作</h2><p><code>初始化</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git init --bare # 初始化一个裸仓库</span><br></pre></td></tr></table></figure>
-<p><code>查看状态</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
-<p><code>将工作区的修改提交到暂存区</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git add &lt;file&gt;</span><br></pre></td></tr></table></figure>
-<p><code>将暂存区的内容提交到版本库</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git commit .</span><br><span class="line">git commit &lt;file&gt;</span><br><span class="line">git commit -am # 相当于 git add + git commit 或 git rm + git commit</span><br><span class="line">git commit --amend</span><br></pre></td></tr></table></figure>
-<p><code>查看提交记录</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br><span class="line">git reflog</span><br><span class="line">git reflog show master</span><br></pre></td></tr></table></figure>
-<p><code>撤销工作区修改</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 使用暂存区的内容状态去覆盖工作区的内容状态</span><br><span class="line">git checkout &lt;file&gt; </span><br><span class="line">git checkout .</span><br></pre></td></tr></table></figure>
-<p><code>回收站管理</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git stash # 将工作区做的修改暂放到一个 git 回收站中（栈结构）</span><br><span class="line">git stash list # 查看栈中所有记录</span><br><span class="line">git stash apply &lt;回收站记录编号&gt; # 应用回收站记录编号对应的内容到工作区，如果不指定默认为栈顶，注意：恢复后内容还在回收站</span><br><span class="line">git stash pop # 将回收站栈顶的内容恢复到工作区，并从栈中弹出</span><br><span class="line">git stash clear # 清空回收站</span><br></pre></td></tr></table></figure>
-<p><code>撤销暂存区修改</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 其实是重置HEAD，将指定版本id的内容状态去覆盖暂存区</span><br><span class="line">git reset &lt;file&gt; # 从暂存区恢复到工作区（不指定版本id，则默认为最后一次提交的版本id）</span><br><span class="line">git reset .</span><br><span class="line">git reset $id # 恢复到指定的提交版本，该$id之后的版本提交都恢复到工作区</span><br><span class="line">git reset --hard $id # （任意门）恢复到指定的提交版本，该$id之后的版本提交全部会被抛弃，将不出现在工作区</span><br></pre></td></tr></table></figure>
-<p><code>撤销某次提交</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 提交的回滚操作，不影响其他的提交，会产生新的提交id</span><br><span class="line">git revert &lt;$id&gt;</span><br><span class="line">git revert HEAD</span><br></pre></td></tr></table></figure>
-<p><code>删除文件</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rm + git commit -am</span><br><span class="line">git rm + git commit</span><br><span class="line">git rm --cached &lt;file&gt; #从暂存区移除该文件，git将不再跟踪该文件的变更，但仍在工作区内，可添加入 .gitignore</span><br></pre></td></tr></table></figure>
-<p><code>比较差异</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git diff</span><br><span class="line">git diff &lt;file&gt;#比较工作区与暂存区文件的差异</span><br><span class="line">git diff --cached # 比较暂存区和版本库差异</span><br><span class="line">git diff &lt;$id1&gt;&lt;$id2&gt;# 比较两次提交之间的差异</span><br><span class="line">git diff &lt;branch1&gt;..&lt;branch2&gt;# 在两个分支之间比较</span><br></pre></td></tr></table></figure>
-<p><code>Tag</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 列出 tag</span><br><span class="line">git tag</span><br><span class="line"># 打 tag</span><br><span class="line">git tag -a &lt;tag_name&gt; -m &quot;xxx&quot; &lt;commit_id&gt;</span><br><span class="line"># 查看 tag</span><br><span class="line">git show &lt;tag_name&gt;</span><br><span class="line"># 删除本地 tag</span><br><span class="line">git tag -d &lt;tag_name&gt;</span><br><span class="line"># 推送本地 tag 到远程仓库</span><br><span class="line">git push origin &lt;tag_name&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="03-Git-分支操作"><a href="#03-Git-分支操作" class="headerlink" title="03. Git 分支操作"></a>03. Git 分支操作</h2><p><code>创建分支</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch &lt;branch_name&gt;</span><br></pre></td></tr></table></figure>
-<p><code>查看分支</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br><span class="line">git branch -r</span><br><span class="line">git branch -a</span><br></pre></td></tr></table></figure>
-<p><code>切换分支</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout &lt;branch_name&gt; # 切换分支</span><br><span class="line">git checkout -b &lt;branch_name&gt; # 创建分支并切换</span><br></pre></td></tr></table></figure>
-<p><code>删除分支</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch -d &lt;branch_name&gt; # 删除分支</span><br><span class="line">git branch -D &lt;branch_name&gt; # 强制删除分支</span><br><span class="line">git push origin :&lt;branch-name&gt; # 删除远程分支（前提是先在本地删除该分支），原理是把一个空分支push到server上，相当于删除该分支</span><br></pre></td></tr></table></figure>
-<p><code>分支重衍</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git rebase &lt;base_branch&gt; &lt;branch&gt;</span><br><span class="line">git rebase -i</span><br></pre></td></tr></table></figure>
-<h2 id="04-Git-远程操作"><a href="#04-Git-远程操作" class="headerlink" title="04. Git 远程操作"></a>04. Git 远程操作</h2><p><code>克隆</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;URL&gt;</span><br><span class="line">git clone --bare &lt;URL&gt; # 克隆出一个裸仓库</span><br></pre></td></tr></table></figure>
-<p><code>查看远程仓库名字和URL</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
-<p><code>查看远程服务器仓库状态</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote show &lt;repo_name&gt;</span><br></pre></td></tr></table></figure>
-<p><code>添加远程仓库</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add &lt;repo_name&gt; &lt;URL&gt;</span><br></pre></td></tr></table></figure>
-<p><code>修改远程仓库URL</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url &lt;repo_name&gt; &lt;URL&gt;</span><br></pre></td></tr></table></figure>
-<p><code>删除远程仓库</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote rm &lt;repo_name&gt;</span><br></pre></td></tr></table></figure>
-<p><code>创建本地分支指向对应远程仓库的分支</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b &lt;branch_name&gt; origin&#x2F;&lt;branch_name&gt;</span><br><span class="line"># 新版本，可直接使用 git checkout &lt;branch_name&gt;</span><br></pre></td></tr></table></figure>
-<p><code>从远程仓库拉取分支并合并</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git fetch &lt;repo_name&gt; &lt;branch_name&gt;</span><br><span class="line">git merge &lt;branch_name&gt;</span><br><span class="line">git pull &lt;repo_name&gt; &lt;branch_name&gt;</span><br><span class="line"># git pull &#x3D; git fetch + git merge</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><code>往远程仓库推送分支</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git push # push所有分支</span><br><span class="line">git push origin master # 将本地主分支推到远程主分支</span><br><span class="line">git push -u origin master # 将本地主分支推到远程(如无远程主分支则创建，用于初始化远程仓库)</span><br><span class="line">git push origin &lt;local_branch&gt;# 创建远程分支， origin是远程仓库名</span><br><span class="line">git push origin &lt;local_branch&gt;:&lt;remote_branch&gt;# 创建远程分支</span><br><span class="line">git push origin :&lt;remote_branch&gt;# 先删除本地分支(git br -d &lt;branch&gt;)，再执行该 push 命令删除远程分支</span><br></pre></td></tr></table></figure>
-<h2 id="05-Git-Submodule"><a href="#05-Git-Submodule" class="headerlink" title="05. Git Submodule"></a>05. Git Submodule</h2><p><code>(详见《Git Submodule 使用教程》)</code></p>
+        <p>2005年，国际象棋界做过一个很奇怪的实验。</p>
+<p>比赛规则只有一句话：</p>
+<p><strong>人类可以借助任何计算机程序参赛，没有限制。</strong></p>
+<p>所有人都以为结果毫无悬念。</p>
+<p>赢家一定是——<br><strong>顶级棋手 + 最强算法。</strong></p>
+<p>但最后夺冠的组合却是：</p>
+<p><strong>两个业余棋手，加三台普通电脑。</strong></p>
+<p>他们赢过了职业大师，也赢过了超级计算机。</p>
+<a id="more"></a>
+
+<p>后来复盘原因，结论其实很简单：</p>
+<p><strong>职业棋手太习惯自己做决定。</strong></p>
+<p>他们用电脑，只是做验算。<br>从来没有真正把电脑当成协作对象。</p>
+<p>而那两个业余棋手，从头到尾只做一件事：</p>
+<p><strong>不断和电脑对话。</strong></p>
+<hr>
+<p>三年前，凯文·凯利后来讲过一句话：</p>
+<p><strong>把 AI 当人。</strong></p>
+<p>很多人转发了这句话。</p>
+<p>然后继续去研究 Prompt 写法，<br>研究各种 AI Agent，<br>研究一整套 AI 工具链。</p>
+<p>因为他们以为，这是一件关于 <strong>AI技巧</strong> 的事。</p>
+<p>但其实，这更像是一道关于 <strong>人的能力</strong> 的考题。</p>
+<p>而很多人，从来没意识到自己这门课有多差。</p>
+<hr>
+<p>你身边一定见过两种人。</p>
+<p>一种人很奇怪。</p>
+<p>他不懂技术，也没学过什么 AI 方法论。</p>
+<p>但他和 AI 聊天，顺得出奇。</p>
+<p>另一种人更常见。</p>
+<p>工程师背景。<br>Prompt、模型参数、AI工具研究得一清二楚。</p>
+<p>但就是感觉自己在 <strong>对着一堵墙说话。</strong></p>
+<p>这不是偶然。</p>
+<hr>
+<p>管理者和销售，每天都在做同一件事：</p>
+<p><strong>把自己真正要的东西，传递给一个有自己想法的对象。</strong></p>
+<p>他们会：</p>
+<p>讲清背景。<br>说明目标。<br>给出边界。</p>
+<p>对方理解偏了，就把方向拉回来。</p>
+<p>而不是推倒重来。</p>
+<p>这套能力放到 AI 上，几乎 <strong>零学习成本</strong>。</p>
+<hr>
+<p>但很多工程师习惯的世界完全不同。</p>
+<p>系统有文档。<br>接口有规范。<br>输入输出是精确的。</p>
+<p>系统不会误解你。</p>
+<p>所以他们面对 AI 的第一反应是：</p>
+<p><strong>去找使用说明书。</strong></p>
+<p>但 AI 没有说明书。</p>
+<p>就像人没有。</p>
+<hr>
+<p>这其实也解释了一个很多人困惑的现象。</p>
+<p>为什么有些顶级工程师，<br>一旦转做管理，反而经常跌跟头。</p>
+<p>不是能力问题。</p>
+<p>而是他们从来没有训练过一件事：</p>
+<p><strong>和一个没有说明书的对象合作。</strong></p>
+<p>AI，只是把这道题重新摆在了所有人面前。</p>
+<hr>
+<p>很多人以为：</p>
+<p>AI时代拼的是<br><strong>谁会写 Prompt，谁会搭 Agent，谁的 AI 工具箱更大。</strong></p>
+<p>但真正拉开差距的，从来不是工具。</p>
+<p>而是：</p>
+<p><strong>谁更懂人。</strong></p>
+<hr>
+<p>所以我给自己只留了一条原则。</p>
+<p>当我不知道该怎么和 AI 说话的时候，我就换一个问题问自己：</p>
+<p>如果眼前坐着的是我能找到的 <strong>最顶级的人才</strong>，<br>我会怎么把这件事交给他？</p>
+<p>我会给哪些背景？</p>
+<p>我真正要的是什么，而不是我嘴上说的那个表面需求？</p>
+<p>如果他理解跑偏了，我会怎么纠正，而不是直接放弃？</p>
+<p>你对人怎样。</p>
+<p>就对 AI 怎样。</p>
+<hr>
+<p>武侠小说里有一句老话：</p>
+<p><strong>招式易学，心法难得。</strong></p>
+<p>招式看得见。<br>能速成。<br>还能发朋友圈。</p>
+<p>心法是内功。</p>
+<p>要在真实的关系里一点点磨出来。</p>
+<p>磨出来了，也很难截图。</p>
+<hr>
+<p>很多人以为：</p>
+<p>AI时代拼的是 <strong>谁掌握更多工具。</strong></p>
+<p>但真正拉开差距的，其实是另一件事：</p>
+<p><strong>谁更懂怎么和一个聪明的东西合作。</strong></p>
+<hr>
+<p>想透这一点。</p>
+<p>你关于 AI 的很多困惑，会突然开始松动。</p>
+<p>想不透。</p>
+<p>学再多技巧，也不过是在 <strong>更熟练地走弯路。</strong></p>
 
     </div>
 
@@ -472,22 +479,16 @@
     
 
     <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/git/" rel="tag"># git</a>
-          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2018/03/08/%E4%BB%A5%E5%A4%AA%E5%9D%8A%EF%BC%88ETH%EF%BC%89%E6%8C%96%E7%9F%BF%E6%94%B6%E7%9B%8A%E5%88%86%E6%9E%90/" rel="prev" title="以太坊（ETH）挖矿收益分析">
-                  <i class="fa fa-chevron-left"></i> 以太坊（ETH）挖矿收益分析
+                <a href="/2025/05/31/%E5%BD%93AI%E5%BC%80%E5%A7%8B%E6%8A%A2%E9%A5%AD%E7%A2%97%EF%BC%8CAgent-Engineering%E6%88%90%E4%BA%86%E6%96%B0%E6%97%B6%E4%BB%A3%E7%9A%84%E8%AF%BA%E4%BA%9A%E6%96%B9%E8%88%9F/" rel="prev" title="当AI开始抢饭碗，Agent Engineering成了新时代的诺亚方舟">
+                  <i class="fa fa-chevron-left"></i> 当AI开始抢饭碗，Agent Engineering成了新时代的诺亚方舟
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2018/03/08/Git-Submodule-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" rel="next" title="Git Submodule 使用教程">
-                  Git Submodule 使用教程 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -688,7 +689,7 @@
 <script>
 NexT.utils.loadComments('#lv-container', () => {
   window.livereOptions = {
-    refer: "2018/03/08/玩转-Git/"
+    refer: "2026/03/12/把-AI-当人/"
   };
   (function(d, s) {
     var j, e = d.getElementsByTagName(s)[0];
@@ -713,9 +714,9 @@ NexT.utils.loadComments('#lv-container', () => {
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "http://dorayo.com/2018/03/08/%E7%8E%A9%E8%BD%AC-Git/";
-    this.page.identifier = "2018/03/08/玩转-Git/";
-    this.page.title = "玩转 Git";
+    this.page.url = "http://dorayo.com/2026/03/12/%E6%8A%8A-AI-%E5%BD%93%E4%BA%BA/";
+    this.page.identifier = "2026/03/12/把-AI-当人/";
+    this.page.title = "把 AI 当人";
     };
   NexT.utils.loadComments('#disqus_thread', () => {
     if (window.DISQUS) {
